@@ -38,7 +38,13 @@
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
     animation: shimmer 1.5s infinite;
 }
-
+.spin_box svg {
+    width: 350px !important;
+}
+.new_user_spin_box h2{
+    font-size: 45px;
+    margin-bottom: 20px;
+}
 @keyframes shimmer {
     0% {
         transform: translateX(-100%);

@@ -125,7 +125,7 @@ const SpinWheel = () => {
                     // Finally show toast with updated balance (after 500ms delay)
                     setTimeout(() => {
                         if (prizeAmount > 0) {
-                            toast.success(`🎉 You won ${prizeAmount} coins!}`);
+                            toast.success(`🎉 You won ${prizeAmount} coins!`);
                         } else {
                             toast.info("😞 Better luck next time!");
                         }

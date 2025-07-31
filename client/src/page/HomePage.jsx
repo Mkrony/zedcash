@@ -17,7 +17,7 @@ import DanceAnimation from "../component/Animations/DanceAnimation.jsx";
 import useZedStore from "../component/zedstore/ZedStore";
 import Cookies from "js-cookie";
 import TimeLine from "../component/Timeline/TimeLine.jsx";
-import zedStore from "../component/zedstore/ZedStore.jsx";
+import WheelAnnimation from "../component/Animations/WheelAnnimation.jsx";
 
 function HomePage() {
     const typewriterWords = ["Testing apps", "Games & Surveys", "Watching movies", "And many more"];
@@ -26,7 +26,7 @@ function HomePage() {
     const [isDeleting, setIsDeleting] = useState(false);
     const typingSpeed = 100;
     const pauseDuration = 1500;
-    const toggleLoginPopup = zedStore((state) => state.toggleLoginPopup);
+    const toggleLoginPopup = useZedStore((state) => state.toggleLoginPopup);
 
     useEffect(() => {
         const handleTyping = () => {
@@ -47,7 +47,7 @@ function HomePage() {
 
         const timer = setTimeout(handleTyping, isDeleting ? typingSpeed / 2 : typingSpeed);
         return () => clearTimeout(timer);
-    }, [typedWord, isDeleting, currentWordIndex]);
+    }, [typedWord, isDeleting, currentWordIndex, typewriterWords]);
 
     const token = Cookies.get("token");
 
@@ -106,7 +106,6 @@ function HomePage() {
         <>
             <HeaderSection />
             {/* Hero section */}
-
             <div className="container-fluid">
                 <div className="row">
                     <TimeLine/>
@@ -170,7 +169,7 @@ function HomePage() {
                         <div className="col-12 col-md-6">
                             <div className="after-hero-section-left-area">
                                 <h2 className="mb-3 fw-semibold">
-                                    Want to earn free <span className="geen">Reward</span> within minutes? <span className="green">Here's how</span>
+                                    Want to earn free <span className="green">Reward</span> within minutes? <span className="green">Here's how</span>
                                 </h2>
                                 <p>
                                     Find out more about the best deals and discounts on Netflix, Games & Surveys, and more.
@@ -204,6 +203,34 @@ function HomePage() {
                 </div>
             </div>
 
+            <div className="fade-in-section" ref={(el) => (sections.current[12] = el)}>
+                <div className="container">
+                    <div className="row my-md-5 py-md-5">
+                        <div className="col-12">
+                            <div className="new_user_spin">
+                                <div className="row align-items-center">
+                                    <div className="col-12 col-md-6">
+                                        <div className="new_user_spin_box">
+                                            <h2>
+                                               <span className="green">New User Reward Spin</span>  – Get a Chance to Win Big!
+                                            </h2>
+                                            <p>
+                                               <span className="green"> 🎉 Welcome to our platform!</span> New users get one chance to spin the reward wheel and win up to 1000 coins instantly! 🪙 Out of 30 segments, 10 offer real coin rewards. Sign up, spin once, and start your journey with a surprise bonus. Try your luck now! 🎯
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div className="col-12 col-md-6">
+                                        <div className="new_user_spin_box spin_box text-end">
+                                            <WheelAnnimation/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div className="fade-in-section animated-background" ref={(el) => (sections.current[3] = el)}>
                 <div className="container">
                     <div className="row my-md-5 py-md-5">
@@ -231,8 +258,7 @@ function HomePage() {
                                         >
                                             Start Earning Now
                                         </NavLink>
-                                    )
-                                    }
+                                    )}
                                 </div>
                             </div>
                         </div>
@@ -253,7 +279,7 @@ function HomePage() {
                     <div className="col-12 col-md-6 offset-md-2">
                         <div className="after-hero-section-left-area">
                             <h2 className="mb-md-3 fw-bold">
-                                Discover <span className="green">new</span> games and apps <span className="geen">every day</span>
+                                Discover <span className="green">new</span> games and apps <span className="green">every day</span>
                             </h2>
                             <p>Join the growing community of gamers and developers who are making games and apps available to everyone.</p>
                             <div className="icon">
@@ -275,7 +301,6 @@ function HomePage() {
                 </div>
             </div>
 
-
             {/* Cashout methods */}
             <div className="container">
                 <div className="row align-items-center my-md-5 py-md-5">
@@ -287,9 +312,10 @@ function HomePage() {
                     </div>
                 </div>
             </div>
+
             {/* Live cashout section */}
             <div className="container">
-                    <LiveCashout />
+                <LiveCashout />
             </div>
 
             {/* FAQ */}
