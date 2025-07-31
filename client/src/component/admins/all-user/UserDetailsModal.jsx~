@@ -1,0 +1,105 @@
+import React from "react";
+import PropTypes from "prop-types";
+import styled from "./alluserspopup.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import SpinnerAnimation from "../../Animations/SpinnerAnimation.jsx";
+
+const UserDetailsModal = ({ isOpen, closeModal, user, handleAvatarLoad, avatarLoading }) => {
+    if (!isOpen || !user) return null;
+
+    return (
+        <div
+            className={styled.user_details_modal}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="user-details-title"
+        >
+            <div className={styled.modal_outer_div} onClick={closeModal}></div>
+            <div className={styled.modal_content}>
+                <button
+                    title="Close"
+                    onClick={closeModal}
+                    className={styled.modal_close_btn}
+                    aria-label="Close Modal"
+                >
+                    <FontAwesomeIcon icon={faXmark} />
+                </button>
+                <div className="text-center mt-4">
+                    {avatarLoading ? (
+                        <div className="loading-spinner small-spinner">
+                            <SpinnerAnimation />
+                        </div>
+                    ) : (
+                        <img
+                            src={user.avatar || "/path/to/default/avatar.png"}
+                            className={`${styled.avatar} rounded-circle`}
+                            alt={`${user.username}'s Avatar`}
+                            onLoad={handleAvatarLoad}
+                        />
+                    )}
+                </div>
+                <div className="username text-center py-2 mx-5 rounded mt-4 mb-2">
+                    <h4 id="user-details-title" className="text-center fw-bold text-capitalize">
+                        {user.username}
+                    </h4>
+                </div>
+                <div className={`${styled.user_details_div} px-5`}>
+                    <h6>Email: {user.email}</h6>
+                    <h6>Balance: {user.balance || "0.00"}</h6>
+                    <h6>Level: {user.level || "N/A"}</h6>
+                    <h6>Role: {user.role}</h6>
+                    <h6>Verified: {user.isVerified ? "Yes" : "No"}</h6>
+                    <h6>
+                        Joined:{" "}
+                        {new Date(user.created_at).toLocaleDateString("en-UK", {
+                            day: "numeric",
+                            year: "numeric",
+                            month: "long",
+                        })}
+                    </h6>
+                    <h6>
+                        Last Login:{" "}
+                        {new Date(user.created_at).toLocaleDateString("en-GB", {
+                            day: "numeric",
+                            year: "numeric",
+                            month: "long",
+                        })}{" "}
+                        {new Date(user.created_at).toLocaleTimeString("en-GB", {
+                            hour: "numeric",
+                            minute: "numeric",
+                            hour12: true,
+                        })}
+                    </h6>
+                    {user.isBanned && (
+                        <div className="text-center pb-5">
+                            <h4 className="text-center mt-5 fw-bold text-capitalize">
+                                {user.username} is banned.
+                            </h4>
+                        </div>
+                    )}
+                </div>
+            </div>
+        </div>
+    );
+};
+
+UserDetailsModal.propTypes = {
+    isOpen: PropTypes.bool.isRequired,
+    closeModal: PropTypes.func.isRequired,
+    user: PropTypes.shape({
+        avatar: PropTypes.string,
+        username: PropTypes.string.isRequired,
+        email: PropTypes.string.isRequired,
+        balance: PropTypes.string,
+        level: PropTypes.string,
+        role: PropTypes.string.isRequired,
+        isVerified: PropTypes.bool,
+        isBanned: PropTypes.bool,
+        created_at: PropTypes.string.isRequired,
+    }).isRequired,
+    handleAvatarLoad: PropTypes.func.isRequired,
+    avatarLoading: PropTypes.bool.isRequired,
+};
+
+export default UserDetailsModal;

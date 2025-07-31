@@ -1,0 +1,9 @@
+import styled from './Modal.module.css';
+import NotikModal from "./NotikModal.jsx";
+const Modal = () => {
+    return (
+        <>
+        </>
+    )
+}
+export default Modal

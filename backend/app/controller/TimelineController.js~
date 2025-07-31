@@ -1,0 +1,15 @@
+import TimelineModel from "../model/TimelineModel.js";
+
+
+// Get Timeline
+export const GetTimeline = async (req, res) => {
+    try {
+        const timeline = await TimelineModel.find({});
+        return res.status(200).json({
+            success: true,
+            timeline: timeline,
+        });
+    } catch (error) {
+        return res.status(500).send(error);
+    }
+};

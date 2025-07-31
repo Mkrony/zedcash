@@ -1,0 +1,129 @@
+.payment_partners_boxes{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-wrap: wrap;
+    column-gap: 15px;
+    row-gap: 15px;
+}
+.payment_partners_box{
+    width: 180px;
+    height: 100px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid #1a1830;
+}
+.payment_partners_box img{
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    object-fit: cover;
+}
+.skeleton {
+    background-color: #e0e0e0;
+    border-radius: 8px;
+    height: 100px;
+    width: 180px;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+.no_data_text {
+    font-size: 1rem;
+    color: #999;
+    padding: 20px;
+    width: 100%;
+}
+
+/*modal*/
+/*=======================*/
+
+.modal_close_btn{
+    all:unset;
+    cursor:pointer;
+    position: absolute;
+    padding: 5px 10px 5px 10px;
+    z-index: 9999;
+    right: 5px;
+    top: 5px;
+    text-align: center;
+    border: none;
+    border-radius:5px;
+    background: #000;
+}
+.modal_close_btn svg{
+    color: #fff;
+    font-size: 20px !important;
+    margin: 0;
+    padding: 0;
+}
+.modal_container{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(5px);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 30px;
+    left: 0;
+}
+.modal_outer_div{
+ position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:transparent;
+}
+.modal_content{
+    position: relative;
+    width: 450px;
+    height:320px;
+    background-color: #151329;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    z-index:99999;
+    animation: fadeIn 0.3s ease-in-out;
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+@media only screen and (max-width: 600px) {
+    .payment_partners_boxes{
+        margin-bottom: 50px;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+    .payment_partners_box{
+        align-items: center !important;
+        justify-content: center !important;
+        width: 150px !important;
+        height: 80px !important;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .modal_content{
+        width: 90% !important;
+    }
+    .skeleton {
+        width: 150px !important;
+        height: 80px !important;
+    }
+}

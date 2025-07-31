@@ -1,0 +1,273 @@
+.offer_box {
+    width: 130px !important;
+    background: #222339;
+    height: 160px;
+    padding: 5px;
+    border-radius: 5px;
+    transition: .3s all ease;
+    box-sizing: border-box;
+    overflow: hidden;
+    box-shadow: 0 5px 20px #00000057;
+}
+.offer_img {
+    width: 100%;
+    height: 80px;
+    margin: 0 auto;
+    text-align: center;
+    overflow: hidden;
+}
+.offer_img img {
+    padding: 2px;
+    border-radius: 5px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.offer_title h5 {
+    font-size: 11px;
+    margin: 5px 0px;
+    font-weight: 600;
+}
+.offer_description p {
+    font-size: 11px;
+    margin: 0;
+    padding: 0;
+    color: #656262;
+}
+
+h4.offer_payout{
+    font-size: 11px !important;
+    font-weight: 500;
+    margin: 5px 0;
+}
+h4.offer_payout > svg{
+    width: 12px;
+    height: 12px;
+}
+/*modal css*/
+.modal_close_btn{
+    all:unset;
+    cursor:pointer;
+    position: absolute;
+    padding: 5px 10px 5px 10px;
+    z-index: 9999;
+    right: 5px;
+    top: 5px;
+    text-align: center;
+    border: none;
+    border-radius:5px;
+    background: rgba(0, 0, 0, 0.5);
+}
+.modal_close_btn svg{
+    color: #ddd !important;
+    font-size: 20px !important;
+    margin: 0;
+    padding: 0;
+}
+.modal_container{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(5px);
+    z-index: 999999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+}
+.modal_outer_div{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:transparent;
+}
+.modal_content{
+    width: 50%;
+    height: 80%;
+    background-color: #0D0B1F;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+    animation: fadeIn 0.3s ease-in-out;
+}
+.modal_logo{
+    background: #1a1830;
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+.modal_inner_div{
+    background-color: #0D0B1F;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    padding: 20px;
+    padding-bottom: 150px;
+}
+.offers_flex{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
+    align-items: center;
+    gap: 20px;
+}
+.offers_model_review svg{
+    margin: 0 3px;
+}
+.modal_content img{
+   width: 120px;
+   max-height: 200px;
+    margin: 20px 0;
+    border-radius: 5px;
+}
+.modal_content h3{
+    display: inline;
+    margin-bottom: 10px;
+    color: #fff;
+    font-weight: 700;
+    padding: 0;
+}
+.modal_content p{
+    margin-top: 20px;
+}
+
+.offers_preloader h4{
+    color: #535356;
+}
+.offer_btn{
+    position: absolute;
+    bottom: 0;
+    width:100%;
+    padding:10px 20px;
+    background: #222339;
+    border-radius: 5px 5px 0 0;
+}
+.offer_btn > a{
+    color: #141524;
+    text-decoration: none;
+    display: block;
+    font-size: 18px;
+    font-weight: 700;
+    transition:.3s all ease;
+    margin: 0;
+    padding: 0;padding: 10px;
+    background: #3ac776 !important;
+    border-radius:5px;
+    text-align: center;
+}
+.offers_country, .offers_device, .offers_os, .offers_descriptions,.offers_events p{
+    background:#141524;
+    padding: 5px 10px;
+    padding: 10px;
+    margin: 0;
+    border-radius: 5px;
+    margin-top: 5px;
+}
+.offers_country p, .offers_device p, .offers_os p, .offers_descriptions p{
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height:2rem;
+}
+.preloader {
+    position: absolute;
+    height: auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 18px;
+    color: #555;
+}
+/* Skeleton Loading Styles */
+.skeleton_item {
+    position: relative;
+    overflow: hidden;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+}
+
+.skeleton_img {
+    width: 100%;
+    height: 120px;
+    background-color: #e0e0e0;
+    border-radius: 8px 8px 0 0;
+}
+
+.skeleton_title {
+    width: 80%;
+    height: 20px;
+    margin-bottom: 10px;
+}
+.skeleton_text {
+    background-color: #e0e0e0;
+    border-radius: 4px;
+    height: 16px;
+    margin: 6px 0;
+}  .skeleton_text:last-child {
+    width: 60%;
+}
+
+/* Shimmer Animation */
+.skeleton_item::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0),
+            rgba(255, 255, 255, 0.7),
+            rgba(255, 255, 255, 0)
+    );
+    animation: shimmer 1.5s infinite;
+    transform: translateX(-100%);
+}
+
+@keyframes shimmer {
+    100% {
+        transform: translateX(100%);
+    }
+}
+@media (max-width: 768px) {
+    .preloader {
+        width: 200px;
+    }
+}.hidden {
+     display: none;
+ }
+.bg_off_green{
+    background: rgba(1, 214, 118, 0.1) !important;
+    padding: 5px 20px;
+    border-radius:3px;
+}
+.slick-slide {
+    margin: 0 10px; /* Half of the desired gap on each side */
+}
+
+.slick-list {
+    margin: 0 -10px; /* Negative margin to counteract the slide margins */
+}
+@media only screen and (max-width: 600px) {
+    .modal_content {
+        width: 100% !important;
+        height: 100% !important;
+    }
+    p {
+        font-size: 13px !important;
+    }
+}

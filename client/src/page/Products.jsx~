@@ -1,0 +1,47 @@
+import { useEffect, useState } from "react";
+import Preloader from "../component/Preloader.jsx";
+const Products = () => {
+	const [products , setProducts] = useState([]);
+	useEffect(()=>{
+        const fetchProducts = async ()=>{
+            const response = await fetch("https://fakestoreapi.com/products");
+            const data = await response.json();
+            setProducts(data);
+        }
+        fetchProducts();
+    }, [])
+    if(products === null){
+        return (<Preloader/>);
+    }
+    else{
+    return (
+        <>
+            <h1 className="text-center fa-4x fw-bold my-5">Products List</h1>
+            <div className="container">
+                <div className="row">
+                    <div className="products_list d-flex flex-wrap justify-content-center align-items-center row-gap-2 column-gap-2">
+                        {products.map((product) => {
+                            return (
+                                <div className="card" key={product.id}>
+                                    <div className="product_img">
+                                        <img src={product.image} alt={product.title} className="card-img-top"/>
+                                    </div>
+                                    <div className="card-body">
+                                        <h5 className="card-title">{product.title}</h5>
+                                        <p className="card-text">{product.description}</p>
+                                        <a href="#" className="btn btn-primary">View Details</a>
+                                    </div>
+                                </div>
+                            )
+                        })}
+                    </div>
+
+                </div>
+            </div>
+
+        </>
+    );
+    }
+};
+
+export default Products;

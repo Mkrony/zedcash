@@ -1,0 +1,13 @@
+import React from 'react';
+import Lottie from "lottie-react";
+import BikeRideAnnimation from '../../assets/animation/BikeRideAnnimation.json';
+
+const BikeRideAnnimation = () => {
+    return (
+        <div>
+            <Lottie animationData={BikeRideAnnimation} loop={true}/>
+        </div>
+    );
+};
+
+export default BikeRideAnnimation;

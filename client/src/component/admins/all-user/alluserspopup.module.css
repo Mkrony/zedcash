@@ -1,0 +1,234 @@
+/*modal css*/
+.modal_close_btn{
+    all:unset;
+    cursor:pointer;
+    position: absolute;
+    padding: 5px 10px 5px 10px;
+    z-index: 9999;
+    right: 5px;
+    top: 5px;
+    text-align: center;
+    border: none;
+    border-radius:5px;
+    background: rgba(0, 0, 0, 0.5);
+}
+.modal_close_btn svg{
+    color: #ddd !important;
+    font-size: 20px !important;
+    margin: 0;
+    padding: 0;
+}
+.modal_container{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(5px);
+    z-index: 999999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+}
+.modal_outer_div{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:transparent;
+}
+.modal_content{
+    width: 80%;
+    height: 90%;
+    background-color: #0d0b1f;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    position: relative !important;
+    overflow: hidden;
+    animation: fadeIn 0.3s ease-in-out;
+}
+.search_input{
+    border: 1px solid #242323 !important;
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+.modal_inner_div{
+    background-color: #222339;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    padding: 20px;
+    padding-bottom: 150px;
+}
+.modal_content img{
+    margin: 0 auto;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    padding: 5px;
+}
+.modal_content h3{
+    display: inline;
+    margin-bottom: 10px;
+    color: #fff;
+    font-weight: 700;
+    padding: 0;
+}
+.modal_content p{
+    margin-top: 20px;
+}
+.user_details_modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+/* Custom Table Styling */
+.custom_table_container {
+    display: flex;
+    justify-content: center; /* Center the table horizontally */
+    padding: 10px;
+}
+.custom_table {
+    width: 100%;
+    border-collapse: collapse; /* Remove gaps between table cells */
+    /*text-align: center; !* Center-align all content in the table *!*/
+    background:#141524;
+}
+.custom_table th,
+.custom_table td {
+    padding: 10px 15px; /* Add some space inside cells */
+    border-bottom: 1px solid #414040; /* Border between rows */
+}
+.custom_table th {
+    padding: 10px 15px;
+    color: white; /* White text for header */
+    font-weight: bold;
+}
+.custom_table td {
+    color: #fff;
+}
+/* Optional hover effect */
+.custom_table tbody tr:hover {
+    background-color: #DC3545 !important; /* Light up row on hover */
+    /*cursor: pointer;*/
+}
+.custom_table button {
+    border: none;
+    color: #fff !important;
+    font-size: 16px;
+}
+.user_details_div h6{
+    font-weight: 600;
+    background: #141524 !important;
+    padding:15px 30px;
+    border-radius: 5px;
+    margin-bottom:10px;
+    color: #fff !important;
+    overflow: auto;
+}
+/*edit user modal*/
+.edit_user_form {
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.edit_user_form input, .edit_user_form select{
+    background:#141524 !important;
+}
+.modal_body {
+    padding: 20px;
+}
+.edit_user_form{
+    overflow: auto !important;
+}
+.overflow-scroll{
+    overflow: auto;
+}
+.users_search input{
+    width: 50% !important;
+}
+@media only screen and (max-width: 1367px){
+
+    .loading_animation{
+        width: 100%;
+        height: 100%;
+    }
+    .no_users_found svg{
+        width: 60%;
+    }
+    .modal_body{
+        overflow: auto !important;
+        padding:0 !important;
+    }
+    .modal_content {
+        width: 95%;
+        height: 90%;
+        border-radius: 0;
+        overflow: auto;
+        font-size:  14px !important;
+    }
+    .custom_table_container{
+        display: block;
+    }
+    .buttons_div{
+        width: 200px !important;
+    }
+    .buttons > button {
+        font-size: 12px;
+    }
+}
+@media only screen and (max-width: 768px) {
+    .users_search input{
+        width: 90% !important;
+    }
+    thead{
+        display: block !important;
+    }
+    .modal_body{
+        overflow: auto !important;
+     padding:0 !important;
+    }
+    .modal_content {
+         width: 100%;
+         height: 100%;
+         border-radius: 0;
+         overflow: auto;
+        font-size:  14px !important;
+     }
+    .custom_table_container{
+        display: block;
+    }
+    .buttons_div{
+        width: 200px !important;
+    }
+    .modal_close_btn{
+        position: fixed;
+        left:0 !important;
+        right:100% !important;
+        width: 30px !important;
+        height: 30px !important;
+    }
+    .buttons > button {
+        font-size: 12px;
+    }
+}

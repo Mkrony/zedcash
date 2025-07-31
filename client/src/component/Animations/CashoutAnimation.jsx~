@@ -1,0 +1,11 @@
+import Lottie from "lottie-react";
+import Cashout from '../../assets/animation/Cashout.json';
+function CashoutAnimation() {
+    return (
+        <div>
+            <Lottie animationData={Cashout}/>
+        </div>
+    )
+}
+
+export default CashoutAnimation

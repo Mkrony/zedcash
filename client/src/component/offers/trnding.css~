@@ -1,0 +1,41 @@
+.trending-offers {
+    padding: 1rem;
+    /*text-align: center;*/
+}
+
+.offer-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.offer-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+}
+
+h4 {
+    font-size: 18px;
+    color: #333;
+}
+.slick-slide {
+    margin: 0 10px; /* Half of the desired gap on each side */
+}
+
+.slick-list {
+    margin: 0 -10px; /* Negative margin to counteract the slide margins */
+}
+
+/* Adjust layout to prevent items from overlapping */
+.trending-offers {
+    padding: 20px 0; /* Optional: adds some spacing around the slider */
+}
+.offer-not-found-tranding svg{
+    width: 150px !important;
+    padding: 10px;
+}

@@ -1,0 +1,137 @@
+.our_offerwall_partner{
+    display:flex;
+    flex-direction:row;
+    align-items: center;
+    justify-content: start !important;
+    gap: 20px;
+    flex-wrap:wrap;
+}
+.offerwalls_box {
+    width: 110px;
+    background: #222339;
+    height: 145px;
+    padding: 7px;
+    border-radius: 6px;
+    border-top: 1px solid #3ac776;
+    position: relative;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    border-bottom: 1px solid #3ac776;
+    box-shadow:0 5px 20px #00000057;
+}
+.offerwalls_box:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.7);
+}
+.offerwalls_box:hover .offerwall_img {
+    z-index: -1 !important;
+}
+.offerwall_img {
+    position: relative;
+    z-index: 1;
+}
+.offerwall_reviews {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.offerwalls_box:hover .offerwall_overlay {
+    opacity: 1;
+}
+.offerwall_overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.play_button {
+    font-size: 30px;
+    color: #3ac776;
+}
+.offerwalls_box:hover .play_button {
+    transform: scale(1.2);
+    z-index: 999;
+}
+.offerwall_img{
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    object-fit: contain;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+    flex-direction: column;
+    height: 90%;
+    z-index: 1;
+}
+.offerwall_img img{
+    width: 100%;
+}
+.offerwall_reviews{
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    color: #fecb32;
+    padding: 5px;
+    border-radius: 5px;
+    text-align: center;
+    right: 0;
+}
+.offerwall_reviews svg{
+    font-size:	12px;
+    margin-right: 5px;
+}
+
+.mob_speaker {
+    background: #000;
+    width: 25px;
+    height: 5px;
+    margin: 0 auto;
+    border-radius: 5px;
+}
+.mob_speaker::before {
+    content: "";
+    position: absolute;
+    top: 9px;
+    width: 2px;
+    height: 2px;
+    background: #20ff00;
+    left: 25%;
+}
+/*===================================================*/
+@media only screen and (max-width: 600px) {
+    .our_offerwall_partner{
+        display:flex;
+        flex-direction:row;
+        align-items: center;
+        justify-content: center !important;
+        gap: 20px;
+        flex-wrap:wrap;
+    }
+    .offerwalls_box {
+        width: 120px;
+        height: 160px;
+    }
+    .offerwall_reviews{
+        text-align: center;
+        margin: 0 auto;
+    }
+    .offerwall_reviews svg{
+        font-size: 7px;
+        text-align: center;
+        margin: 0 auto;
+    }
+    p {
+        font-size: 13px !important;
+    }
+}

@@ -1,0 +1,14 @@
+.profile-details-box-title h5{
+    font-size: 18px;
+    margin: 0;
+    padding: 0;
+}
+
+@media only screen and (max-width: 1367px) {
+    h2{
+        font-size: 35px !important;
+    }
+    h5{
+        font-size: 14px !important;
+    }
+}

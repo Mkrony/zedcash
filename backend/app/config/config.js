@@ -1,0 +1,17 @@
+export const  PORT = process.env.PORT || 4000;
+export const DATABASE = 'mongodb+srv://webdevrony:OV0vOXcWBdgWEozC@cluster0.bfn06.mongodb.net/zedcash?retryWrites=true&w=majority'
+export const JWT_KEY = 'webdevrony'
+export const JWT_SECRET = 'webdevrony#1234'
+export  const JWT_EXPIRE_TIME = 30*24*60*60
+export const WEB_CACHE = false
+export const MAX_JSON_SIZE = "10MB"
+export const URL_ENCODE = true
+export const REQUEST_TIME = 15 * 60 * 1000
+export const REQUEST_NUMBER = 100000
+// email configuration
+export const EMAIL_HOST = "mail.zedcash.co";  // Use "mail." prefix for Namecheap
+export const EMAIL_PORT = 465;                // Use 465 for SSL or 587 for TLS
+export const EMAIL_USER = "noreply@zedcash.co";
+export const EMAIL_PASSWORD = "Ronyvai@309279104";  // Never expose passwords in code (use .env)
+export const EMAIL_SECURE = true;             // Use "true" for port 465 (SSL)
+export const EMAIL_UN_AUTH = false;

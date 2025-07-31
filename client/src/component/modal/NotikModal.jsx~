@@ -1,0 +1,18 @@
+import styled from './Modal.module.css';
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faXmark} from '@fortawesome/free-solid-svg-icons';
+const NotikModal = () => {
+    return (
+        <div className={`${styled.modal_container}`}>
+            <div className={`${styled.modal}`}>
+                <div className={styled.modal_header}>
+                    <button onClick={()=>{closeModal()}} className={`${styled.modal_close_btn} float-end`}><FontAwesomeIcon icon={faXmark}/></button>
+                </div>
+                <div className={`${styled.modal_content}`}>
+                   <h1>Notik Modal</h1>
+                </div>
+            </div>
+        </div>
+    )
+}
+export default NotikModal

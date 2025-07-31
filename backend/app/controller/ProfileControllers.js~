@@ -1,0 +1,71 @@
+import bcrypt from "bcryptjs";
+import userModel from "../model/UserModel.js";
+
+import { io } from "socket.io";  // Ensure this is imported
+const socket = io("http://localhost:5173");  // Make sure this matches your frontend URL
+
+// Visit Profile
+export const profile = async (req, res) => {
+    try {
+        let userId = req.headers.user_id;
+        const user = await userModel.findOne({"_id": userId});
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        return res.status(200).json({
+            status: "success",
+            message: "User profile fetched successfully",
+            user: user
+        });
+    } catch (error) {
+        console.error("Profile error:", error);
+        return res.status(500).json({ message: "Internal server error" });
+    }
+};
+
+
+// Update Profile
+export const UpdateProfile = async (req, res) => {
+    try {
+        const userId = req.headers.user_id;
+        if (!userId) {
+            return res.status(400).json({ message: "User ID is required" });
+        }
+
+        const { avatar, password } = req.body;
+        const updateData = {};
+
+        // Update avatar if provided
+        if (avatar) {
+            updateData.avatar = avatar;
+        }
+
+        // Only hash and add password if it's provided and non-empty
+        if (password && password.trim() !== "") {
+            const hashedPassword = await bcrypt.hash(password, 10);
+            updateData.password = hashedPassword;
+        }
+
+        if (Object.keys(updateData).length === 0) {
+            return res.status(400).json({ message: "No data provided to update" });
+        }
+
+        const user = await userModel.findByIdAndUpdate(userId, updateData, {
+            new: true, // Return the updated document
+        });
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        // Emit updated user profile data to connected clients
+        socket.emit("profile-updated", user);
+
+        return res.status(200).json({
+            status: "success",
+            message: "Profile updated successfully",
+        });
+    } catch (error) {
+        return res.status(500).json({ message: "Server error", error: error.message });
+    }
+};

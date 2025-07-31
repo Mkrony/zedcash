@@ -1,0 +1,80 @@
+.login_body input{
+    background: #0d0b1f;
+    border: none;
+    color: #fff !important;
+    outline: none;
+    padding: 10px;
+}
+.login_body input:focus{
+    border: none;
+    box-shadow: 0px 0px 5px #4171F5;
+    transition: all 0.3s ease;
+    outline: none;
+    background-color: #0d0b1f;
+}
+.login_body input::placeholder {
+    color: #535050 !important;
+}
+.login_remember input {
+    width: 13px !important;
+    height: 13px;
+    margin: 0;
+}
+.login_remember label{
+    margin-top: 7px;
+    padding: 0;
+    font-size: 13px;
+}
+.login_body h2{
+    font-size: 25px;
+    font-weight:700;
+}
+.login_body p{
+    font-size: 13px;
+    margin-bottom: 20px;
+
+}
+.login_body p a{
+    color: #2ecc71;
+    text-decoration: none;
+    font-weight: 700;
+}
+.login_body label{
+    font-size: 13px;
+    margin-bottom: 10px;
+    display: block;
+    font-weight: 600;
+}.show_password{
+     position: absolute;
+     top: 22px;
+     right: 10px;
+     transform: translateY(-50%);
+     cursor: pointer;
+     font-size: 20px;
+     color: #222339;
+     transition: all 0.3s ease;
+ }
+.open_eye, .close_eye{
+    transition: all 0.3s ease;
+    font-size: 16px;
+    position: absolute;
+    right:0;
+    top:-5px;
+}
+.close_eye{
+    display: none;
+}
+.username_icon{
+    position: absolute;
+    top: 22px;
+    left: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 15px;
+    color: #535050;
+    transition: all 0.3s ease;
+    padding-left: 5px;
+    padding: 5px 10px;
+    /*background-color: #222339;*/
+    border-radius: 5px;
+}

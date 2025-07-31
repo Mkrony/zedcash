@@ -1,0 +1,66 @@
+import mongoose from 'mongoose';
+
+const offerSchema = new mongoose.Schema({
+    offerWallName: {
+        type: String,
+        required: true
+    },
+    userID: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
+    userName: {
+        type: String,
+        required: true,
+        default: 'anonymous'
+    },
+    transactionID: {
+        type: String,
+        unique: true,
+        required: true
+    },
+    offerName: {
+        type: String,
+        required: true
+    },
+    offerID: {
+        type: String,
+        required: true
+    },
+    revenue: {
+        type: Number,
+        required: true
+    },
+    currencyReward: {
+        type: Number,
+        required: true
+    },
+    status: {
+        type: String,
+        default: 'completed',
+        enum: ['completed', 'pending', 'failed']
+    },
+    ip: {
+        type: String,
+        required: true,
+        validate: {
+            validator: function(v) {
+                return /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/.test(v);
+            },
+            message: props => `${props.value} is not a valid IP address!`
+        }
+    },
+    country: {
+        type: String,
+        required: true,
+        default: 'unknown'
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    }
+}, { timestamps: true, versionKey: false });
+
+const AllOffer = mongoose.model('CompletedOffers', offerSchema);
+export default AllOffer;

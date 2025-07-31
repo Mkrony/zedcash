@@ -1,0 +1,123 @@
+/** SpinWheel.module.css */
+
+.spinContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+    color: #fff;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.wheelWrapper {
+    position: relative;
+    width: 500px;
+    height: 500px;
+}
+
+.canvasWheel {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    transform: rotate(0deg);
+    transition: transform 5s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.pointer {
+    position: absolute;
+    top: 45%;
+    right: -30px;
+    width: 0;
+    height: 0;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-bottom: 40px solid rgba(255, 252, 4, 0.75);
+    z-index: 10;
+    transform: rotate(-90deg);
+}
+
+.spinBtn {
+    margin-top: 30px;
+    padding: 12px 30px;
+    font-size: 18px;
+    background-color: #ff4d4d;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.spinBtn:disabled {
+    background-color: #999;
+    cursor: not-allowed;
+}
+
+.spinBtn:hover:not(:disabled) {
+    background-color: #e60000;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.85);
+    color: #fff;
+    font-size: 2.2rem;
+    z-index: 1000;
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+    animation: fadeOut 0.3s ease-in-out;
+}
+
+@keyframes fireworks-animation {
+    0% { background-position: center top; opacity: 1; }
+    100% { background-position: center bottom; opacity: 0; }
+}
+
+.fireworks {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 999;
+    background: transparent url('https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExMHRyZGU2NnBybmtrczFkZzBqemdtM2x0NHpyZ2w1Y2V2bzJmaXdpaiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xT39DnORo2ZBz60QXC/giphy.gif') center center no-repeat;
+    background-size: cover;
+    animation: fireworks-animation 3s ease-out forwards;
+}
+.canvasWheel {
+    transition: transform 5.2s cubic-bezier(0.17, 0.67, 0.12, 0.99);
+}
+
+.spinning {
+    cursor: not-allowed;
+    opacity: 0.8;
+}
+
+.fireworks {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent url('https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExMHRyZGU2NnBybmtrczFkZzBqemdtM2x0NHpyZ2w1Y2V2bzJmaXdpaiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xT39DnORo2ZBz60QXC/giphy.gif') center center no-repeat;
+    z-index: 999;
+    pointer-events: none;
+    animation: fadeOut 2s forwards 3s;
+}
+
+@keyframes fadeOut {
+    to { opacity: 0; }
+}

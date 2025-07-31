@@ -1,0 +1,36 @@
+.offers-slider .slick-track {
+    display: flex !important;
+    align-items: center;
+}
+
+.offers-slider .slick-slide {
+    display: flex;
+    justify-content: center;
+    outline: none; /* Remove the focus outline for better visuals */
+}
+
+.offers-slider .slick-dots {
+    bottom: -20px; /* Adjust dots position if needed */
+}
+
+.offer_box {
+    padding: 10px;
+    max-width: 100%; /* Ensure the offer box doesn't exceed the slider's width */
+}
+.slick-prev::before, .slick-next::before {
+     font-family: 'slick';
+     font-size: 30px;
+     line-height: 1;
+     opacity: .75;
+     color: #3ac776;
+ }
+.slick-arrow.slick-prev {
+    position: absolute;
+    top: -35px;
+    left: 93%;
+}
+.slick-arrow.slick-next {
+    position: absolute;
+    top: -35px;
+    right: 25px;
+}

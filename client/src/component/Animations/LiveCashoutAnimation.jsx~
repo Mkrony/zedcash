@@ -1,0 +1,11 @@
+import Lottie from "lottie-react";
+import Cashout from '../../assets/animation/DolarRain.json';
+function LiveCashoutAnimation() {
+    return (
+        <>
+            <Lottie animationData={Cashout} loop={true}/>
+        </>
+    )
+}
+
+export default LiveCashoutAnimation

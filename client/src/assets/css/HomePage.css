@@ -1,0 +1,49 @@
+.after-hero-section-right-area img{
+    width:100%;
+    border-radius:5px;
+}
+.after-hero-section-left-area h2{
+    line-height:50px;
+}
+/* Skeleton Loading Styles */
+.skeleton-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.skeleton-avatar {
+    width: 100px;
+    height: 100px;
+    background: #e0e0e0;
+    margin: 0 auto;
+}
+
+.skeleton-text {
+    background: #e0e0e0;
+    border-radius: 4px;
+}
+
+.skeleton-button {
+    background: #e0e0e0;
+    border-radius: 20px;
+}
+
+.skeleton-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+    animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}

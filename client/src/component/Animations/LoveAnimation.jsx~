@@ -1,0 +1,13 @@
+import Lottie from "lottie-react";
+import LoveAnimation from '../../assets/animation/LoveAnimation.json';
+import React from "react";
+
+const LoveAnimation = () => {
+    return (
+        <div>
+            <Lottie animationData={LoveAnimation} loop={true}/>
+        </div>
+    );
+};
+
+export default LoveAnimation;

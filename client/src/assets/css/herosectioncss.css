@@ -1,0 +1,173 @@
+.hero-section {
+    position: relative;
+    color: #fff;
+    overflow: hidden;
+    padding-bottom: 100px;
+}
+/*end default css*/
+.hero-offer-spinner svg {
+    width: 260px !important;
+    padding: 10px;
+}
+.home-header-offer-box {
+    width: 125px;
+    background: #222339;
+    height: 200px;
+    padding: 2px;
+    border-radius: 5px;
+    border-top: 1px solid #3ac776;
+    border-bottom: 1px solid #3ac776;
+    transition: .3s all ease;
+}
+.offer-img {
+    width: 100%;
+    height: 110px;
+    margin: 0 auto;
+    text-align: center;
+    overflow: hidden;
+}
+.offer-img img {
+    width: 100%;
+    height: 100%;
+}
+.offer-title h5 {
+    font-size: 12px;
+    margin: 5px 0;
+    font-weight: 600;
+    padding:0 5px;
+}
+.offer-description p {
+    font-size: 11px;
+    margin: 10px 0;
+    padding: 0 5px;
+}
+.offer-price h5 {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0;
+    padding: 0 5px;
+}
+.offer-reveiw {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0;
+    padding: 0 5px;
+}
+.offer-review-icon {
+    font-size: 13px;
+    margin-right: 4px;
+    padding: 0;
+    color: #ffc336;
+}
+.mt-150{
+    margin-top: 150px !important;
+}
+.styled-text {
+     height: 200px;
+ }
+/*=============================*/
+.home-header-offer-box:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.7);
+}
+.home-header-offer-box:hover .offer-img img {
+    z-index: -1 !important;
+    opacity: .2;
+}
+.home-header-offer-box .play-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    padding: 10px;
+    cursor: pointer;
+    display: none; /* Initially hidden */
+    z-index: 10;
+}
+.home-header-offer-box .play-btn svg {
+    color: #fff;
+    width: 25px;
+    height: 20px;
+}
+.home-header-offer-box:hover .play-btn {
+    display: block; /* Show play button on hover */
+    background: #3ac776;
+}
+
+/*modal*/
+/* Modal content styling */
+.modal-content {
+    animation: fadeIn 0.3s ease-in-out;
+}
+/* Animation for modal appearance */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+.hero-offer-section .home-header-offer-box:nth-child(odd) {
+    margin-top: 100px !important;
+    animation: moveUpDown 2s ease-in-out infinite;
+}
+@keyframes moveUpDown {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-30px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+.home-header-offer-box:nth-child(odd):hover {
+    animation-play-state: paused;
+}
+.blinking-cursor {
+    font-weight: 100;
+    font-size: 24px;
+    color: #000;
+    animation: blink 0.7s step-end infinite;
+}
+
+@keyframes blink {
+    from, to {
+        color: transparent;
+    }
+    50% {
+        color: black;
+    }
+}
+
+
+@media only screen and (max-width: 600px) {
+    .home-header-offer-box {
+        width: 70px;
+        height: 100px;
+    }
+    .offer-img {
+        width: 100%;
+        height: 70px;
+    }
+    .offer-price h6, .offer-reveiw svg, .offer-reveiw, .offer-description P, .offer-title h5 {
+        display: none;
+    }
+    .offer-price h5 {
+        font-size: 14px;
+        font-weight: 700;
+        padding:5px;
+    }
+        .modal_content {
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+}

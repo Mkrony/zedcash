@@ -1,0 +1,29 @@
+// OfferwallBox.jsx
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlayCircle, faStar } from "@fortawesome/free-solid-svg-icons";
+import { faStar as faStarRegular } from "@fortawesome/free-regular-svg-icons";
+import styles from '../Offerwalls.module.css';
+
+function OfferwallBox({ imgSrc, url, altText, rating, onClick }) {
+    return (
+        <div className={styles.offerwalls_box} onClick={() => onClick(altText,url)}>
+            <div className={styles.mob_speaker}></div>
+            <div className={styles.offerwall_img}>
+                <img src={imgSrc} alt={altText} />
+            </div>
+            <div className={styles.offerwall_reviews}>
+                {Array.from({ length: 5 }, (_, index) => (
+                    <FontAwesomeIcon
+                        key={index}
+                        icon={index < rating ? faStar : faStarRegular}
+                    />
+                ))}
+            </div>
+            <div className={styles.offerwall_overlay}>
+                <FontAwesomeIcon icon={faPlayCircle} className={styles.play_button} />
+            </div>
+        </div>
+    );
+}
+
+export default OfferwallBox;

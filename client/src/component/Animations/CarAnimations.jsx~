@@ -1,0 +1,13 @@
+import React from 'react';
+import Lottie from "lottie-react";
+import CarAnimation from '../../assets/animation/CarAnimation.json';
+
+const CarAnimations = () => {
+    return (
+        <div>
+            <Lottie animationData={CarAnimation} loop={true} />
+        </div>
+    );
+};
+
+export default CarAnimations;

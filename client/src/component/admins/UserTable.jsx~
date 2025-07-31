@@ -1,0 +1,54 @@
+import React from 'react';
+
+const UserTable = () => {
+    return (
+            <div className={`${styled.custom_table_container}`}>
+                <table className={`${styled.custom_table}`}>
+                    <thead>
+                    <tr>
+                        <th>S.N</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Balance</th>
+                        <th>Level</th>
+                        <th>Status</th>
+                        <th>Referred By</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {currentUsers.map((user, index) => (
+                        <tr key={user._id}>
+                            <td>{indexOfFirstUser + index + 1}</td>
+                            <td>{user.username}</td>
+                            <td>{user.email}</td>
+                            <td>{user.role}</td>
+                            <td>{user.balance || "0.00"}</td>
+                            <td>{user.level || "N/A"}</td>
+                            <td>
+                                {user.isBanned ? (
+                                    <span className="text-danger">Banned</span>
+                                ) : (
+                                    <span className="text-white">Active</span>
+                                )}
+                            </td>
+                            <td>{user.referredBy || "N/A"}</td>
+                            <td>
+                                <button
+                                    onClick={() => editUserDetails(user._id)}
+                                    className="btn btn-sm ml-2"
+                                    title={"Edit User"}
+                                >
+                                    <FontAwesomeIcon icon={faPencilAlt}/>
+                                </button>
+                            </td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
+            </div>
+    );
+};
+
+export default UserTable;

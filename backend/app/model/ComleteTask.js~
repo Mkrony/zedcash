@@ -1,0 +1,17 @@
+import mongoose from 'mongoose';
+const completeTaskSchema = new mongoose.Schema({
+    userID: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    transactionID: { type: String, unique: true, required: true },
+    ip: { type: String, required: true },
+    country: { type: String},
+    revenue: { type: Number, required: true },
+    currencyReward: { type: Number, required: true },
+    offerName: { type: String, required: true },
+    status: { type: String, default: 'pending' },
+    hash: { type: String, required: true },
+    createdAt: { type: Date, default: Date.now }
+    updatedAt: { type: Date, default: Date.now }
+});
+
+const CompletedTasks = mongoose.model('completedTasks', completeTaskSchema);
+module.exports = CompletedTasks;

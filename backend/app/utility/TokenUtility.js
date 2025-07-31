@@ -1,0 +1,19 @@
+import jwt from 'jsonwebtoken';
+import { JWT_EXPIRE_TIME, JWT_KEY } from "../config/config.js";
+
+// encode token
+export  const TokenEncode = async (id, email)=>{
+    const KEY = JWT_KEY;
+    const EXPIRE = {expiresIn: JWT_EXPIRE_TIME};
+    const PAYLOAD = {id: id, email: email}
+    return await jwt.sign(PAYLOAD, KEY, EXPIRE);
+}
+// decode token
+export  const TokenDecode =  (token) =>{
+	try {
+        return  jwt.verify(token, JWT_KEY);
+    } catch (error) {
+        return null;
+    }
+}
+

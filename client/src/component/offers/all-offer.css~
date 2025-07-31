@@ -1,0 +1,95 @@
+/* Container for the offer boxes */
+.offer-boxes {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Individual offer box */
+.offer-box {
+    transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.offer-box:hover {
+    transform: scale(1.05); /* Slight zoom on hover */
+}
+
+/* Animation for new offers appearing */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+@keyframes zoomIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8); /* Start slightly smaller */
+    }
+    to {
+        opacity: 1;
+        transform: scale(1); /* Return to normal size */
+    }
+}
+/* Apply the animation */
+.offer-box.animate__fadeInUp {
+    animation: fadeInUp 0.5s ease-out;
+}
+
+/* Smooth button transitions */
+.btn {
+    transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.btn:hover {
+    background-color: #28a745; /* Adjust color for hover state */
+}
+
+/* Spinner and animations container */
+.loading-spinner {
+    animation: fadeInUp 0.5s ease-out;
+}
+
+.offer-not-found {
+    animation: fadeInUp 0.5s ease-out;
+}
+
+/* Smooth page scrolling when loading more or less offers */
+html, body {
+    scroll-behavior: smooth;
+}
+.offer-box:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+    background: #141524;
+}
+.offer-box:hover .offer-img img{
+    z-index: -1 !important;
+}
+.offer-box .play-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    padding: 10px;
+    cursor: pointer;
+    display: none; /* Initially hidden */
+    z-index: 10;
+}
+.offer-box .play-btn svg {
+    color: #fff;
+    font-size: 24px;
+}
+.offer-box:hover .play-btn {
+    display: block; /* Show play button on hover */
+}

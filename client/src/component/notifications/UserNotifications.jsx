@@ -1,0 +1,24 @@
+import React from 'react';
+import ZedStore from "../zedstore.jsx";
+import { useEffect } from 'react';
+const UserNotifications = () => {
+    const { fetchNotifications, notifications } = ZedStore((state) => ({
+        fetchNotifications: state.fetchNotifications,
+        notifications: state.notifications,
+    }));
+
+    useEffect(() => {
+        fetchNotifications();
+    }, [fetchNotifications]);
+            return (
+            <div>
+        {notifications
+            ? notifications.map((notif, index) => (
+            <div key={index}>{notif.notification}</div>
+    ))
+        : "No notifications available"}
+        </div>
+);
+};
+
+export default UserNotifications;

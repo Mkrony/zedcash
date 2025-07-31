@@ -1,0 +1,159 @@
+/* Base Styles */
+.earnpage {
+    overflow-x: hidden;
+    min-height: 100vh;
+    background-color: #0d0b1f;
+    color: #fff;
+}
+.menus{
+    display: flex;
+}
+/* Loading States */
+.earn-content-container {
+    min-height: 70vh;
+    position: relative;
+}
+.loading-spinner{
+    width: 100%;
+    min-height: 70vh;
+}
+
+/* Progress Bar */
+.progress-bar {
+    height: 8px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 1.5rem auto;
+    max-width: 300px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+/* Badge Animation */
+.badge-unlocked {
+    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    display: inline-block;
+    font-weight: bold;
+    color: white;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+/* Content Sections */
+.offers-section {
+    margin-bottom: 20px;
+}
+
+.offerwalls-section {
+    padding: 0 10px;
+}
+
+.section-title h4 {
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: #2dc16d;
+    position: relative;
+    padding-bottom: 10px;
+    display: inline-block;
+}
+
+.section-title h4:before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background: #FCCE01;
+    width: 110%;
+    height: 1px;
+}
+
+.section-title p {
+    color: rgba(255,255,255,0.7);
+}
+
+/* Card Styles */
+.offer-card {
+    background: #151329;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.offer-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.highlight-offer {
+    border-left: 4px solid #FCCE01;
+    background: rgba(252, 206, 1, 0.05);
+}
+
+.glow-effect {
+    box-shadow: 0 0 15px rgba(106, 17, 203, 0.2);
+}
+
+.glow-effect:hover {
+    box-shadow: 0 0 25px rgba(106, 17, 203, 0.4);
+}
+
+/* Animations */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.pulse-hover:hover {
+    animation: pulse 1.5s infinite;
+}
+
+/* Error State */
+.offer-not-found {
+    padding: 10px;
+}
+
+.offer-not-found svg {
+    width: 280px;
+    padding: 10px;
+}
+
+p{
+    color: white;
+}
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .earnpage .row {
+        flex-direction: column;
+    }
+
+    .col-md-2 {
+        width: 100%;
+        padding-right: 0;
+    }
+
+    .offerwalls-section {
+        padding: 1rem;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .section-title h4 {
+        font-weight: 500;
+        font-size: 16px;
+    }
+    .offer-not-found h4 {
+        font-size: 16px;
+    }
+
+    .offer-not-found svg {
+        width: 200px;
+        padding: 0;
+    }
+}

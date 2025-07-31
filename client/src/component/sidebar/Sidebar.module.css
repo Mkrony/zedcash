@@ -1,0 +1,355 @@
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 250px;
+    height: 100vh;
+    z-index: 1000;
+    border-right: 1px solid #25222294;
+    background: #0D0B1F;
+}
+.margin_top_200{
+    margin-top: 200px;
+}
+.user_info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem 0;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #25222294;
+}
+.country_button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.country_button:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.country_flag {
+    width: 1.5em;
+    height: 1.5em;
+}
+
+.country_name {
+    font-size: 0.9rem;
+}
+.country_flag {
+    margin-right: 10px;
+}
+
+.username {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.balance {
+    color: #ffc107;
+    font-size: 0.9rem;
+}
+
+.nav_menu {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.nav_link {
+    color: #fff;
+    display: block;
+    padding: 0.75rem 1rem;
+    border-radius: 5px;
+    transition: all 0.3s;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.nav_link:hover {
+    background-color: #dc3545;
+    color: white !important;
+}
+
+.active_nav {
+    background-color: #dc3545;
+    color: white !important;
+    font-weight: 500;
+}
+
+.dropdown {
+    margin-bottom: 0.5rem;
+}
+
+.dropdown_toggle {
+    color: white;
+    background: transparent;
+    border: none;
+    padding: 0.75rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: left;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+}
+
+.dropdown_toggle:hover {
+    background-color: #444;
+}
+
+.dropdown_menu {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0 0 0;
+    background: #141524;
+    border-radius: 5px;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.3s ease-out;
+}
+
+.dropdown_menu.show {
+    max-height: 500px;
+}
+
+.dropdown_item {
+    color: #fff;
+    display: block;
+    padding: 0.75rem 1rem 0.75rem 2rem;
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: all 0.3s;
+}
+
+.dropdown_item:hover {
+    background-color: #dc3545;
+    color: white !important;
+}
+
+.admin_dropdown .dropdown_toggle {
+    color: #ffc107;
+}
+
+.sidebar_footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin-top: auto;
+}
+
+.logout_button {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 0.9rem;
+}
+
+.logout_button:hover {
+    background-color: #c82333;
+}
+
+.loading_state {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.spinner_container {
+    width: 50px;
+    height: 50px;
+}
+
+.error_state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    text-align: center;
+}
+
+.error_message {
+    color: #dc3545;
+    margin-bottom: 1rem;
+}
+
+.retry_button {
+    padding: 0.5rem 1rem;
+    background-color: #0d6efd;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Animation styles */
+@keyframes rotate360 {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.nav_link:hover .fa-icon,
+.dropdown_toggle:hover .fa-icon,
+.dropdown_item:hover .fa-icon,
+.logout_button:hover .fa-icon {
+    animation: rotate360 0.5s ease-in-out;
+    display: inline-block;
+}
+
+.nav_link:hover svg,
+.dropdown_toggle:hover svg,
+.dropdown_item:hover svg,
+.logout_button:hover svg {
+    animation: rotate360 0.5s ease-in-out;
+    display: inline-block;
+}
+
+.nav_link:hover svg,
+.dropdown_toggle:hover svg,
+.dropdown_item:hover svg,
+.logout_button:hover svg {
+    transition: transform 0.3s ease-in-out;
+    display: inline-block;
+}
+
+.nav_link:hover svg:hover,
+.dropdown_toggle:hover svg:hover,
+.dropdown_item:hover svg:hover,
+.logout_button:hover svg:hover {
+    transform: rotate(360deg);
+}
+
+/* Sidebar.module.css */
+
+/* Add these styles to your existing CSS */
+
+/* Skeleton Loading Styles */
+.skeleton_user_info {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-bottom: 1px solid #2a2745;
+}
+
+.skeleton_flag {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #2a2745;
+    position: relative;
+    overflow: hidden;
+}
+
+.skeleton_username {
+    height: 20px;
+    width: 80%;
+    background-color: #2a2745;
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+}
+
+.skeleton_balance {
+    height: 24px;
+    width: 60%;
+    background-color: #2a2745;
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+}
+
+.skeleton_nav_link {
+    height: 40px;
+    margin: 5px 10px;
+    background-color: #2a2745;
+    border-radius: 6px;
+    position: relative;
+    overflow: hidden;
+}
+
+.skeleton_footer {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-top: 1px solid #2a2745;
+}
+
+.skeleton_country {
+    height: 40px;
+    background-color: #2a2745;
+    border-radius: 6px;
+    position: relative;
+    overflow: hidden;
+}
+
+.skeleton_logout {
+    height: 40px;
+    background-color: #2a2745;
+    border-radius: 6px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Shimmer Animation */
+.skeleton_flag::after,
+.skeleton_username::after,
+.skeleton_balance::after,
+.skeleton_nav_link::after,
+.skeleton_country::after,
+.skeleton_logout::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0),
+            rgba(255, 255, 255, 0.05),
+            rgba(255, 255, 255, 0)
+    );
+    animation: shimmer 2s infinite;
+    transform: translateX(-100%);
+}
+
+@keyframes shimmer {
+    100% {
+        transform: translateX(100%);
+    }
+}
+@media (max-width: 768px) {
+    .user_info, .nav_link span, .dropdown_toggle span, .logout_button span {
+        display: none;
+    }
+
+    .nav_link, .dropdown_toggle {
+        justify-content: center;
+        padding: 0.75rem;
+    }
+
+    .dropdown_item {
+        padding-left: 1rem;
+    }
+}

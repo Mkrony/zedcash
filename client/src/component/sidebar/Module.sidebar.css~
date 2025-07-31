@@ -1,0 +1,10 @@
+.sidebar {
+    position: sticky;
+    top: 0;
+    height: 100%;
+    overflow-y: auto;
+    background:
+            #0d0b1f;
+    border-right:
+            1px solid #25222294;
+}
