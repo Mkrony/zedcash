@@ -204,12 +204,12 @@ function HomePage() {
             </div>
 
             <div className="fade-in-section" ref={(el) => (sections.current[12] = el)}>
-                <div className="container">
+                <div className="container-fluid">
                     <div className="row my-md-5 py-md-5">
                         <div className="col-12">
                             <div className="new_user_spin">
                                 <div className="row align-items-center">
-                                    <div className="col-12 col-md-6">
+                                    <div className="col-12 col-md-8">
                                         <div className="new_user_spin_box">
                                             <h2>
                                                <span className="green">New User Reward Spin</span>  – Get a Chance to Win Big!
@@ -217,9 +217,13 @@ function HomePage() {
                                             <p>
                                                <span className="green"> 🎉 Welcome to our platform!</span> New users get one chance to spin the reward wheel and win up to 1000 coins instantly! 🪙 Out of 30 segments, 10 offer real coin rewards. Sign up, spin once, and start your journey with a surprise bonus. Try your luck now! 🎯
                                             </p>
+                                            <div className="animated-box">
+                                            <NavLink
+                                                to="/spin" className="btn custom-btn mt-3">Try Your Spin </NavLink>
+                                             </div>
                                         </div>
                                     </div>
-                                    <div className="col-12 col-md-6">
+                                    <div className="col-12 col-md-4">
                                         <div className="new_user_spin_box spin_box text-end">
                                             <WheelAnnimation/>
                                         </div>
@@ -232,7 +236,7 @@ function HomePage() {
             </div>
 
             <div className="fade-in-section animated-background" ref={(el) => (sections.current[3] = el)}>
-                <div className="container">
+                <div className="container-fluid">
                     <div className="row my-md-5 py-md-5">
                         <div className="col-12">
                             <div className="homepage-login-promotion text-center content">
@@ -266,7 +270,7 @@ function HomePage() {
                 </div>
             </div>
 
-            <div className="container">
+            <div className="container-fluid">
                 <div
                     className="row align-items-center my-md-5 py-md-5 fade-in-section"
                     ref={(el) => (sections.current[4] = el)}
@@ -302,7 +306,7 @@ function HomePage() {
             </div>
 
             {/* Cashout methods */}
-            <div className="container">
+            <div className="container-fluid">
                 <div className="row align-items-center my-md-5 py-md-5">
                     <div className="col-12">
                         <div className="section-title mb-md-5 my-5">
@@ -319,7 +323,7 @@ function HomePage() {
             </div>
 
             {/* FAQ */}
-            <div className="container">
+            <div className="container-fluid">
                 <div
                     className="row align-items-center my-md-5 py-md-5 fade-in-section"
                     ref={(el) => (sections.current[7] = el)}

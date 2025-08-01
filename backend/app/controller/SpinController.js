@@ -1,5 +1,7 @@
 import userModel from '../model/UserModel.js';
 import UserNotification from "../model/UserNotification.js";
+import CompletededTasksModel from "../model/ComleteTaskModel.js";
+
 
 const REWARDS = [50, 0, 0, 80, 100, 0, 0, 250, 0, 10, 0, 0, 0, 90, 0, 150, 0, 0, 0, 70];
 
@@ -47,13 +49,27 @@ export const Spin = async (req, res) => {
         user.hasSpin = true;
         user.balance += prizeAmount;
         await user.save();
-
-        // Create notification if won
         if (prizeAmount > 0) {
+            // create new completed task
+            const transactionId = Math.floor(1000000000000000 + Math.random() * 9999999999999999);
+            await CompletededTasksModel.create({
+                offerWallName: "Reward",
+                userName: user.username,
+                userID: userId,
+                transactionID: transactionId,
+                ip: user.ip_address,
+                country: user.country,
+                revenue: 0,
+                currencyReward: prizeAmount,
+                offerName: 'Spin Reward',
+                offerID: 0,
+                createdAt: new Date()
+            });
+            // Create notification if won
             await UserNotification.create({
                 userID: userId,
                 message: `🎉 You won ${prizeAmount} coins from the spin wheel!`,
-                type: "spin_win",
+                type: "task_completed",
                 isRead: false
             });
         }
