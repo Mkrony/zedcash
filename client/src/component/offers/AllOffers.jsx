@@ -219,7 +219,7 @@ function AllOffers({ title, offers, error, isLoading, showPagination }) {
                     </div>
 
                     {isLoading ? (
-                        <div className="offer-boxes d-flex justify-content-md-start align-items-center flex-wrap row-gap-2 column-gap-2">
+                        <div className="offer-boxes d-flex justify-content-md-start justify-content-center align-items-center flex-wrap row-gap-2 column-gap-2">
                             {Array.from({ length: offersPerPage }).map((_, index) => (
                                 <OfferSkeleton key={index} />
                             ))}
@@ -233,7 +233,7 @@ function AllOffers({ title, offers, error, isLoading, showPagination }) {
                         </div>
                     ) : currentOffers.length > 0 ? (
                         <>
-                            <div className="offer-boxes d-flex justify-content-start align-items-center flex-wrap row-gap-2 column-gap-2 ">
+                            <div className="offer-boxes d-flex justify-content-md-start justify-content-center align-items-center flex-wrap row-gap-2 column-gap-2 ">
                                 {currentOffers.map((offer, index) => (
                                     <div
                                         key={index}

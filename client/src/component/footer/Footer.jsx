@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { Link } from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -54,22 +54,14 @@ function Footer() {
                                 </ul>
                             </div>
                         </div>
-                        {/* Support Links */}
+                        {/* eassential Links */}
                         <div className="col-md-3">
-                            <div className={`${styles.top_footer_nav_social} text-center`}>
-                                <h2>Supports</h2>
-                                <ul>
-                                    <li>
-                                        <Link to="#" aria-label="Facebook Messenger">
-                                            <FontAwesomeIcon icon={faFacebookMessenger} />
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link to="#" aria-label="Telegram">
-                                            <FontAwesomeIcon icon={faTelegram} />
-                                        </Link>
-                                    </li>
-                                </ul>
+                            <div className={`${styles.footer_essential_link} text-center`}>
+                                <h2>Essential Links</h2>
+                                <NavLink to={"/offerwall-list"} className={"btn btn-sm btn-success m-1"}>All Offerwall URL</NavLink>
+                                <NavLink to={"/offerwall-list"} className={"btn btn-sm btn-success m-1"}>All Offerwall URL</NavLink>
+                                <NavLink to={"/offerwall-list"} className={"btn btn-sm btn-success m-1"}>All Offerwall URL</NavLink>
+                                <NavLink to={"/offerwall-list"} className={"btn btn-sm btn-success m-1"}>All Offerwall URL</NavLink>
                             </div>
                         </div>
 

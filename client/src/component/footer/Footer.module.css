@@ -17,7 +17,7 @@ footer {
     color: #ccc;
     font-size: 12px;
 }
-.top_footer_nav_social h2{
+.top_footer_nav_social h2, .footer_essential_link h2{
     font-size: 18px;
     font-weight: 600;
 }
@@ -45,6 +45,14 @@ footer {
     width: 25px;
     height: 25px;
     fill: #fff;
+}
+.footer_essential_link a{
+    text-align: center;
+    color: #FFFFFF;
+    font-size: 14px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    display: inline-block;
 }
 .top_footer_nav_social ul li a:hover {
     color: #3ac776a8;

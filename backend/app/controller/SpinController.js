@@ -46,7 +46,7 @@ export const Spin = async (req, res) => {
         const prizeAmount = REWARDS[prizeIndex];
 
         // Update user
-        user.hasSpin = true;
+        // user.hasSpin = true;
         user.balance += prizeAmount;
         await user.save();
         if (prizeAmount > 0) {

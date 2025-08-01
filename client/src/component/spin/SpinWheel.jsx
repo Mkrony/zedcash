@@ -7,6 +7,7 @@ import Footer from "../footer/Footer.jsx";
 import ZedStore from "../zedstore/ZedStore.jsx";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import FireSound from "../../assets/sounds/fire.mp3";
 const SEGMENT_COLORS = [
     "#FF595E", "#FFCA3A", "#8AC926", "#1982C4", "#6A4C93",
     "#FF595E", "#FFCA3A", "#8AC926", "#1982C4", "#6A4C93",
@@ -26,7 +27,7 @@ const SpinWheel = () => {
     const [rewards, setRewards] = useState([]);
     const { userDetails, userDetailsRequested } = ZedStore();
     const userId = userDetails?._id?.toString();
-
+    const FireWorkSound = new Audio(FireSound);
     if (!token) {
         navigate("/");
         toast.error("Login to continue");
@@ -125,6 +126,8 @@ const SpinWheel = () => {
                     // Finally show toast with updated balance (after 500ms delay)
                     setTimeout(() => {
                         if (prizeAmount > 0) {
+                            //play sound
+                            FireWorkSound.play();
                             toast.success(`🎉 You won ${prizeAmount} coins!`);
                         } else {
                             toast.info("😞 Better luck next time!");
@@ -135,7 +138,7 @@ const SpinWheel = () => {
                     toast.error("Failed to update balance");
                 }
 
-                setTimeout(() => setShowModal(false), 3000);
+                setTimeout(() => setShowModal(false), 6000);
             }, 5200); // Match this with CSS transition duration
 
         } catch (err) {

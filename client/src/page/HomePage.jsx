@@ -205,7 +205,7 @@ function HomePage() {
 
             <div className="fade-in-section" ref={(el) => (sections.current[12] = el)}>
                 <div className="container-fluid">
-                    <div className="row my-md-5 py-md-5">
+                    <div className="row my-5 py-5">
                         <div className="col-12">
                             <div className="new_user_spin">
                                 <div className="row align-items-center">

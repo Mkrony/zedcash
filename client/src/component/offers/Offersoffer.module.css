@@ -263,6 +263,9 @@ h4.offer_payout > svg{
     margin: 0 -10px; /* Negative margin to counteract the slide margins */
 }
 @media only screen and (max-width: 600px) {
+    .offer_box {
+        height: 180px;
+    }
     .modal_content {
         width: 100% !important;
         height: 100% !important;

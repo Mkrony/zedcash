@@ -49,12 +49,13 @@
     /* Profile dropdown adjustments */
     .header-profile-nab-body {
         width: 220px;
-        left: -120px !important;
+        left: -70% !important;
     }
     .dropdown-menu.header-profile-nab-body {
+        padding: 10px 20px;
         position: absolute !important;
         top: 0 !important;
-        left: -135% !important;
+        left: -75% !important;
     }
     .header-profile-nab-body img {
         width: 60px !important;
@@ -254,9 +255,10 @@
             left: -120px !important;
         }
         .dropdown-menu.header-profile-nab-body {
+            padding: 10px 20px !important;
             position: absolute !important;
             top: 0 !important;
-            left: -135% !important;
+            left: -75% !important;
         }
         .header-profile-nab-body img {
             width: 60px !important;

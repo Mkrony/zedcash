@@ -679,9 +679,9 @@
     }
     .new_modal_card {
         padding: 24px;
-        width: 95%;
+        width: 100%;
         border-radius: 16px;
-        height: 90%;
+        height: 100%;
         overflow: scroll;
     }
     .timeline_username {

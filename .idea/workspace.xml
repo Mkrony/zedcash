@@ -5,9 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="33c1d1dd-9c61-43af-b21b-23767086e7b2" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/client/src/assets/sounds/fire.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/page/AllOfferwallList.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/app/controller/SpinController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app/controller/SpinController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/component/spin/SpinWheel.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/component/spin/SpinWheel.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/assets/css/headercss.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/assets/css/headercss.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/assets/css/profile.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/assets/css/profile.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/assets/css/responsive.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/assets/css/responsive.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/component/Timeline/Timeline.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/component/Timeline/Timeline.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/component/footer/Footer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/component/footer/Footer.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/component/footer/Footer.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/component/footer/Footer.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/component/offers/AllOffers.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/component/offers/AllOffers.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/component/offers/Offersoffer.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/component/offers/Offersoffer.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/component/profile-details/UserDetailsModal.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/component/profile-details/UserDetailsModal.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/component/spin/SpinWheel.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/component/spin/SpinWheel.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/page/HomePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/page/HomePage.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -101,6 +113,8 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/client/src/page" />
+      <recent name="$PROJECT_DIR$/client/src/assets/sounds" />
       <recent name="$PROJECT_DIR$/client/src/assets/animation" />
       <recent name="$PROJECT_DIR$/client/src/assets" />
       <recent name="$PROJECT_DIR$/client/public/img" />
@@ -134,7 +148,10 @@
       <workItem from="1753940390674" duration="18486000" />
       <workItem from="1753963860007" duration="12491000" />
       <workItem from="1753980192563" duration="9734000" />
-      <workItem from="1754028164828" duration="666000" />
+      <workItem from="1754028164828" duration="1148000" />
+      <workItem from="1754031097174" duration="3519000" />
+      <workItem from="1754039590486" duration="1799000" />
+      <workItem from="1754041482177" duration="7609000" />
     </task>
     <servers />
   </component>

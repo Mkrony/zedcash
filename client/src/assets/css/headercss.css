@@ -254,6 +254,9 @@ button.header-profile-btn:focus-visible
     }
 }
 @media only screen and (max-width: 600px) {
+    .dropdown-menu.header-profile-nab-body{
+        left:-75% !important;
+    }
     .container-fluid{
         width: 100% !important;
         padding: 0 !important;
