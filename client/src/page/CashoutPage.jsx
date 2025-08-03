@@ -26,16 +26,17 @@ function CashoutPage() {
             <section className="hero-section">
                 <div className="container-fluid">
                     <div className="row m-0 p-0">
-                        {/*<div className="col-md-2 ps-0">*/}
-                        {/*    <Sidebar />*/}
-                        {/*</div>*/}
                         <div className="col-md-12 col-12">
-                            {/*<LiveCashout/>*/}
                             <div className="section-title mb-5 ms-3">
                                 <h4>Our Payment Partners</h4>
                             </div>
                             <PaymentPartners/>
                         </div>
+                    </div>
+                </div>
+                <div className="container">
+                    <div className="row mt-5">
+                        <LiveCashout/>
                     </div>
                 </div>
             </section>

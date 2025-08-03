@@ -254,6 +254,9 @@ button.header-profile-btn:focus-visible
     }
 }
 @media only screen and (max-width: 600px) {
+    .right-header {
+        justify-content: space-around !important;
+    }
     .dropdown-menu.header-profile-nab-body{
         left:-75% !important;
     }

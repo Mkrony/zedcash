@@ -59,9 +59,8 @@ function Footer() {
                             <div className={`${styles.footer_essential_link} text-center`}>
                                 <h2>Essential Links</h2>
                                 <NavLink to={"/offerwall-list"} className={"btn btn-sm btn-success m-1"}>All Offerwall URL</NavLink>
-                                <NavLink to={"/offerwall-list"} className={"btn btn-sm btn-success m-1"}>All Offerwall URL</NavLink>
-                                <NavLink to={"/offerwall-list"} className={"btn btn-sm btn-success m-1"}>All Offerwall URL</NavLink>
-                                <NavLink to={"/offerwall-list"} className={"btn btn-sm btn-success m-1"}>All Offerwall URL</NavLink>
+                                <NavLink to={"/privacy"} className={"btn btn-sm btn-success m-1"}>Privacy-Policy</NavLink>
+                                <NavLink to={"/terms"} className={"btn btn-sm btn-success m-1"}>Terms of Service</NavLink>
                             </div>
                         </div>
 

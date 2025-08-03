@@ -19,6 +19,9 @@ import Footer from "../component/footer/Footer.jsx";
 import { Tab, Tabs, Table, Pagination, Badge, Spinner } from "react-bootstrap";
 import "../assets/css/profile.css";
 import axios from "axios";
+import SpinnerAnimation from "../component/Animations/SpinnerAnimation.jsx";
+import SpinWheel from "../component/spin/SpinWheel.jsx";
+import WheelAnnimation from "../component/Animations/WheelAnnimation.jsx";
 
 // Skeleton Loading Components
 const AvatarSkeleton = () => (
@@ -501,6 +504,9 @@ function ProfilePage() {
                                                 <h4 className="gold fw-bold ">
                                                     Lets try a reward spin
                                                 </h4>
+                                                <div className="spin_image">
+                                                   <WheelAnnimation/>
+                                                </div>
                                                 <NavLink
                                                     to="/spin" className="btn btn-sm custom-btn mt-5">Try Your Luck </NavLink>
                                             </div>

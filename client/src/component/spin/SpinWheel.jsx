@@ -122,17 +122,13 @@ const SpinWheel = () => {
                 try {
                     // Then refresh user details
                     await userDetailsRequested();
-
-                    // Finally show toast with updated balance (after 500ms delay)
-                    setTimeout(() => {
                         if (prizeAmount > 0) {
                             //play sound
-                            FireWorkSound.play();
+                            await FireWorkSound.play();
                             toast.success(`🎉 You won ${prizeAmount} coins!`);
                         } else {
                             toast.info("😞 Better luck next time!");
                         }
-                    }, 500);
                 } catch (err) {
                     console.error("Failed to refresh user details:", err);
                     toast.error("Failed to update balance");

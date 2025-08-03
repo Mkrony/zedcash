@@ -25,6 +25,8 @@ import AllOffer from "./page/AllOffer.jsx";
 import SettingsPage from "./page/admin/SettingsPage.jsx";
 import SpinWheel from "./component/spin/SpinWheel.jsx";
 import AllOfferwallList from "./page/AllOfferwallList.jsx";
+import TermsOfService from "./page/TermsOfService.jsx";
+import PrivacyPolicy from "./page/PrivacyPolicy.jsx";
 const App = () => {
     const [pageLoading, setPageLoading] = useState(true);
     const { startAllPolling, stopAllPolling, fetchUnreadNotifications, unreadNotifications, getUserTasks, userDetailsRequested,getTodayRevenues,getTotalRevenues } = ZedStore();
@@ -127,6 +129,8 @@ const App = () => {
                     <Route exact path="/admin-panel" element={<AdminPanel />} />
                     <Route exact path="/settings" element={<SettingsPage />} />
                     <Route exact path="/offerwall-list" element={<AllOfferwallList />} />
+                    <Route exact path="/terms" element={<TermsOfService />} />
+                    <Route exact path="/privacy" element={<PrivacyPolicy />} />
                     <Route exact path="*" element={<NotfoundPage />} />
                 </Routes>
             </BrowserRouter>

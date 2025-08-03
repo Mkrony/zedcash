@@ -158,7 +158,6 @@ function HomePage() {
                     </div>
                 </div>
             </div>
-
             {/* After hero section */}
             <div className="after-hero-section">
                 <div className="container-fluid">
@@ -202,7 +201,7 @@ function HomePage() {
                     </div>
                 </div>
             </div>
-
+            {/*Spin */}
             <div className="fade-in-section" ref={(el) => (sections.current[12] = el)}>
                 <div className="container-fluid">
                     <div className="row my-5 py-5">
@@ -217,9 +216,19 @@ function HomePage() {
                                             <p>
                                                <span className="green"> 🎉 Welcome to our platform!</span> New users get one chance to spin the reward wheel and win up to 1000 coins instantly! 🪙 Out of 30 segments, 10 offer real coin rewards. Sign up, spin once, and start your journey with a surprise bonus. Try your luck now! 🎯
                                             </p>
-                                            <div className="animated-box">
+                                            <div className="animated-box m-center">
+                                                {!userDetails ? (
+                                                <button
+                                                    className="d-inline-block text-white text-decoration-none bg-danger rounded home-profile-btn mt-4"
+                                                    onClick={() => {
+                                                        toggleLoginPopup(true);}}
+                                                >
+                                                    Try Your Spin
+                                                </button>
+                                            ) : (
                                             <NavLink
-                                                to="/spin" className="btn custom-btn mt-3">Try Your Spin </NavLink>
+                                                to="/spin" className="d-inline-block text-white text-decoration-none bg-danger rounded home-profile-btn mt-4">Try Your Spin </NavLink>
+                                                    )}
                                              </div>
                                         </div>
                                     </div>
@@ -234,7 +243,7 @@ function HomePage() {
                     </div>
                 </div>
             </div>
-
+            {/*Start Earning Now*/}
             <div className="fade-in-section animated-background" ref={(el) => (sections.current[3] = el)}>
                 <div className="container-fluid">
                     <div className="row my-md-5 py-md-5">
@@ -269,7 +278,7 @@ function HomePage() {
                     </div>
                 </div>
             </div>
-
+            {/*play some games*/}
             <div className="container-fluid">
                 <div
                     className="row align-items-center my-md-5 py-md-5 fade-in-section"

@@ -4,6 +4,8 @@ import LiveCashoutAnimation from "../Animations/LiveCashoutAnimation.jsx";
 import MoneyRingAnimation from "../Animations/MoneyRingAnimation.jsx";
 import zedStore from "../zedstore/ZedStore.jsx";
 import styles from "./Livecashout.module.css";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faCoins} from "@fortawesome/free-solid-svg-icons";
 
 // Helper function for relative time
 const formatRelativeTime = (dateString) => {
@@ -119,7 +121,7 @@ function LiveCashout() {
                                                 </h3>
                                             </div>
                                             <div className={styles.live_cashout_user_amount}>
-                                                <h4>🪙 {withdrawal.amount || "0"}</h4>
+                                                <h4> <FontAwesomeIcon icon={faCoins}/> {withdrawal.amount || "0"}</h4>
                                             </div>
                                         </div>
                                     </div>

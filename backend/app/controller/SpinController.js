@@ -46,8 +46,9 @@ export const Spin = async (req, res) => {
         const prizeAmount = REWARDS[prizeIndex];
 
         // Update user
-        // user.hasSpin = true;
+        user.hasSpin = true;
         user.balance += prizeAmount;
+        user.total_earnings +=prizeAmount;
         await user.save();
         if (prizeAmount > 0) {
             // create new completed task
@@ -70,7 +71,7 @@ export const Spin = async (req, res) => {
                 userID: userId,
                 message: `🎉 You won ${prizeAmount} coins from the spin wheel!`,
                 type: "task_completed",
-                isRead: false
+                isRead: true
             });
         }
 

@@ -17,12 +17,9 @@ function Offerwalls() {
                     <TimeLine/>
                 </div>
             </div>
-            <section className="offerwalls">
+            <section className="offerwalls mb-5 pb-5">
                     <div className="container-fluid">
                         <div className="row m-0 p-0">
-                            {/*<div className="col-md-2 ps-0">*/}
-                            {/*    <Sidebar />*/}
-                            {/*</div>*/}
                             <div className="col-md-12 col-12">
                                 <div className="menus d-flex  my-3">
                                     <NavLink
@@ -47,23 +44,13 @@ function Offerwalls() {
                                         Games
                                     </NavLink>
                                 </div>
-
-                                <div className="section-title mt-5">
-                                    <h2>Offerwalls</h2>
-                                    <p className="mt-3 mb-5 ms-2">
-                                        Each offer wall contains hundreds of tasks to complete.
-                                        Choose from one of them to start earning coins.
-                                    </p>
-                                </div>
                                 <OfferWalls />
-                                <div className="mt-5 pt-5">
-                                    <Footer />
-                                </div>
                             </div>
                         </div>
 
                 </div>
             </section>
+            <Footer />
         </>
     );
 }

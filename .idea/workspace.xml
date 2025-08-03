@@ -5,22 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="33c1d1dd-9c61-43af-b21b-23767086e7b2" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/client/src/assets/sounds/fire.mp3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/page/AllOfferwallList.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/page/PrivacyPolicy.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/page/TermsOfService.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/app/controller/SpinController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app/controller/SpinController.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/assets/css/headercss.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/assets/css/headercss.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/assets/css/profile.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/assets/css/profile.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/assets/css/responsive.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/assets/css/responsive.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/component/Timeline/Timeline.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/component/Timeline/Timeline.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/assets/sounds/fire.mp3" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/assets/sounds/fire.mp3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/component/footer/Footer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/component/footer/Footer.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/component/footer/Footer.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/component/footer/Footer.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/component/offers/AllOffers.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/component/offers/AllOffers.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/component/offers/Offersoffer.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/component/offers/Offersoffer.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/component/profile-details/UserDetailsModal.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/component/profile-details/UserDetailsModal.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/component/liveCashout/LiveCashout.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/component/liveCashout/LiveCashout.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/component/overview/OverView.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/component/overview/OverView.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/component/spin/SpinWheel.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/component/spin/SpinWheel.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/page/CashoutPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/page/CashoutPage.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/page/HomePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/page/HomePage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/page/ProfilePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/page/ProfilePage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/page/admin/SettingsPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/page/admin/SettingsPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/page/offerwalls.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/page/offerwalls.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -151,7 +153,10 @@
       <workItem from="1754028164828" duration="1148000" />
       <workItem from="1754031097174" duration="3519000" />
       <workItem from="1754039590486" duration="1799000" />
-      <workItem from="1754041482177" duration="7609000" />
+      <workItem from="1754041482177" duration="11541000" />
+      <workItem from="1754067553782" duration="2389000" />
+      <workItem from="1754123979184" duration="5624000" />
+      <workItem from="1754136151021" duration="10632000" />
     </task>
     <servers />
   </component>

@@ -98,7 +98,7 @@ const SettingsPage = () => {
     const [newOfferwall, setNewOfferwall] = useState({
         name: '',
         logoUrl: '',
-        offerwallCategory: 'offerwall',
+        offerwallCategory: 'Select Category',
         iframeUrl: '',
         rating: 0,
         offerwallStatus: true // Default to enabled
@@ -1072,7 +1072,7 @@ const SettingsPage = () => {
                                                                 className="form-control modern-input"
                                                                 required
                                                             >
-                                                                <option value="">Select Category</option>
+                                                                <option value="Select Category">Select Category</option>
                                                                 <option value="offerwall">Offerwall</option>
                                                                 <option value="survey">Survey</option>
                                                             </select>

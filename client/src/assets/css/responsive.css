@@ -1,5 +1,9 @@
 @media only screen and (max-width: 600px) {
     /* Header adjustments */
+    .m-center{
+        text-align: center;
+        margin-bottom: 30px;
+    }
     header.header {
         padding: 15px 0;
     }

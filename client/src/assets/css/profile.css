@@ -261,11 +261,11 @@
         font-size: 14px;
     }
 }
-
+.spin_image svg{
+    width: 300px !important;
+}
 @media (max-width: 575.98px) {
-    .container, .container-fluid{
-        padding: 0 !important;
-    }
+
     /* Extra small devices */
     .profile-avatar {
         width: 100px !important;
