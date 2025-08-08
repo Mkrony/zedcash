@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from "react";
 import HeaderSection from "../component/HeaderSection.jsx";
 import OfferWalls from "../component/offerwalls/OfferWalls.jsx";
 import "../assets/css/earnPage.css";
 import Footer from "../component/footer/Footer.jsx";
-import Sidebar from "../component/sidebar/Sidebar.jsx";
 import TimeLine from "../component/Timeline/TimeLine.jsx";
 import {NavLink} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";

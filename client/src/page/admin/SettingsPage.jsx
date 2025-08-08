@@ -12,7 +12,8 @@ import {
     faEdit,
     faXmark,
     faToggleOn,
-    faToggleOff
+    faToggleOff,
+    faTasks
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
@@ -30,6 +31,7 @@ const SettingsPage = () => {
     const [cashoutLoading, setCashoutLoading] = useState(true);
     const [offerwallLoading, setOfferwallLoading] = useState(true);
     const [smtpLoading, setSmtpLoading] = useState(true);
+    const [pendingLoading, setPendingLoading] = useState(true);
     const [activeTab, setActiveTab] = useState('basic');
 
     // Edit states
@@ -101,7 +103,7 @@ const SettingsPage = () => {
         offerwallCategory: 'Select Category',
         iframeUrl: '',
         rating: 0,
-        offerwallStatus: true // Default to enabled
+        offerwallStatus: true
     });
 
     // SMTP settings state
@@ -113,6 +115,19 @@ const SettingsPage = () => {
         password: '',
         fromEmail: '',
         fromName: ''
+    });
+
+    // Pending tasks settings state
+    const [pendingSettings, setPendingSettings] = useState({
+        maxCoinPerTask: 0,
+        maxDays: 0,
+        minCoinPerTask: 0,
+        minDays: 0,
+        pendingOfferIds: [],
+        newPendingOfferId: '',
+        newPendingOfferDays: 7,
+        allTasksPending: false,
+        allTasksDays: 0
     });
 
     // Fetch existing settings
@@ -190,6 +205,35 @@ const SettingsPage = () => {
         }
     };
 
+    // Fetch pending settings
+    const getPendingSettings = async () => {
+        try {
+            setPendingLoading(true);
+            const response = await axios.get(
+                `${import.meta.env.VITE_BACKEND_URL}/api/get-pending-settings`,
+                { withCredentials: true }
+            );
+            const data = Array.isArray(response.data.data) && response.data.data.length > 0
+                ? response.data.data[0]
+                : {};
+            setPendingSettings({
+                maxCoinPerTask: data.maxCoinPerTask || data.maxCoinPerDay || 0,
+                maxDays: data.maxDays || 0,
+                minCoinPerTask: data.minCoinPerTask || data.minCoinPerDay || 0,
+                minDays: data.minDays || 0,
+                pendingOfferIds: data.pendingOfferIds || [],
+                newPendingOfferId: '',
+                newPendingOfferDays: 7,
+                allTasksPending: data.allTasksPending || false,
+                allTasksDays: data.allTasksDays || 0
+            });
+        } catch (error) {
+            toast.error(error.response?.data?.message || error.message);
+        } finally {
+            setPendingLoading(false);
+        }
+    };
+
     useEffect(() => {
         getBasicSettingsData();
         if (activeTab === 'cashout') {
@@ -198,6 +242,8 @@ const SettingsPage = () => {
             getOfferwalls();
         } else if (activeTab === 'smtp') {
             getSmtpSettings();
+        } else if (activeTab === 'pending') {
+            getPendingSettings();
         }
     }, [activeTab]);
 
@@ -292,6 +338,24 @@ const SettingsPage = () => {
         }
     };
 
+    // Handle pending settings form submit
+    const savePendingSettings = async () => {
+        try {
+            setPendingLoading(true);
+            const response = await axios.post(
+                `${import.meta.env.VITE_BACKEND_URL}/api/UpdatePendingSettings`,
+                pendingSettings,
+                { withCredentials: true }
+            );
+            toast.success(response.data.message);
+            getPendingSettings();
+        } catch (error) {
+            toast.error(error.response?.data?.message || error.message);
+        } finally {
+            setPendingLoading(false);
+        }
+    };
+
     // Test SMTP connection
     const testSmtpConnection = async () => {
         try {
@@ -331,6 +395,14 @@ const SettingsPage = () => {
         }));
     };
 
+    const handlePendingInputChange = (e) => {
+        const { name, value, type, checked } = e.target;
+        setPendingSettings(prev => ({
+            ...prev,
+            [name]: type === 'checkbox' ? checked : value
+        }));
+    };
+
     // Edit cashout method handler
     const handleEditCashout = (method) => {
         setEditingCashout(method);
@@ -358,7 +430,7 @@ const SettingsPage = () => {
     const handleEditOfferwall = (offerwall) => {
         setEditingOfferwall({
             ...offerwall,
-            offerwallStatus: offerwall.offerwallStatus !== false // Default to true if undefined or null
+            offerwallStatus: offerwall.offerwallStatus !== false
         });
     };
 
@@ -427,6 +499,47 @@ const SettingsPage = () => {
     const closeModal = () => {
         setEditingCashout(null);
         setEditingOfferwall(null);
+    };
+
+    // Add pending offer ID with days
+    const addPendingOfferId = () => {
+        if (pendingSettings.newPendingOfferId.trim()) {
+            setPendingSettings({
+                ...pendingSettings,
+                pendingOfferIds: [
+                    ...pendingSettings.pendingOfferIds,
+                    {
+                        id: pendingSettings.newPendingOfferId,
+                        days: pendingSettings.newPendingOfferDays
+                    }
+                ],
+                newPendingOfferId: '',
+                newPendingOfferDays: 7
+            });
+        }
+    };
+
+    // Remove pending offer ID
+    const removePendingOfferId = (index) => {
+        const updatedIds = [...pendingSettings.pendingOfferIds];
+        updatedIds.splice(index, 1);
+        setPendingSettings({
+            ...pendingSettings,
+            pendingOfferIds: updatedIds
+        });
+    };
+
+    // Update pending offer days
+    const updatePendingOfferDays = (index, days) => {
+        const updatedIds = [...pendingSettings.pendingOfferIds];
+        updatedIds[index] = {
+            ...updatedIds[index],
+            days: parseInt(days) || 0
+        };
+        setPendingSettings({
+            ...pendingSettings,
+            pendingOfferIds: updatedIds
+        });
     };
 
     // Skeleton Loading Components
@@ -612,6 +725,56 @@ const SettingsPage = () => {
         </div>
     );
 
+    const PendingSkeleton = () => (
+        <div className="settings-tab">
+            <div className="row">
+                {[1, 2].map((item) => (
+                    <div className="col-md-6 mb-4" key={`pending-skeleton-${item}`}>
+                        <div className="card h-100">
+                            <div className="card-header skeleton-header"></div>
+                            <div className="card-body">
+                                {[1, 2].map((setting) => (
+                                    <div className="setting-item skeleton-setting" key={`pending-setting-${setting}`}>
+                                        <div className="setting-info">
+                                            <div className="skeleton-text" style={{width: '70%'}}></div>
+                                        </div>
+                                        <div className="skeleton-input" style={{width: '100px'}}></div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+            <div className="row mt-4">
+                <div className="col-md-12">
+                    <div className="card">
+                        <div className="card-header skeleton-header"></div>
+                        <div className="card-body">
+                            <div className="skeleton-text" style={{width: '200px', height: '24px'}}></div>
+                            <div className="skeleton-input mt-3"></div>
+                            <div className="skeleton-button mt-3" style={{width: '150px', height: '30px'}}></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="row mt-4">
+                <div className="col-md-12">
+                    <div className="card">
+                        <div className="card-header skeleton-header"></div>
+                        <div className="card-body">
+                            <div className="skeleton-switch"></div>
+                            <div className="skeleton-input mt-3" style={{width: '100px'}}></div>
+                        </div>
+                        <div className="card-footer">
+                            <div className="skeleton-button" style={{width: '150px', height: '30px'}}></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+
     return (
         <>
             <HeaderSection />
@@ -647,6 +810,13 @@ const SettingsPage = () => {
                                 >
                                     <FontAwesomeIcon icon={faAd} className="me-2" />
                                     Offerwalls
+                                </button>
+                                <button
+                                    className={`sidebar-btn ${activeTab === 'pending' ? 'active' : ''}`}
+                                    onClick={() => setActiveTab('pending')}
+                                >
+                                    <FontAwesomeIcon icon={faTasks} className="me-2" />
+                                    Pending Tasks
                                 </button>
                                 <button
                                     className={`sidebar-btn ${activeTab === 'smtp' ? 'active' : ''}`}
@@ -1408,6 +1578,300 @@ const SettingsPage = () => {
                                                     </button>
                                                 </div>
                                             </form>
+                                        </div>
+                                    </div>
+                                )
+                            )}
+
+                            {/* Pending Tasks Settings Tab */}
+                            {activeTab === 'pending' && (
+                                pendingLoading ? <PendingSkeleton /> : (
+                                    <div className="settings-tab">
+                                        <div className="row">
+                                            {/* Max Coin/Task Settings Card */}
+                                            <div className="col-md-6 mb-4">
+                                                <div className="card h-100">
+                                                    <div className="card-header">
+                                                        <h5 className="m-0">
+                                                            <FontAwesomeIcon icon={faMoneyBillWave} className="me-2" />
+                                                            Maximum Coin Pending Settings
+                                                        </h5>
+                                                    </div>
+                                                    <div className="card-body">
+                                                        <div className="form-group mb-3">
+                                                            <label>Max Coins Per Task</label>
+                                                            <input
+                                                                type="number"
+                                                                className="form-control modern-input"
+                                                                value={pendingSettings.maxCoinPerTask}
+                                                                onChange={(e) => setPendingSettings({
+                                                                    ...pendingSettings,
+                                                                    maxCoinPerTask: e.target.value
+                                                                })}
+                                                                min="0"
+                                                            />
+                                                            <small className="text-info">Tasks with coins above this amount will go to pending</small>
+                                                        </div>
+                                                        <div className="form-group">
+                                                            <label>Pending Days</label>
+                                                            <input
+                                                                type="number"
+                                                                className="form-control modern-input"
+                                                                value={pendingSettings.maxDays}
+                                                                onChange={(e) => setPendingSettings({
+                                                                    ...pendingSettings,
+                                                                    maxDays: e.target.value
+                                                                })}
+                                                                min="0"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div className="card-footer text-end">
+                                                        <button
+                                                            className="btn btn-primary btn-sm"
+                                                            onClick={savePendingSettings}
+                                                            disabled={pendingLoading}
+                                                        >
+                                                            {pendingLoading ? (
+                                                                <span className="spinner-border spinner-border-sm me-2"></span>
+                                                            ) : (
+                                                                <FontAwesomeIcon icon={faFloppyDisk} className="me-2" />
+                                                            )}
+                                                            Save Max Settings
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            {/* Min Coin/Task Settings Card */}
+                                            <div className="col-md-6 mb-4">
+                                                <div className="card h-100">
+                                                    <div className="card-header">
+                                                        <h5 className="m-0">
+                                                            <FontAwesomeIcon icon={faMoneyBillWave} className="me-2" />
+                                                            Minimum Pending Settings
+                                                        </h5>
+                                                    </div>
+                                                    <div className="card-body">
+                                                        <div className="form-group mb-3">
+                                                            <label>Min Coins Per Task</label>
+                                                            <input
+                                                                type="number"
+                                                                className="form-control modern-input"
+                                                                value={pendingSettings.minCoinPerTask}
+                                                                onChange={(e) => setPendingSettings({
+                                                                    ...pendingSettings,
+                                                                    minCoinPerTask: e.target.value
+                                                                })}
+                                                                min="0"
+                                                            />
+                                                            <small className="text-info">Tasks with coins below this amount will go to pending</small>
+                                                        </div>
+                                                        <div className="form-group">
+                                                            <label>Pending Days</label>
+                                                            <input
+                                                                type="number"
+                                                                className="form-control modern-input"
+                                                                value={pendingSettings.minDays}
+                                                                onChange={(e) => setPendingSettings({
+                                                                    ...pendingSettings,
+                                                                    minDays: e.target.value
+                                                                })}
+                                                                min="0"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div className="card-footer text-end">
+                                                        <button
+                                                            className="btn btn-primary btn-sm"
+                                                            onClick={savePendingSettings}
+                                                            disabled={pendingLoading}
+                                                        >
+                                                            {pendingLoading ? (
+                                                                <span className="spinner-border spinner-border-sm me-2"></span>
+                                                            ) : (
+                                                                <FontAwesomeIcon icon={faFloppyDisk} className="me-2" />
+                                                            )}
+                                                            Save Min Settings
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* Pending Offer IDs */}
+                                        <div className="row mt-4">
+                                            <div className="col-md-12">
+                                                <div className="card">
+                                                    <div className="card-header">
+                                                        <h5 className="m-0">
+                                                            <FontAwesomeIcon icon={faTasks} className="me-2" />
+                                                            Pending by Offer ID
+                                                        </h5>
+                                                    </div>
+                                                    <div className="card-body">
+                                                        <div className="row">
+                                                            <div className="col-md-6">
+                                                                <div className="form-group">
+                                                                    <label>Offer ID</label>
+                                                                    <input
+                                                                        type="text"
+                                                                        className="form-control modern-input"
+                                                                        value={pendingSettings.newPendingOfferId}
+                                                                        onChange={(e) => setPendingSettings({
+                                                                            ...pendingSettings,
+                                                                            newPendingOfferId: e.target.value
+                                                                        })}
+                                                                        placeholder="Enter Offer ID"
+                                                                    />
+                                                                </div>
+                                                            </div>
+                                                            <div className="col-md-4">
+                                                                <div className="form-group">
+                                                                    <label>Pending Days</label>
+                                                                    <input
+                                                                        type="number"
+                                                                        className="form-control modern-input"
+                                                                        value={pendingSettings.newPendingOfferDays}
+                                                                        onChange={(e) => setPendingSettings({
+                                                                            ...pendingSettings,
+                                                                            newPendingOfferDays: e.target.value
+                                                                        })}
+                                                                        min="1"
+                                                                    />
+                                                                </div>
+                                                            </div>
+                                                            <div className="col-md-2 d-flex align-items-end">
+                                                                <button
+                                                                    className="btn btn-primary w-100"
+                                                                    type="button"
+                                                                    onClick={addPendingOfferId}
+                                                                    disabled={!pendingSettings.newPendingOfferId.trim()}
+                                                                >
+                                                                    Add
+                                                                </button>
+                                                            </div>
+                                                        </div>
+
+                                                        {pendingSettings.pendingOfferIds.length > 0 && (
+                                                            <div className="mt-4">
+                                                                <h6>Current Pending Offer IDs:</h6>
+                                                                <div className="table-responsive">
+                                                                    <table className="table modern-table">
+                                                                        <thead>
+                                                                        <tr>
+                                                                            <th>Offer ID</th>
+                                                                            <th>Pending Days</th>
+                                                                            <th>Action</th>
+                                                                        </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                        {pendingSettings.pendingOfferIds.map((offer, index) => (
+                                                                            <tr key={index}>
+                                                                                <td>{offer.id}</td>
+                                                                                <td>
+                                                                                    <input
+                                                                                        type="number"
+                                                                                        className="form-control form-control-sm"
+                                                                                        value={offer.days}
+                                                                                        onChange={(e) => updatePendingOfferDays(index, e.target.value)}
+                                                                                        min="1"
+                                                                                    />
+                                                                                </td>
+                                                                                <td>
+                                                                                    <button
+                                                                                        type="button"
+                                                                                        className="btn btn-danger btn-sm"
+                                                                                        onClick={() => removePendingOfferId(index)}
+                                                                                    >
+                                                                                        <FontAwesomeIcon icon={faTrash} />
+                                                                                    </button>
+                                                                                </td>
+                                                                            </tr>
+                                                                        ))}
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                    <div className="card-footer text-end">
+                                                        <button
+                                                            className="btn btn-primary"
+                                                            onClick={savePendingSettings}
+                                                            disabled={pendingLoading}
+                                                        >
+                                                            {pendingLoading ? (
+                                                                <span className="spinner-border spinner-border-sm me-2"></span>
+                                                            ) : (
+                                                                <FontAwesomeIcon icon={faFloppyDisk} className="me-2" />
+                                                            )}
+                                                            Save Offer IDs
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* All Tasks Pending */}
+                                        <div className="row mt-4">
+                                            <div className="col-md-12">
+                                                <div className="card">
+                                                    <div className="card-header">
+                                                        <h5 className="m-0">
+                                                            <FontAwesomeIcon icon={faTasks} className="me-2" />
+                                                            All Tasks Pending
+                                                        </h5>
+                                                    </div>
+                                                    <div className="card-body">
+                                                        <div className="form-check form-switch mb-3">
+                                                            <input
+                                                                className="form-check-input"
+                                                                type="checkbox"
+                                                                id="allTasksPending"
+                                                                checked={pendingSettings.allTasksPending}
+                                                                onChange={(e) => setPendingSettings({
+                                                                    ...pendingSettings,
+                                                                    allTasksPending: e.target.checked
+                                                                })}
+                                                            />
+                                                            <label className="form-check-label" htmlFor="allTasksPending">
+                                                                Enable Pending for All Tasks
+                                                            </label>
+                                                        </div>
+
+                                                        {pendingSettings.allTasksPending && (
+                                                            <div className="form-group">
+                                                                <label>Pending Days for All Tasks</label>
+                                                                <input
+                                                                    type="number"
+                                                                    className="form-control modern-input"
+                                                                    value={pendingSettings.allTasksDays}
+                                                                    onChange={(e) => setPendingSettings({
+                                                                        ...pendingSettings,
+                                                                        allTasksDays: e.target.value
+                                                                    })}
+                                                                    min="0"
+                                                                />
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                    <div className="card-footer text-end">
+                                                        <button
+                                                            className="btn btn-primary"
+                                                            onClick={savePendingSettings}
+                                                            disabled={pendingLoading}
+                                                        >
+                                                            {pendingLoading ? (
+                                                                <span className="spinner-border spinner-border-sm me-2"></span>
+                                                            ) : (
+                                                                <FontAwesomeIcon icon={faFloppyDisk} className="me-2" />
+                                                            )}
+                                                            Save All Tasks Settings
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 )

@@ -3,7 +3,7 @@ import PendingTaskModel from "../model/PendingTaskModel.js";
 import CompletedTasksModel from "../model/ComleteTaskModel.js";
 import UserModel from "../model/UserModel.js";
 import NotificationsModel from "../model/UserNotification.js";
-import PendingSettingsModel from "../model/PendingSettingsSettingsModel.js"; // Adjust path
+import PendingSettingsModel from "../model/PendingSettingsModel.js"; // Adjust path
 
 const movePendingTaskToCompleted = async (task, session) => {
     const alreadyCompleted = await CompletedTasksModel.findOne({

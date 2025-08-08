@@ -12,9 +12,11 @@ import * as PendingTaskController from "../app/controller/PendingTaskController.
 import * as ApplicationSettings from "../app/controller/ApplicationSettingsController.js";
 import * as CashoutMethod from "../app/controller/CashoutMethodController.js";
 import * as OfferwallController from "../app/controller/OfferwallController.js";
+import * as PendingSettings from "../app/controller/PendingSettingsController.js";
 import * as SpinController from "../app/controller/SpinController.js";
 import IpCheckMiddleWire from "../app/middleware/IpCheck.js";
 import { AuthMiddleware } from "../app/middleware/AuthMiddleware.js";
+import {DeletePendingOfferId, UpdatePendingSettings} from "../app/controller/PendingSettingsController.js";
 // timeLine
 router.get('/timeline',TimelineController.GetTimeline);
 // Registration endpoint
@@ -96,24 +98,14 @@ router.post('/add-offerwalls',AuthMiddleware, OfferwallController.AddNewOfferwal
 router.get('/get-offerwalls', OfferwallController.GetOfferwall);
 router.get('/delete-offerwalls/:id', AuthMiddleware,OfferwallController.DeleteOfferwall);
 router.put('/update-offerwalls/:id',AuthMiddleware, OfferwallController.UpdateOfferwall);
+//pending settings
+router.get('/get-pending-settings', AuthMiddleware,PendingSettings.GetPendingSettings);
+router.post('/UpdatePendingSettings', AuthMiddleware,PendingSettings.UpdatePendingSettings);
+router.delete('/delete-pending-offer/:id', AuthMiddleware,PendingSettings.DeletePendingOfferId);
 //spin
 // Public route - get wheel configuration
 router.get("/spin/config", SpinController.GetConfig);
 router.post("/spin", AuthMiddleware, SpinController.Spin);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // Export the router

@@ -408,7 +408,7 @@ function ProfilePage() {
     // Table headers for different tabs
     const tableHeaders = {
         tasks: ['#', 'Offer Wall', 'Offer Name', 'Transaction ID', 'IP', 'Country', 'Amount', 'Date'],
-        pendingtasks: ['#', 'Offer Wall', 'Offer Name', 'Transaction ID', 'IP', 'Country', 'Amount', 'Date'],
+        pendingtasks: ['#', 'Offer Wall', 'Offer Name', 'Transaction ID', 'IP', 'Country', 'Amount', 'Date', 'Release Date'],
         withdrawals: ['#', 'Wallet Name', 'Wallet Address', 'Transaction ID', 'Amount', 'Status', 'Date'],
         chargebacks: ['#', 'Offer Wall', 'Offer Name', 'Transaction ID', 'IP', 'Country', 'Amount','Date']
     };
@@ -612,6 +612,7 @@ function ProfilePage() {
                                                                                     {task.currencyReward?.toFixed(2) || '0.00'}
                                                                                 </td>
                                                                                 <td data-label="Date">{formatDate(task.updatedAt)}</td>
+                                                                                <td data-label="Date">{formatDate(task.releaseDate)}</td>
                                                                             </tr>
                                                                         ))
                                                                     ) : (

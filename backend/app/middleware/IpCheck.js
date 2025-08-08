@@ -1,53 +1,96 @@
 import axios from 'axios';
 import BasicSettingsModel from "../model/BasicSettingsModel.js";
 
+// Cache settings to reduce DB queries
+let cachedSettings = null;
+let lastSettingsFetch = 0;
+
+const getSettings = async () => {
+    const now = Date.now();
+    // Refresh settings every 5 minutes (300000 ms)
+    if (!cachedSettings || now - lastSettingsFetch > 300000) {
+        cachedSettings = await BasicSettingsModel.findOne();
+        lastSettingsFetch = now;
+    }
+    return cachedSettings;
+};
+
 const ipCheckMiddleware = async (req, res, next) => {
     try {
-        // 1. Get client IP safely (supports x-forwarded-for and fallback)
-        const clientIP = req.headers['x-forwarded-for']?.split(',')[0] || req.socket.remoteAddress;
-
-        // 2. Skip check for localhost (for dev testing)
-        if (clientIP === '::1' || clientIP === '127.0.0.1') {
-            console.log("Skipping IP check for localhost:", clientIP);
+        // 1. Get client IP safely
+        const clientIP = req.headers['x-forwarded-for']?.split(',')[0]?.trim() ||
+            req.socket.remoteAddress;
+        // 2. Skip check for localhost/trusted IPs (optional)
+        const trustedIPs = ['::1', '127.0.0.1'];
+        if (trustedIPs.includes(clientIP)) {
             return next();
         }
 
-        // 3. Fetch IP Quality Score settings from DB
-        const settings = await BasicSettingsModel.findOne();
+        // 3. Get settings
+        const settings = await getSettings();
         const apiKey = settings?.ipQualityApiKey;
         const ipCheckOn = settings?.ipQualityCheck;
+        const fraudThreshold = settings?.ipFraudThreshold || 75;
 
-        let ipData = null; // Declared outside for logging use
+        // 4. Skip if IP check is disabled or no API key
+        if (!ipCheckOn || !apiKey) {
+            return next();
+        }
+        // 5. Call IPQualityScore API
+        const response = await axios.get(
+            `https://ipqualityscore.com/api/json/ip/${apiKey}/${clientIP}`,
+            { timeout: 2000 } // Add timeout
+        );
 
-        // 4. Proceed only if IP check is enabled and API key exists
-        if (apiKey && ipCheckOn) {
-            // Call IPQualityScore API
-            const response = await axios.get(`https://ipqualityscore.com/api/json/ip/${apiKey}/${clientIP}`);
-            ipData = response.data;
+        const ipData = response.data;
 
-            // 5. Block if proxy, VPN, or fraud score is high
-            if (ipData.proxy || ipData.vpn || ipData.fraud_score > 75) {
-                return res.status(403).json({
-                    success: false,
-                    message: "Access denied: Suspicious IP detected.",
-                    reason: ipData
-                });
-            }
+        // 6. Check for blocking conditions
+        const isBlocked = ipData.proxy ||
+            ipData.vpn ||
+            ipData.tor ||
+            ipData.active_vpn ||
+            ipData.recent_abuse ||
+            ipData.fraud_score >= fraudThreshold;
 
-            // 6. Attach data to request object
-            req.ipInfo = ipData;
+        if (isBlocked) {
+            return res.status(403).json({
+                success: false,
+                message: "Access denied: Suspicious IP detected",
+                reason: {
+                    proxy: ipData.proxy,
+                    vpn: ipData.vpn,
+                    tor: ipData.tor,
+                    fraudScore: ipData.fraud_score,
+                    country: ipData.country_code,
+                    isp: ipData.ISP,
+                    city: ipData.city
+                }
+            });
         }
 
-        // 7. Logging (for testing/debugging)
-        console.log("Client IP:", clientIP);
-        console.log("IPQS Result:", ipData);
+        // 7. Attach sanitized data to request
+        req.ipInfo = {
+            fraudScore: ipData.fraud_score,
+            country: ipData.country_code,
+            isp: ipData.ISP,
+            city: ipData.city,
+            mobile: ipData.mobile
+        };
 
-        // Continue to next middleware/route
         next();
 
     } catch (error) {
-        console.error("IP check error:", error?.response?.data || error.message);
-        next(); // Continue even if API fails
+        console.error("IP check error:", error.message);
+
+        // Option 1: Fail open (allow request)
+        // next();
+
+        // Option 2: Fail closed (block request)
+        return res.status(403).json({
+            success: false,
+            message: "IP verification service unavailable",
+            error: error.message
+        });
     }
 };
 

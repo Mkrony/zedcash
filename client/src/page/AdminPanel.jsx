@@ -281,6 +281,17 @@ const AdminPanel = () => {
                         <div className="col-md-12 col-12">
                           <div className="page-title">
                               <h2 className="mb-4">Admin Dashboard</h2>
+                              <div className="time text-center py-2">
+                                  <h2>
+                                      {new Date().toLocaleDateString("en-US", {
+                                          year: "numeric",
+                                          month: "long",
+                                          day: "numeric",
+                                          hour:"2-digit",
+                                          minute:"numeric"
+                                      })}
+                                  </h2>
+                              </div>
                           </div>
                             <div className="admin-boxes">
                                 <div className="mt-3 row flex-row flex-wrap row-gap-4 justify-content-start">
@@ -317,7 +328,6 @@ const AdminPanel = () => {
                     </div>
 
                     <hr className="my-4" />
-
                     {/* Revenue Cards Section */}
                     <div className="row pt-5 ms-1">
                         <div className="page-title">

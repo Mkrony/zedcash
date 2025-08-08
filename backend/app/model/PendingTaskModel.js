@@ -45,6 +45,13 @@ const pendingtasksSchema = new mongoose.Schema({
         required: true,
         default: 'unknown'
     },
+    pendingDays:{
+        type:Number,
+        default:0,
+    },
+    releaseDate:{
+        type:Date
+    },
     createdAt: {
         type: Date,
         default: Date.now

@@ -149,6 +149,7 @@ const AllPendingTasksPopup = ({
                                         <th>IP</th>
                                         <th>Country</th>
                                         <th>Date</th>
+                                        <th>Release Date</th>
                                         <th>Actions</th>
                                     </tr>
                                     </thead>
@@ -171,6 +172,14 @@ const AllPendingTasksPopup = ({
                                                     year: "numeric",
                                                     month: "long",
                                                     day: "numeric",
+                                                })}
+                                            </td>
+                                            <td>
+                                                {new Date(task.releaseDate).toLocaleDateString("en-US", {
+                                                    year: "numeric",
+                                                    month: "long",
+                                                    day: "numeric",
+                                                    hour:"numeric"
                                                 })}
                                             </td>
                                             <td>
@@ -312,6 +321,17 @@ const TaskDetailsModal = ({ selectedTask, onClose }) => {
                             <tr>
                                 <th>Country</th>
                                 <td>{selectedTask.country}</td>
+                            </tr>
+                            <tr>
+                                <th>Release Date</th>
+                               <td>
+                                    {new Date(selectedTask.releaseDate).toLocaleDateString("en-US", {
+                                        year: "numeric",
+                                        month: "long",
+                                        day: "numeric",
+                                        hour:"2-digit"
+                                    })}
+                                </td>
                             </tr>
                             <tr>
                                 <th>Created Date</th>

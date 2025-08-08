@@ -5,6 +5,7 @@ import UserModel from "../model/UserModel.js";
 import NotificationsModel from "../model/UserNotification.js";
 import PendingTaskModel from "../model/PendingTaskModel.js";
 import ChargebackModel from "../model/ChargebackModel.js";
+import TimelineModel from "../model/TimelineModel.js";
 
 /**
  * @desc    Get all pending tasks
@@ -54,10 +55,8 @@ export const GetAllPendingTasks = async (req, res) => {
 export const SetPendingTask = async (req, res) => {
     const session = await mongoose.startSession();
     session.startTransaction();
-
     try {
         const taskId = req.params.taskId;
-
         // Validate taskId
         if (!taskId || !mongoose.Types.ObjectId.isValid(taskId)) {
             await session.abortTransaction();
@@ -67,9 +66,7 @@ export const SetPendingTask = async (req, res) => {
                 message: "Invalid task ID format"
             });
         }
-
         const selectTask = await CompletedTasksModel.findById(taskId).session(session);
-
         if (!selectTask) {
             await session.abortTransaction();
             session.endSession();
@@ -78,7 +75,6 @@ export const SetPendingTask = async (req, res) => {
                 message: "Task not found"
             });
         }
-
         // Check if task is already pending
         const existingPendingTask = await PendingTaskModel.findOne({
             transactionID: selectTask.transactionID
@@ -349,6 +345,18 @@ export const SetPendingToCompletedTask = async (req, res) => {
         user.balance += selectTask.currencyReward;
         user.pending_balance -= selectTask.currencyReward;
         await user.save({ session });
+
+        // create timeline
+        await TimelineModel.create([{
+            offerWallName: selectTask.offerWallName,
+            userName: selectTask.userName,
+            userID: selectTask.userID,
+            currencyReward: selectTask.currencyReward,
+            offerName: selectTask.offerName,
+            type: "task",
+            userAvatar: selectTask.userAvatar,
+            createdAt: selectTask.createdAt
+        }], { session });
 
         // Create notification
         await NotificationsModel.create([{

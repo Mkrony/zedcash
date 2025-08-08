@@ -4,6 +4,7 @@ import express from "express";
 import rateLimit from "express-rate-limit";
 import helmet from "helmet";
 import mongoose from "mongoose";
+import "./app/cron/autoCompleteCron.js";
 import {
   DATABASE,
   MAX_JSON_SIZE,
