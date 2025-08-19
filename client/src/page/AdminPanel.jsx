@@ -3,7 +3,7 @@ import HeaderSection from "../component/HeaderSection.jsx";
 import zedStore from "../component/zedstore/ZedStore.jsx";
 import { toast } from "react-toastify";
 import Cookies from "js-cookie";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 import Footer from "../component/footer/Footer.jsx";
@@ -19,12 +19,12 @@ const AllChargebacksPopUp = React.lazy(() => import("../component/admins/chargeb
 
 // Constants
 const ADMIN_CARDS = [
-    { title: "All Users",  key: "users" },
-    { title: "Completed Task",  key: "completedTasks" },
+    { title: "All Users", key: "users" },
+    { title: "Completed Task", key: "completedTasks" },
     { title: "Pending Tasks", key: "pendingTasks" },
-    { title: "All Chargebacks",  key: "chargebacks" },
-    { title: "Pending Withdrawals",  key: "pendingWithdrawals" },
-    { title: "All Withdrawals",  key: "withdrawals" },
+    { title: "All Chargebacks", key: "chargebacks" },
+    { title: "Pending Withdrawals", key: "pendingWithdrawals" },
+    { title: "All Withdrawals", key: "withdrawals" }
 ];
 
 const REVENUE_CARDS = [
@@ -33,7 +33,7 @@ const REVENUE_CARDS = [
     { title: "Today Pending Revenue", key: "todayPendingRevenue" },
     { title: "Total Pending Revenue", key: "totalPendingRevenue" },
     { title: "Today Chargeback", key: "todayChargeback" },
-    { title: "Total Chargeback", key: "totalChargeback" },
+    { title: "Total Chargeback", key: "totalChargeback" }
 ];
 
 // Skeleton Components
@@ -53,6 +53,17 @@ const RevenueCardSkeleton = () => (
         <div className="card-body text-center">
             <div className="skeleton-text" style={{ width: '30%', height: '30px', margin: '0 auto' }}></div>
             <div className="skeleton-text mt-3" style={{ width: '80%', height: '20px', margin: '0 auto' }}></div>
+        </div>
+    </div>
+);
+
+const SupportCardSkeleton = () => (
+    <div className="profile-details-box card text-center py-3 box-shadow skeleton-item" aria-hidden="true">
+        <div className="profile-details-box-title">
+            <div className="skeleton-text" style={{ width: '70%', height: '20px', margin: '0 auto' }}></div>
+        </div>
+        <div className="profile-details-box-balance mt-2">
+            <div className="skeleton-text" style={{ width: '30%', height: '25px', margin: '0 auto' }}></div>
         </div>
     </div>
 );
@@ -83,6 +94,8 @@ const AdminPanel = () => {
         totalChargeback,
         getTodayChargeback,
         getTotalChargeback,
+        totalSupportEmail,
+        getTotalSupportEmail,
         loading: storeLoading,
         error: storeError
     } = zedStore();
@@ -94,7 +107,8 @@ const AdminPanel = () => {
         withdrawals: true,
         chargebacks: true,
         revenue: true,
-        todayStats: true
+        todayStats: true,
+        support: true
     });
 
     const [error, setError] = useState(null);
@@ -128,7 +142,7 @@ const AdminPanel = () => {
         totalPendingRevenue: totalPendingRevenues,
         todayPendingRevenue: todayPendingRevenues,
         todayChargeback: todayChargeback,
-        totalChargeback: totalChargeback,
+        totalChargeback: totalChargeback
     }), [totalRevenues, todayRevenues, totalPendingRevenues, todayPendingRevenues, todayChargeback, totalChargeback]);
 
     // Authentication check
@@ -147,8 +161,8 @@ const AdminPanel = () => {
                     return;
                 }
                 const userId = decodedToken.id;
-                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/userbyid/${userId}`,{
-                    withCredentials:true,
+                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/userbyid/${userId}`, {
+                    withCredentials: true,
                 });
                 const role = response.data.user.role;
 
@@ -183,7 +197,7 @@ const AdminPanel = () => {
     // Data fetching with prioritized loading
     const fetchAllData = useCallback(async () => {
         try {
-            setLoading(prev => ({ ...prev, users: true, revenue: true, todayStats: true }));
+            setLoading(prev => ({ ...prev, users: true, revenue: true, todayStats: true, support: true }));
 
             // Load critical data first
             await Promise.all([
@@ -202,6 +216,7 @@ const AdminPanel = () => {
                 fetchDataWithRetry(gettodayPendingRevenues),
                 fetchDataWithRetry(getTodayChargeback),
                 fetchDataWithRetry(getTotalChargeback),
+                fetchDataWithRetry(getTotalSupportEmail),
             ]);
 
             setLoading({
@@ -211,7 +226,8 @@ const AdminPanel = () => {
                 withdrawals: false,
                 chargebacks: false,
                 revenue: false,
-                todayStats: false
+                todayStats: false,
+                support: false
             });
         } catch (err) {
             console.error("Data loading error:", err);
@@ -224,7 +240,8 @@ const AdminPanel = () => {
                 withdrawals: false,
                 chargebacks: false,
                 revenue: false,
-                todayStats: false
+                todayStats: false,
+                support: false
             });
         }
     }, [
@@ -238,7 +255,8 @@ const AdminPanel = () => {
         getTotalPendingRevenues,
         gettodayPendingRevenues,
         getTodayChargeback,
-        getTotalChargeback
+        getTotalChargeback,
+        getTotalSupportEmail
     ]);
 
     useEffect(() => {
@@ -279,24 +297,13 @@ const AdminPanel = () => {
                     {/* Admin Cards Section */}
                     <div className="row m-0 py-5">
                         <div className="col-md-12 col-12">
-                          <div className="page-title">
-                              <h2 className="mb-4">Admin Dashboard</h2>
-                              <div className="time text-center py-2">
-                                  <h2>
-                                      {new Date().toLocaleDateString("en-US", {
-                                          year: "numeric",
-                                          month: "long",
-                                          day: "numeric",
-                                          hour:"2-digit",
-                                          minute:"numeric"
-                                      })}
-                                  </h2>
-                              </div>
-                          </div>
+                            <div className="page-title">
+                                <h2 className="mb-4">Admin Dashboard</h2>
+                            </div>
                             <div className="admin-boxes">
                                 <div className="mt-3 row flex-row flex-wrap row-gap-4 justify-content-start">
                                     {isLoading ? (
-                                        Array(6).fill().map((_, index) => (
+                                        Array(ADMIN_CARDS.length).fill().map((_, index) => (
                                             <div key={`admin-skeleton-${index}`} className="col-md-4 col-lg-3 col-12">
                                                 <AdminCardSkeleton />
                                             </div>
@@ -328,13 +335,14 @@ const AdminPanel = () => {
                     </div>
 
                     <hr className="my-4" />
+
                     {/* Revenue Cards Section */}
                     <div className="row pt-5 ms-1">
                         <div className="page-title">
-                        <h3 className="mb-4">Revenue Overview</h3>
+                            <h3 className="mb-4">Revenue Overview</h3>
                         </div>
                         {isLoading ? (
-                            Array(6).fill().map((_, index) => (
+                            Array(REVENUE_CARDS.length).fill().map((_, index) => (
                                 <div key={`revenue-skeleton-${index}`} className="col-12 col-md-4 col-lg-2 mt-4">
                                     <RevenueCardSkeleton />
                                 </div>
@@ -351,6 +359,30 @@ const AdminPanel = () => {
                                 </div>
                             ))
                         )}
+                    </div>
+
+                    {/* Support Messages Section - Separate at the bottom */}
+                    <div className="row pt-5 ms-1">
+                        <div className="page-title">
+                            <h3 className="mb-4">Support Center</h3>
+                        </div>
+                        <div className="col-md-4 col-lg-3 col-12">
+                            {loading.support ? (
+                                <SupportCardSkeleton />
+                            ) : (
+                                <NavLink
+                                    to="/support-emails"
+                                    className="profile-details-box card text-center py-3 box-shadow text-decoration-none"
+                                >
+                                    <div className="profile-details-box-title">
+                                        <h5 className="fw-bold">Support Email</h5>
+                                    </div>
+                                    <div className="profile-details-box-balance mt-2">
+                                        <h5 className="fw-bold text-danger">{totalSupportEmail}</h5>
+                                    </div>
+                                </NavLink>
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>

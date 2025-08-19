@@ -5,7 +5,7 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import CirclecashAnimation from "../Animations/CirclecashAnimation.jsx";
 
 function OfferWallModal({ isOpen, closeModal, isLoading, modalUrl, setIsLoading, modalTitle }) {
-    if (!isOpen) return null; // Render nothing if the modal is not open
+    if (!isOpen) return null;
 
     return (
         <div className={styles.modal_container}>

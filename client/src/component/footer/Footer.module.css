@@ -71,6 +71,14 @@ footer {
     margin-right: 5px;
     color: #3ac776;
 }
+.liveChat_btn svg{
+    position: fixed;
+    right:10px;
+    bottom: 5%;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
 @media only screen and (max-width: 600px) {
     footer {
         margin-top: 10px !important;

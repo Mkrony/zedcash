@@ -191,6 +191,7 @@ const EveryUserDetailsModal = ({ isOpen, user, onClose }) => {
                     <h6>Device Id : {user.device_id}</h6>
                     <h6>User Agent : {user.user_agent}</h6>
                     <h6>Verified: {user.isVerified ? "Yes" : "No"}</h6>
+                    <h6>Spin Used: {user.hasSpin ? "Yes" : "No"} </h6>
                     <h6>
                         Joined:{" "}
                         {new Date(user.created_at).toLocaleDateString("en-GB", {

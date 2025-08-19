@@ -14,9 +14,11 @@ import * as CashoutMethod from "../app/controller/CashoutMethodController.js";
 import * as OfferwallController from "../app/controller/OfferwallController.js";
 import * as PendingSettings from "../app/controller/PendingSettingsController.js";
 import * as SpinController from "../app/controller/SpinController.js";
+import * as LiveChatController from "../app/controller/LivechatController.js";
 import IpCheckMiddleWire from "../app/middleware/IpCheck.js";
 import { AuthMiddleware } from "../app/middleware/AuthMiddleware.js";
-import {DeletePendingOfferId, UpdatePendingSettings} from "../app/controller/PendingSettingsController.js";
+import {ShowMessage} from "../app/controller/LivechatController.js";
+
 // timeLine
 router.get('/timeline',TimelineController.GetTimeline);
 // Registration endpoint
@@ -106,8 +108,16 @@ router.delete('/delete-pending-offer/:id', AuthMiddleware,PendingSettings.Delete
 // Public route - get wheel configuration
 router.get("/spin/config", SpinController.GetConfig);
 router.post("/spin", AuthMiddleware, SpinController.Spin);
-
-
+//Live chat api
+router.get("/show-message", LiveChatController.ShowMessage);
+router.post("/send-message", AuthMiddleware, LiveChatController.SendMessage);
+//email support api
+router.get("/total-support-message", AuthMiddleware, LiveChatController.TotalSupportMessage);
+router.get("/show-support-message", AuthMiddleware, LiveChatController.ShowSupportMessage);
+router.post("/send-support-message", LiveChatController.SendSupportMessage);
+router.patch("/update-support-message/:id", AuthMiddleware, LiveChatController.UpdateStatus);
+router.post("/bulk-support-messages", AuthMiddleware, LiveChatController.BulkSupportMessages);
+router.delete("/delete-support-message/:id", AuthMiddleware, LiveChatController.DeleteSupportMessage);
 // Export the router
 
 export default router;

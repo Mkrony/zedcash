@@ -230,6 +230,7 @@ function HeaderSection() {
                                                 <h5>
                                                     Notifications <FontAwesomeIcon className={"ms-2"} icon={faBell} /> {unreadCount > 0 && `(${unreadCount} new)`}
                                                 </h5>
+
                                             </div>
                                             <div className="notification-list">
                                                 {loadingNotifications ? (

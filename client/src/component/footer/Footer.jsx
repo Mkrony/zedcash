@@ -1,21 +1,24 @@
-import React, { memo } from "react";
+import React, {memo, useState} from "react";
 import {Link, NavLink} from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
+import {faComment, faEnvelope, faMessage, faStar} from "@fortawesome/free-solid-svg-icons";
 import {
     faFacebookSquare,
     faTelegram,
-    faLinkedinIn,
-    faFacebookMessenger,
+    faLinkedinIn
 } from "@fortawesome/free-brands-svg-icons";
 import styles from "./Footer.module.css";
-
+import LiveChat from "../liveChat/LiveChat.jsx";
+import SupportEmail from "../supports/SupportEmail.jsx";
 function Footer() {
     const siteName = "ZedCash";
+    const [supportEmailPopup, setSupportEmailPopup] = useState(false);
     return (
+        <>
         <footer className={styles.footer}>
             <div className={styles.top_footer}>
                 <div className="container-fluid">
+                    <LiveChat/>
                     <div className="row">
                         {/* Logo and Description */}
                         <div className="col-md-3">
@@ -66,14 +69,12 @@ function Footer() {
 
                         {/* Reviews */}
                         <div className="col-md-3">
-                            <div className={`${styles.top_footer_review} text-md-end`}>
-                                <h2>We Are Awesome</h2>
+                            <div className={`${styles.top_footer_review}`}>
+                                <h2>Do you need urgent Support ?</h2>
                                 <div className={styles.star}>
-                                    {[...Array(5)].map((_, index) => (
-                                        <span key={index}>
-                                            <FontAwesomeIcon icon={faStar} />
-                                        </span>
-                                    ))}
+                                    <NavLink title={"Telegram"} to={""} className={"text-decoration-none"}> <FontAwesomeIcon icon={faTelegram} /> </NavLink>
+                                    <FontAwesomeIcon title={"Email to admin"}  onClick={()=>{setSupportEmailPopup(true)}} className={"cursor-pointer"} icon={faEnvelope}/>
+                                    <NavLink title={"Create a ticket"}  to={""} className={"text-decoration-none"}> <FontAwesomeIcon icon={faMessage} /> </NavLink>
                                 </div>
                             </div>
                         </div>
@@ -104,6 +105,13 @@ function Footer() {
                 </div>
             </div>
         </footer>
+            {
+                supportEmailPopup &&(
+                    <SupportEmail onClose={() => setSupportEmailPopup(false)} />
+                )
+            }
+
+        </>
     );
 }
 

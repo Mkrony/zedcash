@@ -24,6 +24,7 @@ const ZedStore = create((set, get) => ({
     totalPendingRevenues:0,
     todayChargeback:0,
     totalChargeback:0,
+    totalSupportEmail:0,
     loading: false,
     error: null,
     pollingIntervals: {},
@@ -466,6 +467,46 @@ const ZedStore = create((set, get) => ({
             set({ allUsers: response.data.users });
         } catch (error) {
             set({ allUsers: [] });
+        }
+    },
+
+    // Get total support emails
+    getTotalSupportEmail: async () => {
+        const { token } = get();
+        if (!token) {
+            console.warn("No token available for support email request");
+            return set({ totalSupportEmail: 0, error: "Authentication required" });
+        }
+
+        set({ loading: true });
+        try {
+            const response = await axios.get(
+                `${import.meta.env.VITE_BACKEND_URL}/api/total-support-message`,
+                {
+                    withCredentials: true,
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        'Cache-Control': 'no-cache'
+                    }
+                }
+            );
+            if (response.data?.success) {
+                return set({
+                    totalSupportEmail: response.data.data.total || 0,
+                    supportEmailStats: response.data.data.byStatus || {},
+                    error: null,
+                    loading: false
+                });
+            }
+            throw new Error("Invalid response format");
+        } catch (error) {
+            console.error("Support email count error:", error);
+            return set({
+                totalSupportEmail: 0,
+                supportEmailStats: {},
+                error: error.response?.data?.message || "Failed to fetch support email stats",
+                loading: false
+            });
         }
     },
     // Start polling for a specific key

@@ -5,26 +5,34 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="33c1d1dd-9c61-43af-b21b-23767086e7b2" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/app/controller/PendingSettingsController.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/app/controller/autoCompleteOldPendingTasks.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/app/cron/autoCompleteCron.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/app/controller/LivechatController.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/app/model/LiveChatModel.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/app/model/SupportMessageModel.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/assets/css/supportMessages.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/component/liveChat/LiveChat.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/component/liveChat/LiveChat.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/component/supports/DetailsSupportMessage.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/component/supports/DetalsSupport.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/component/supports/SupportEmail.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/component/supports/SupportEmail.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/page/admin/AdminSupportEmails.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/todo.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/app/controller/PendingTaskController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app/controller/PendingTaskController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/app/controller/PostbackController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app/controller/PostbackController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/app/middleware/IpCheck.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app/middleware/IpCheck.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/app/model/PendingSettingsModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app/model/PendingSettingsModel.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/app/model/PendingTaskModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app/model/PendingTaskModel.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/node_modules/.package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/.package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/routes/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/routes/api.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/component/admins/pending/AllPendingTasksPopup.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/component/admins/pending/AllPendingTasksPopup.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/component/admins/tasks/allcompletedofferspopup.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/component/admins/tasks/allcompletedofferspopup.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/assets/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/assets/css/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/component/HeaderSection.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/component/HeaderSection.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/component/admins/AllWithdraw/allwithdrawalspopup.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/component/admins/AllWithdraw/allwithdrawalspopup.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/component/admins/all-user/EveryUserDetailsModal.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/component/admins/all-user/EveryUserDetailsModal.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/component/admins/all-user/alluserspopup.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/component/admins/all-user/alluserspopup.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/component/footer/Footer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/component/footer/Footer.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/component/footer/Footer.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/component/footer/Footer.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/component/modal/OfferWallModal.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/component/modal/OfferWallModal.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/component/modal/OfferwallModal.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/component/modal/OfferwallModal.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/component/offers/AllOffers.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/component/offers/AllOffers.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/component/offers/OffersOffer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/component/offers/OffersOffer.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/component/zedstore/ZedStore.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/component/zedstore/ZedStore.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/page/AdminPanel.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/page/AdminPanel.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/page/ProfilePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/page/ProfilePage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/page/admin/SettingsPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/page/admin/SettingsPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/page/offerwalls.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/page/offerwalls.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,9 +42,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="CSS File" />
         <option value="JSX File" />
         <option value="JavaScript File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -84,6 +92,9 @@
   &quot;associatedIndex&quot;: 4
 }</component>
   <component name="ProjectId" id="30ZjPUkqt7WqTm1njpwTqDUyHiP" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -119,11 +130,11 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/client/src/assets/css" />
       <recent name="$PROJECT_DIR$/backend/app/controller" />
       <recent name="$PROJECT_DIR$/backend/app/cron" />
       <recent name="$PROJECT_DIR$/client/src/page" />
       <recent name="$PROJECT_DIR$/client/src/assets/sounds" />
-      <recent name="$PROJECT_DIR$/client/src/assets/animation" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -178,6 +189,22 @@
       <workItem from="1754549863125" duration="10720000" />
       <workItem from="1754571817491" duration="6819000" />
       <workItem from="1754657397082" duration="336000" />
+      <workItem from="1754659337029" duration="1347000" />
+      <workItem from="1754661870711" duration="599000" />
+      <workItem from="1754698196310" duration="10597000" />
+      <workItem from="1754733571305" duration="4901000" />
+      <workItem from="1754741790721" duration="1496000" />
+      <workItem from="1754966218355" duration="628000" />
+      <workItem from="1755132124208" duration="10142000" />
+      <workItem from="1755152710233" duration="794000" />
+      <workItem from="1755186925576" duration="1687000" />
+      <workItem from="1755191800194" duration="1260000" />
+      <workItem from="1755232607624" duration="2463000" />
+      <workItem from="1755290903463" duration="599000" />
+      <workItem from="1755406558000" duration="9515000" />
+      <workItem from="1755417759624" duration="599000" />
+      <workItem from="1755467477821" duration="8991000" />
+      <workItem from="1755548415721" duration="19901000" />
     </task>
     <servers />
   </component>

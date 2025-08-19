@@ -1,0 +1,239 @@
+.modal_close_btn{
+    all:unset;
+    cursor:pointer;
+    position: absolute;
+    padding: 5px 10px 5px 10px;
+    z-index: 9999;
+    right: 5px;
+    top: 5px;
+    text-align: center;
+    border: none;
+    border-radius:5px;
+    background: #000;
+}
+.modal_close_btn svg{
+    color: #fff;
+    font-size: 20px !important;
+    margin: 0;
+    padding: 0;
+}
+.modal_container{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(5px);
+    z-index: 999999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+}
+.modal_outer_div{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:transparent;
+}
+.modal_content{
+    padding: 30px;
+    width: 50%;
+    background-color: #1e1b3a;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+    animation: slideUp 0.3s ease-out;
+}
+/*===============*/
+.preloader {
+    position: absolute;
+    height: auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 18px;
+    color: #555;
+}
+@media (max-width: 768px) {
+    .preloader {
+        width: 200px;
+    }
+}
+@media only screen and (max-width: 600px) {
+    .modal_content {
+        width: 100% !important;
+        height: 100% !important;
+    }
+}
+
+
+@keyframes slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+.email_body {
+    padding: 10px;
+}
+
+.form_header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.form_header h2 {
+    color: #2c3e50;
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+.form_header p {
+    color: #7f8c8d;
+    font-size: 0.95rem;
+}
+
+.email_form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form_group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form_group label {
+    font-weight: 500;
+    color: #34495e;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.input_icon {
+    color: #3498db;
+    font-size: 0.9rem;
+}
+
+.form_input, .form_textarea {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    transition: all 0.3s;
+    background-color: #f9f9f9;
+}
+
+.form_input:focus, .form_textarea:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+    background-color: white;
+}
+
+.form_textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.input_error {
+    border-color: #e74c3c !important;
+}
+
+.input_error:focus {
+    box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.2) !important;
+}
+
+.error_message {
+    color: #e74c3c;
+    font-size: 0.85rem;
+    margin-top: 4px;
+}
+
+.submit_btn {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.submit_btn:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+}
+
+.btn_icon {
+    font-size: 0.9rem;
+}
+
+.success_message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 30px 20px;
+}
+
+.success_icon {
+    color: #2ecc71;
+    margin-bottom: 20px;
+}
+
+.success_message h2 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.success_message p {
+    color: #7f8c8d;
+    margin-bottom: 20px;
+    max-width: 80%;
+}
+
+.success_btn {
+    background-color: #2ecc71;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.success_btn:hover {
+    background-color: #27ae60;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+    .modal_content {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .form_header h2 {
+        font-size: 1.5rem;
+    }
+}

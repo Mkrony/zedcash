@@ -1,0 +1,241 @@
+.modal_close_btn{
+    all:unset;
+    cursor:pointer;
+    position: absolute;
+    padding: 5px 10px 5px 10px;
+    z-index: 9999;
+    right: 5px;
+    top: 5px;
+    text-align: center;
+    border: none;
+    border-radius:5px;
+    background: #000;
+}
+.modal_close_btn svg{
+    color: #fff;
+    font-size: 20px !important;
+    margin: 0;
+    padding: 0;
+}
+.modal_container{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(5px);
+    z-index: 999999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+}
+.modal_outer_div{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:transparent;
+}
+.modal_content{
+    padding: 30px;
+    width: 80%;
+    height: 90%;
+    background-color: #0D0B1F;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+    animation: slideUp 0.3s ease-out;
+}
+
+/* Modal Container */
+
+@keyframes slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Email Body Styles */
+.email_body {
+    padding: 10px;
+}
+.message_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #1e1b3a;
+}
+
+.message_header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #fff;
+}
+
+.message_actions {
+    display: flex;
+    gap: 10px;
+}
+
+.action_btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background-color: #1e1b3a;
+    border: 1px solid #373535;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+}
+
+.action_btn:hover {
+    background-color: #01d676;
+}
+
+.delete_btn {
+    color: #d32f2f;
+    border-color: #ffcdd2;
+    background-color: #ffebee;
+}
+
+.delete_btn:hover {
+    background-color: #ffcdd2;
+}
+
+.message_meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #1e1b3a;
+}
+
+.sender_info {
+    display: flex;
+    gap: 10px;
+    flex: 1;
+    min-width: 200px;
+}
+.sender_info svg{
+    font-size: 12px !important;
+    margin-top: 5px;
+}
+.sender_info div {
+    display: flex;
+    flex-direction: column;
+}
+
+.sender_info strong {
+    font-weight: 600;
+}
+
+.sender_info span {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.message_date {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.message_status {
+    margin-left: auto;
+}
+
+.status_badge {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.status_badge.pending {
+    background-color: #fce8e6;
+    color: #d32f2f;
+}
+
+.status_badge.in_progress {
+    background-color: #e8f0fe;
+    color: #1976d2;
+}
+
+.status_badge.resolved {
+    background-color: #e6f4ea;
+    color: #388e3c;
+}
+
+.message_content {
+    line-height: 1.6;
+    padding: 15px 0;
+    white-space: pre-wrap;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .modal_content {
+        width: 95%;
+        padding: 20px;
+    }
+
+    .message_header {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .message_actions {
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .message_meta {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .message_status {
+        margin-left: 0;
+    }
+}
+
+
+
+/*===============*/
+.preloader {
+    position: absolute;
+    height: auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 18px;
+    color: #555;
+}
+@media (max-width: 768px) {
+    .preloader {
+        width: 200px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .modal_content {
+        width: 100% !important;
+        height: 100% !important;
+    }
+}

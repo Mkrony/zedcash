@@ -1,0 +1,377 @@
+/* Main Container */
+.support-messages-container {
+    display: flex;
+    height: calc(100vh - 60px);
+    background-color: #1a1830;
+}
+
+/* Messages List */
+.messages-list {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #0D0B1F;
+    border-right: 1px solid #1e1b3a;
+    overflow: hidden;
+}
+
+.messages-list.with-details {
+    flex: 0 0 60%;
+}
+
+/* Messages Header */
+.messages-header {
+    padding: 10px 15px;
+    border-bottom: 1px solid #1e1b3a;
+    background-color: #0D0B1F;
+}
+
+.search-bar {
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 8px 10px 8px 35px;
+    border: 1px solid #1e1b3a !important;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.search-icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #777;
+}
+
+.actions-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.left-actions, .right-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.action-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #777;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+.action-btn:hover {
+    background-color: #e0e0e0;
+}
+
+.action-btn.active {
+    color: #1a73e8;
+}
+
+.filter-select {
+    padding: 5px;
+    border: 1px solid #1e1b3a;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+/* Messages Content */
+.total-count-ermail{
+    color: #fff;
+}
+.messages-content {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.message-item {
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    border-bottom: 1px solid #1e1b3a;
+    gap: 10px;
+}
+.message-item-content {
+     display: flex;
+     align-items: center;
+     cursor: pointer;
+     justify-content: space-between !important;
+     width: 100%;
+ }
+
+.message-item:hover {
+    background-color: #1e1b3a;
+}
+
+.message-item.active {
+    background-color: #1e1b3a;
+}
+
+.message-item.pending {
+    font-weight: bold;
+}
+
+.message-checkbox {
+    flex: 0 0 40px;
+    padding-right: 10px;
+}
+
+.message-checkbox input {
+    cursor: pointer;
+    width: 30px;
+}
+
+.message-sender {
+    flex: 0 0 300px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.unread-icon {
+    color: #1a73e8;
+}
+
+.read-icon {
+    color: #777;
+}
+
+.message-preview {
+    flex: 1;
+    min-width: 0;
+}
+
+.message-subject {
+    font-weight: 500;
+    margin-bottom: 3px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.message-excerpt {
+    color: #777;
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.message-date {
+    flex: 0 0 120px;
+    text-align: right;
+    font-size: 14px;
+    color: #777;
+}
+
+.message-status {
+    flex: 0 0 100px;
+    text-align: right;
+}
+
+.status-badge {
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.status-badge.pending {
+    background-color: #fce8e6;
+    color: #d93025;
+}
+
+.status-badge.in_progress {
+    background-color: #1e1b3a;
+    color: #1a73e8;
+}
+
+.status-badge.resolved {
+    background-color: #e6f4ea;
+    color: #188038;
+}
+
+/* Loading State */
+.loading-messages {
+    padding: 10px;
+}
+
+.message-item-skeleton {
+    display: flex;
+    padding: 15px;
+    border-bottom: 1px solid #1e1b3a;
+}
+
+.skeleton-checkbox {
+    width: 20px;
+    height: 20px;
+    margin-right: 15px;
+    background-color: #f0f0f0;
+    border-radius: 4px;
+}
+
+.skeleton-content {
+    flex: 1;
+}
+
+.skeleton-line {
+    height: 12px;
+    background-color: #f0f0f0;
+    margin-bottom: 8px;
+    border-radius: 4px;
+}
+
+.no-messages {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    color: #777;
+}
+
+/* Message Details */
+.message-details-container {
+
+}
+
+.message-details {
+    padding: 20px;
+}
+
+.message-details-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #1e1b3a;
+    padding-bottom: 15px;
+}
+
+.message-details-header h2 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.message-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.message-actions .action-btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background-color: #f5f5f5;
+    border: 1px solid #1e1b3a;
+    padding: 8px 12px;
+    font-size: 14px;
+}
+
+.message-actions .action-btn.delete {
+    color: #d93025;
+}
+
+.message-actions .action-btn.close {
+    padding: 8px;
+}
+
+.message-meta {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #1e1b3a;
+}
+
+.sender-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.sender-info div {
+    display: flex;
+    flex-direction: column;
+}
+
+.sender-info span {
+    font-size: 14px;
+    color: #777;
+}
+
+.message-date {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+    color: #777;
+}
+
+.message-content {
+    line-height: 1.6;
+    padding: 15px 0;
+}
+
+.message-footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #1e1b3a;
+}
+
+.reply-btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background-color: #1a73e8;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.reply-btn:hover {
+    background-color: #1765cc;
+}
+
+/* Pagination */
+.messages-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 15px;
+    border-top: 1px solid #1e1b3a;
+    background-color: #1e1b3a;
+}
+
+.messages-footer button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+.messages-footer button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.messages-footer button:hover:not(:disabled) {
+    background-color: #e0e0e0;
+}

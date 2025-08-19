@@ -18,11 +18,11 @@ const sliderSettings = {
     infinite: true,
     autoplay: true,
     speed: 500,
-    slidesToShow: 10,
+    slidesToShow: 12,
     slidesToScroll: 1,
     arrows: false,
     responsive: [
-        {
+       {
             breakpoint: 1400,
             settings: {
                 slidesToShow: 8,

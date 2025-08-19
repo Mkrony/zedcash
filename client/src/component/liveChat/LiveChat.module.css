@@ -1,0 +1,124 @@
+.chatButton {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    transition: transform 0.2s ease-in-out;
+    z-index: 999;
+    padding: 5px 15px;
+}
+.chatButton:hover {
+    transform: scale(1.1);
+}
+
+.chatPanel {
+    position: fixed;
+    top: 5%;
+    right: -350px; /* hidden */
+    width: 350px;
+    height: 95vh;
+    background: #0D0B1F !important;
+    box-shadow: -2px 0 8px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    transition: right 0.3s ease-in-out;
+    z-index: 9999;
+}
+.chatPanel.open {
+    right: 0;
+}
+
+.header {
+    background: #1a1830;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    padding-bottom: 0 !important;
+}
+.header h4{
+    font-size: 16px;
+    margin: 0;
+    padding: 10px;
+    font-weight: bold;
+}
+.closeBtn {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+}
+
+.messages {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+    /*background: #1e1b3a !important;*/
+}
+.message {
+    max-width: 80%;
+    margin-bottom: 10px;
+    padding: 2px 12px;
+    border-radius: 12px;
+}
+.chat_time{
+    color: #4e4c4c !important;
+    font-size: 10px;
+}
+.sent {
+    /*background: #1a1830;*/
+    color: white;
+    align-self: flex-end;
+    margin-left: 20px;
+}
+.received {
+    /*background: #0D0B1F;*/
+    color: black;
+    align-self: flex-start;
+}
+.sender {
+    color: #00ffc3 !important;
+    display: block;
+    font-size: 0.75rem;
+    opacity: 0.7;
+}
+
+.inputArea {
+    display: flex;
+    border-top: 1px solid #0D0B1F;
+    background: #1a1830;
+}
+.inputArea input {
+    flex: 1;
+    border: none;
+    padding: 10px;
+    outline: none;
+    background: #1a1830;
+    color:#00ffc3;
+}
+.inputArea button {
+    background: #0f0e1a;
+    border: none;
+    padding: 10px 15px;
+    color: white;
+    cursor: pointer;
+}
+/* Overlay when chat is open */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+    z-index: 999;
+}
