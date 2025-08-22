@@ -4,28 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="33c1d1dd-9c61-43af-b21b-23767086e7b2" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/app/model/TicketMessageModel.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/assets/css/supportTicket.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/component/supports/DetailsSupportTicket.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/component/supports/DetailsTicket.module.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/component/supports/SupportTicket.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/component/supports/SupportTicket.module.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/page/admin/AdminSupportTicket.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/app/controller/LivechatController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app/controller/LivechatController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/routes/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/routes/api.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/assets/css/adminPage.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/assets/css/adminPage.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/component/footer/Footer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/component/footer/Footer.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/component/footer/Footer.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/component/footer/Footer.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/component/offers/OffersOffer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/component/offers/OffersOffer.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/component/supports/SupportEmail.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/component/supports/SupportEmail.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/component/supports/SupportEmail.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/component/supports/SupportEmail.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/component/zedstore/ZedStore.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/component/zedstore/ZedStore.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/page/AdminPanel.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/page/AdminPanel.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/page/admin/AdminSupportEmails.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/page/admin/AdminSupportEmails.jsx" afterDir="false" />
-    </list>
+    <list default="true" id="33c1d1dd-9c61-43af-b21b-23767086e7b2" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -202,6 +181,7 @@
       <workItem from="1755754210445" duration="6272000" />
       <workItem from="1755766329979" duration="17040000" />
       <workItem from="1755799632207" duration="6067000" />
+      <workItem from="1755844858508" duration="399000" />
     </task>
     <servers />
   </component>
