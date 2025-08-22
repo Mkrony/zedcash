@@ -96,6 +96,8 @@ const AdminPanel = () => {
         getTotalChargeback,
         totalSupportEmail,
         getTotalSupportEmail,
+        totalSupportTicket,
+        getTotalSupportTicket,
         loading: storeLoading,
         error: storeError
     } = zedStore();
@@ -217,6 +219,7 @@ const AdminPanel = () => {
                 fetchDataWithRetry(getTodayChargeback),
                 fetchDataWithRetry(getTotalChargeback),
                 fetchDataWithRetry(getTotalSupportEmail),
+                fetchDataWithRetry(getTotalSupportTicket),
             ]);
 
             setLoading({
@@ -256,7 +259,8 @@ const AdminPanel = () => {
         gettodayPendingRevenues,
         getTodayChargeback,
         getTotalChargeback,
-        getTotalSupportEmail
+        getTotalSupportEmail,
+        getTotalSupportTicket
     ]);
 
     useEffect(() => {
@@ -361,24 +365,53 @@ const AdminPanel = () => {
                         )}
                     </div>
 
-                    {/* Support Messages Section - Separate at the bottom */}
+                    {/* Support Center Section - Updated with both Email and Ticket */}
                     <div className="row pt-5 ms-1">
                         <div className="page-title">
                             <h3 className="mb-4">Support Center</h3>
                         </div>
-                        <div className="col-md-4 col-lg-3 col-12">
+
+                        {/* Support Email Card */}
+                        <div className="col-md-4 col-lg-3 col-12 mb-4">
                             {loading.support ? (
                                 <SupportCardSkeleton />
                             ) : (
                                 <NavLink
                                     to="/support-emails"
-                                    className="profile-details-box card text-center py-3 box-shadow text-decoration-none"
+                                    className="profile-details-box card text-center py-3 box-shadow text-decoration-none support-card"
+                                    style={{ minHeight: '120px' }}
                                 >
                                     <div className="profile-details-box-title">
-                                        <h5 className="fw-bold">Support Email</h5>
+                                        <h5 className="fw-bold">Support Emails</h5>
                                     </div>
                                     <div className="profile-details-box-balance mt-2">
-                                        <h5 className="fw-bold text-danger">{totalSupportEmail}</h5>
+                                        <h5 className="fw-bold text-danger">{totalSupportEmail?.toLocaleString() || '0'}</h5>
+                                    </div>
+                                    <div className="profile-details-box-subtitle mt-1">
+                                        <small className="text-info">View all support emails</small>
+                                    </div>
+                                </NavLink>
+                            )}
+                        </div>
+
+                        {/* Support Ticket Card */}
+                        <div className="col-md-4 col-lg-3 col-12 mb-4">
+                            {loading.support ? (
+                                <SupportCardSkeleton />
+                            ) : (
+                                <NavLink
+                                    to="/support-ticket"
+                                    className="profile-details-box card text-center py-3 box-shadow text-decoration-none support-card"
+                                    style={{ minHeight: '120px' }}
+                                >
+                                    <div className="profile-details-box-title">
+                                        <h5 className="fw-bold">Support Tickets</h5>
+                                    </div>
+                                    <div className="profile-details-box-balance mt-2">
+                                        <h5 className="fw-bold text-danger">{totalSupportTicket?.toLocaleString() || '0'}</h5>
+                                    </div>
+                                    <div className="profile-details-box-subtitle mt-1">
+                                        <small className="text-info">Manage support tickets</small>
                                     </div>
                                 </NavLink>
                             )}

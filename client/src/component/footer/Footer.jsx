@@ -2,17 +2,16 @@ import React, {memo, useState} from "react";
 import {Link, NavLink} from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faComment, faEnvelope, faMessage, faStar} from "@fortawesome/free-solid-svg-icons";
-import {
-    faFacebookSquare,
-    faTelegram,
-    faLinkedinIn
-} from "@fortawesome/free-brands-svg-icons";
 import styles from "./Footer.module.css";
 import LiveChat from "../liveChat/LiveChat.jsx";
 import SupportEmail from "../supports/SupportEmail.jsx";
+import zedStore from "../zedstore/ZedStore.jsx";
+
 function Footer() {
+    const {userDetails,userDetailsRequested,} = zedStore();
     const siteName = "ZedCash";
     const [supportEmailPopup, setSupportEmailPopup] = useState(false);
+    const toggleLoginPopup = zedStore((state) => state.toggleLoginPopup);
     return (
         <>
         <footer className={styles.footer}>
@@ -36,46 +35,56 @@ function Footer() {
                         </div>
                         {/* Social Media Links */}
                         <div className="col-md-3">
-                            <div className={`${styles.top_footer_nav_social} text-center`}>
-                                <h2>Join Our Community</h2>
-                                <ul>
-                                    <li>
-                                        <Link to="#" aria-label="Facebook">
-                                            <FontAwesomeIcon icon={faFacebookSquare} />
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link to="#" aria-label="Telegram">
-                                            <FontAwesomeIcon icon={faTelegram} />
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link to="#" aria-label="LinkedIn">
-                                            <FontAwesomeIcon icon={faLinkedinIn} />
-                                        </Link>
-                                    </li>
-                                </ul>
+                            <div className={`${styles.footer_essential_link}`}>
+                                <h2 className={"green"}>{siteName}</h2>
+                                <NavLink to={"/earn"} className={"text-decoration-none m-1"}>Earn</NavLink>
+                                <NavLink to={"/cashout"} className={"text-decoration-none m-1"}>Cashout</NavLink>
+                                <NavLink to={"/profile"} className={"text-decoration-none m-1"}>Profile</NavLink>
                             </div>
                         </div>
                         {/* eassential Links */}
                         <div className="col-md-3">
-                            <div className={`${styles.footer_essential_link} text-center`}>
-                                <h2>Essential Links</h2>
-                                <NavLink to={"/offerwall-list"} className={"btn btn-sm btn-success m-1"}>All Offerwall URL</NavLink>
-                                <NavLink to={"/privacy"} className={"btn btn-sm btn-success m-1"}>Privacy-Policy</NavLink>
-                                <NavLink to={"/terms"} className={"btn btn-sm btn-success m-1"}>Terms of Service</NavLink>
+                            <div className={`${styles.footer_essential_link}`}>
+                                <h2 className={"green"}>Essential Links</h2>
+                                <NavLink to={"/offerwall-list"} className={"text-decoration-none m-1"}>All Offerwall URL</NavLink>
+                                <NavLink to={"/privacy"} className={"text-decoration-none m-1"}>Privacy-Policy</NavLink>
+                                <NavLink to={"/terms"} className={"text-decoration-none m-1"}>Terms of Service</NavLink>
                             </div>
                         </div>
 
                         {/* Reviews */}
                         <div className="col-md-3">
                             <div className={`${styles.top_footer_review}`}>
-                                <h2>Do you need urgent Support ?</h2>
+                                <h2 className={"green"}>Do you need urgent Support ?</h2>
                                 <div className={styles.star}>
-                                    <NavLink title={"Telegram"} to={""} className={"text-decoration-none"}> <FontAwesomeIcon icon={faTelegram} /> </NavLink>
-                                    <FontAwesomeIcon title={"Email to admin"}  onClick={()=>{setSupportEmailPopup(true)}} className={"cursor-pointer"} icon={faEnvelope}/>
-                                    <NavLink title={"Create a ticket"}  to={""} className={"text-decoration-none"}> <FontAwesomeIcon icon={faMessage} /> </NavLink>
+                                    {/* Email to admin */}
+                                    <FontAwesomeIcon
+                                        title="Email to admin"
+                                        onClick={() => setSupportEmailPopup(true)}
+                                        className="cursor-pointer"
+                                        icon={faEnvelope}
+                                    />
+
+                                    {/* Support ticket */}
+                                    {!userDetails ? (
+                                        <span
+                                            onClick={() => toggleLoginPopup(true)}
+                                            title="Create a ticket"
+                                            className="cursor-pointer ms-2"
+                                        >
+      <FontAwesomeIcon icon={faMessage} />
+    </span>
+                                    ) : (
+                                        <NavLink
+                                            title="Create a ticket"
+                                            to="/ticket"
+                                            className="text-decoration-none ms-2"
+                                        >
+                                            <FontAwesomeIcon icon={faMessage} />
+                                        </NavLink>
+                                    )}
                                 </div>
+
                             </div>
                         </div>
                     </div>

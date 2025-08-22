@@ -1,6 +1,9 @@
 import LiveChatModel from "../model/LiveChatModel.js";
 import SupportMessage from "../model/SupportMessageModel.js";
+import TicketMessage from "../model/TicketMessageModel.js";
 
+// live chat Email
+//========================================================================
 export const SendMessage = async (req, res)=>{
    try{
        const { content, senderUsername } = req.body;
@@ -51,6 +54,8 @@ export const ShowMessage = async (req, res)=>{
     }
 }
 
+// support Email
+//========================================================================
 // Send Support Email
 export const SendSupportMessage = async (req, res) => {
     try {
@@ -387,6 +392,340 @@ export const DeleteSupportMessage = async (req, res) => {
             success: false,
             error: "Failed to delete message",
             ...(process.env.NODE_ENV === 'development' && { details: error.message })
+        });
+    }
+};
+
+// support ticket
+//========================================================================
+
+// show ticket to users by their id
+export const ShowTicketMessage = async (req, res) => {
+    try {
+        const userId = req.headers.user_id;
+        const messages = await TicketMessage.find({ userId })
+            .sort({ createdAt: 1 })
+            .select('message sender createdAt');
+
+        res.json({
+            success: true,
+            messages
+        });
+    } catch (error) {
+        console.error('Error fetching ticket messages:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Internal server error'
+        });
+    }
+};
+
+// open new ticket
+export const SendTicketMessage = async (req, res) => {
+    try {
+        const { message } = req.body;
+        const userId = req.headers.user_id;
+        const username = req.params.username;
+
+        if (!message || message.trim().length === 0) {
+            return res.status(400).json({
+                success: false,
+                message: 'Message is required'
+            });
+        }
+        const ticketMessage = new TicketMessage({
+            userId,
+            username,
+            message: message.trim(),
+        });
+
+        await ticketMessage.save();
+
+        res.json({
+            success: true,
+            message: 'Message sent successfully',
+            messageId: ticketMessage._id
+        });
+    } catch (error) {
+        console.error('Error sending ticket message:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Internal server error'
+        });
+    }
+};
+
+// count ticket
+export const TotalSupportTicket = async (req, res) => {
+    try {
+        // For admin panel, we want to count ALL tickets with status 'open'
+        const openTicketsCount = await TicketMessage.countDocuments({
+            status: 'open'
+        });
+
+        // If you also want the total count of all tickets (optional)
+        const totalTicketsCount = await TicketMessage.countDocuments();
+
+        return res.status(200).json({
+            success: true,
+            data: {
+                total: openTicketsCount, // Only count open tickets
+                totalAll: totalTicketsCount, // Optional: total count of all tickets
+                byStatus: {
+                    open: openTicketsCount
+                }
+            },
+            message: 'Open support tickets count retrieved successfully'
+        });
+
+    } catch (error) {
+        console.error('Error fetching support ticket statistics:', error);
+        return res.status(500).json({
+            success: false,
+            error: error.message,
+            message: 'Internal server error'
+        });
+    }
+};
+
+// show all ticket
+export const ShowAllTicketMessage = async (req, res) => {
+    try {
+        // Pagination parameters
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 20;
+        const skip = (page - 1) * limit;
+
+        // Sorting parameters
+        const sortField = req.query.sortField || 'createdAt';
+        const sortOrder = req.query.sortOrder === 'asc' ? 1 : -1;
+        const sort = { [sortField]: sortOrder };
+
+        // Status filtering
+        let statusFilter = {};
+        if (req.query.status && req.query.status !== 'all') {
+            statusFilter = { status: req.query.status };
+        }
+
+        // Date filtering
+        let dateFilter = {};
+        if (req.query.startDate && req.query.endDate) {
+            dateFilter = {
+                createdAt: {
+                    $gte: new Date(req.query.startDate),
+                    $lte: new Date(req.query.endDate)
+                }
+            };
+        } else if (req.query.startDate) {
+            dateFilter = { createdAt: { $gte: new Date(req.query.startDate) } };
+        } else if (req.query.endDate) {
+            dateFilter = { createdAt: { $lte: new Date(req.query.endDate) } };
+        }
+
+        // Search query
+        const searchQuery = req.query.search
+            ? {
+                $or: [
+                    { message: { $regex: req.query.search, $options: "i" } },
+                    { 'userId.username': { $regex: req.query.search, $options: "i" } },
+                    { 'userId.email': { $regex: req.query.search, $options: "i" } }
+                ]
+            }
+            : {};
+
+        // Combine all filters
+        const query = {
+            ...searchQuery,
+            ...statusFilter,
+            ...dateFilter
+        };
+
+        // Get total count for pagination
+        const total = await TicketMessage.countDocuments(query);
+
+        // Get tickets with user population and additional metadata
+        const tickets = await TicketMessage.find(query)
+            .populate('userId', 'username email') // Populate user information
+            .sort(sort)
+            .skip(skip)
+            .limit(limit)
+            .lean()
+            .transform((docs) => {
+                return docs.map(doc => ({
+                    ...doc,
+                    userName: doc.userId?.username || 'Unknown User',
+                    userEmail: doc.userId?.email || 'No email',
+                    // Remove the userId object to avoid duplication
+                    userId: doc.userId?._id
+                }));
+            });
+
+        // Calculate statistics for all statuses
+        const stats = await TicketMessage.aggregate([
+            { $match: query },
+            {
+                $group: {
+                    _id: null,
+                    total: { $sum: 1 },
+                    open: { $sum: { $cond: [{ $eq: ["$status", "open"] }, 1, 0] } },
+                    in_progress: { $sum: { $cond: [{ $eq: ["$status", "in_progress"] }, 1, 0] } },
+                    resolved: { $sum: { $cond: [{ $eq: ["$status", "resolved"] }, 1, 0] } },
+                    closed: { $sum: { $cond: [{ $eq: ["$status", "closed"] }, 1, 0] } }
+                }
+            }
+        ]);
+
+        const statistics = stats[0] || {
+            total: 0,
+            open: 0,
+            in_progress: 0,
+            resolved: 0,
+            closed: 0
+        };
+
+        return res.status(200).json({
+            status: "success",
+            results: tickets.length,
+            total,
+            page,
+            pages: Math.ceil(total / limit),
+            statistics,
+            data: tickets,
+            filters: {
+                search: req.query.search || '',
+                status: req.query.status || 'all',
+                startDate: req.query.startDate || '',
+                endDate: req.query.endDate || '',
+                sortField,
+                sortOrder: sortOrder === 1 ? 'asc' : 'desc'
+            }
+        });
+    } catch (e) {
+        console.error("Error fetching support tickets:", e);
+        return res.status(500).json({
+            status: "failed",
+            message: "An error occurred while fetching support tickets",
+            error: process.env.NODE_ENV === 'development' ? e.message : undefined
+        });
+    }
+};
+
+// admin ticket reply
+// In your adminReplyToTicket controller
+export const adminReplyToTicket = async (req, res) => {
+    try {
+        const { ticketId, message } = req.body;
+        const adminId = req.headers.user_id;
+
+        const ticket = await TicketMessage.findById(ticketId);
+        if (!ticket) {
+            return res.status(404).json({ success: false, message: "Ticket not found" });
+        }
+
+        // Add reply to conversation
+        if (!ticket.conversation) {
+            ticket.conversation = [];
+        }
+
+        ticket.conversation.push({
+            sender: 'admin',
+            message: message.trim(),
+            timestamp: new Date()
+        });
+
+        // Update ticket status to in_progress if it was open
+        if (ticket.status === 'open') {
+            ticket.status = 'in_progress';
+        }
+
+        // Update the updatedAt timestamp
+        ticket.updatedAt = new Date();
+
+        await ticket.save();
+
+        // Populate the conversation if needed, or return the full ticket
+        const updatedTicket = await TicketMessage.findById(ticketId);
+
+        res.json({
+            success: true,
+            message: "Reply sent successfully",
+            ticket: updatedTicket // Return the complete updated ticket
+        });
+    } catch (error) {
+        console.error("Error sending admin reply:", error);
+        res.status(500).json({ success: false, message: "Internal server error" });
+    }
+};
+
+// Get user's tickets
+export const getUserTickets = async (req, res) => {
+    try {
+        const userId = req.headers.user_id;
+
+        const tickets = await TicketMessage.find({ userId })
+            .sort({ createdAt: -1 });
+
+        res.json({
+            success: true,
+            data: tickets,
+            message: 'User tickets retrieved successfully'
+        });
+    } catch (error) {
+        console.error("Error fetching user tickets:", error);
+        res.status(500).json({
+            success: false,
+            message: "Internal server error"
+        });
+    }
+};
+
+// User reply to existing ticket
+export const userReplyToTicket = async (req, res) => {
+    try {
+        const { ticketId, message } = req.body;
+        const userId = req.headers.user_id;
+
+        if (!ticketId || !message || message.trim().length === 0) {
+            return res.status(400).json({
+                success: false,
+                message: "Ticket ID and message are required"
+            });
+        }
+
+        const ticket = await TicketMessage.findOne({ _id: ticketId, userId });
+        if (!ticket) {
+            return res.status(404).json({
+                success: false,
+                message: "Ticket not found"
+            });
+        }
+
+        // Add user reply to conversation
+        if (!ticket.conversation) {
+            ticket.conversation = [];
+        }
+
+        ticket.conversation.push({
+            sender: 'user',
+            message: message.trim(),
+            timestamp: new Date()
+        });
+
+        // Update the updatedAt timestamp
+        ticket.updatedAt = new Date();
+
+        await ticket.save();
+
+        res.json({
+            success: true,
+            message: "Reply sent successfully",
+            ticket: ticket
+        });
+    } catch (error) {
+        console.error("Error sending user reply:", error);
+        res.status(500).json({
+            success: false,
+            message: "Internal server error"
         });
     }
 };

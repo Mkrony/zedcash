@@ -183,9 +183,9 @@ const AdminSupportEmails = () => {
             <div className="container-fluid">
                 <div className="row">
                     <div className="page-title my-4 mx-3">
-                        <h2>
+                        <h4>
                             Inbox - <span className="total-count-email">{stats.total}</span>
-                        </h2>
+                        </h4>
                     </div>
                 </div>
                 <div className="row">

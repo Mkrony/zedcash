@@ -47,12 +47,12 @@ footer {
     fill: #fff;
 }
 .footer_essential_link a{
-    text-align: center;
+    text-align: start;
     color: #FFFFFF;
     font-size: 14px;
     text-decoration: none;
     transition: color 0.3s ease;
-    display: inline-block;
+    display: block;
 }
 .top_footer_nav_social ul li a:hover {
     color: #3ac776a8;

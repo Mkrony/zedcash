@@ -157,6 +157,7 @@ const ZedStore = create((set, get) => ({
             });
         }
     },
+
     // Get today's revenue from completed tasks
     getTodayRevenues: async () => {
     const { token } = get();
@@ -190,6 +191,7 @@ const ZedStore = create((set, get) => ({
         });
     }
 },
+
     // Get total pending revenue from all pending tasks
     getTotalPendingRevenues: async () => {
         const { token } = get();
@@ -225,6 +227,7 @@ const ZedStore = create((set, get) => ({
             });
         }
     },
+
     // Get today's pending revenue from pending tasks
     gettodayPendingRevenues: async () => {
         const { token } = get();
@@ -260,6 +263,7 @@ const ZedStore = create((set, get) => ({
             });
         }
     },
+
     // Get timeline data
     getTimelineData: async () => {
         try {
@@ -287,6 +291,7 @@ const ZedStore = create((set, get) => ({
             return [];
         }
     },
+
     // Fetch user Notification
     fetchUserNotifications: async () => {
         const { token } = get();
@@ -315,6 +320,7 @@ const ZedStore = create((set, get) => ({
             set({ loading: false });
         }
     },
+
     // Fetch unread notifications
     fetchUnreadNotifications: async () => {
         const { token } = get();
@@ -348,6 +354,7 @@ const ZedStore = create((set, get) => ({
             set({ unreadNotifications: [] });
         }
     },
+
     // Fetch all chargebacks
     getAllChargeback: async () => {
         try {
@@ -359,6 +366,7 @@ const ZedStore = create((set, get) => ({
             set({ allChargebacks: [] });
         }
     },
+
     // Fetch user chargeback
     getUserChargeback: async () => {
         const { token } = get();
@@ -374,6 +382,7 @@ const ZedStore = create((set, get) => ({
             set({ userChargebacks: [] });
         }
     },
+
     // Get all pending tasks
     getAllPendingTasks: async () => {
         try {
@@ -505,6 +514,44 @@ const ZedStore = create((set, get) => ({
                 totalSupportEmail: 0,
                 supportEmailStats: {},
                 error: error.response?.data?.message || "Failed to fetch support email stats",
+                loading: false
+            });
+        }
+    },
+
+    // Get total support ticket
+    getTotalSupportTicket: async () => {
+        const { token } = get();
+        if (!token) {
+            console.warn("No token available for support ticket request");
+            return set({ totalSupportTicket: 0, error: "Authentication required" });
+        }
+
+        set({ loading: true });
+        try {
+            const response = await axios.get(
+                `${import.meta.env.VITE_BACKEND_URL}/api/total-support-ticket`,
+                {
+                    withCredentials: true,
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        'Cache-Control': 'no-cache'
+                    }
+                }
+            );
+            if (response.data?.success) {
+                return set({
+                    totalSupportTicket: response.data.data.total || 0, // Just the open count
+                    error: null,
+                    loading: false
+                });
+            }
+            throw new Error("Invalid response format");
+        } catch (error) {
+            console.error("Support ticket count error:", error);
+            return set({
+                totalSupportTicket: 0,
+                error: error.response?.data?.message || "Failed to fetch support ticket count",
                 loading: false
             });
         }

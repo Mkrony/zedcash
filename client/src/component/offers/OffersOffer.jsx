@@ -18,7 +18,7 @@ const sliderSettings = {
     infinite: true,
     autoplay: true,
     speed: 500,
-    slidesToShow: 12,
+    slidesToShow: 10,
     slidesToScroll: 1,
     arrows: false,
     responsive: [
@@ -82,9 +82,8 @@ const OfferSkeleton = ({ count = 10 }) => {
                 <div key={index} className={`${styled.offer_box} skeleton-item`}>
                     <div className={`${styled.offer_img} skeleton-image`}></div>
                     <div className={styled.offer_title}>
-                        <div className="skeleton-text" style={{ width: '80%', height: '16px', marginBottom: '8px' }}></div>
+                        <div className="skeleton-text" style={{ width: '80%', height: '16px', marginBottom: '8px', marginTop: '8px' }}></div>
                         <div className="skeleton-text" style={{ width: '60%', height: '12px', marginBottom: '8px' }}></div>
-                        <div className="skeleton-text" style={{ width: '40%', height: '14px' }}></div>
                     </div>
                 </div>
             ))}

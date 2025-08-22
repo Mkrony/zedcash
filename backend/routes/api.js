@@ -17,7 +17,7 @@ import * as SpinController from "../app/controller/SpinController.js";
 import * as LiveChatController from "../app/controller/LivechatController.js";
 import IpCheckMiddleWire from "../app/middleware/IpCheck.js";
 import { AuthMiddleware } from "../app/middleware/AuthMiddleware.js";
-import {ShowMessage} from "../app/controller/LivechatController.js";
+import {adminReplyToTicket, ShowAllTicketMessage, ShowMessage} from "../app/controller/LivechatController.js";
 
 // timeLine
 router.get('/timeline',TimelineController.GetTimeline);
@@ -118,6 +118,17 @@ router.post("/send-support-message", LiveChatController.SendSupportMessage);
 router.patch("/update-support-message/:id", AuthMiddleware, LiveChatController.UpdateStatus);
 router.post("/bulk-support-messages", AuthMiddleware, LiveChatController.BulkSupportMessages);
 router.delete("/delete-support-message/:id", AuthMiddleware, LiveChatController.DeleteSupportMessage);
+//ticket support api
+router.get("/total-support-ticket", AuthMiddleware, LiveChatController.TotalSupportTicket);
+router.get("/show-ticket-message", AuthMiddleware, LiveChatController.ShowTicketMessage);
+router.post("/send-ticket-message/:username", AuthMiddleware, LiveChatController.SendTicketMessage);
+router.post("/admin-reply-ticket", AuthMiddleware, LiveChatController.adminReplyToTicket);
+router.get("/show-all-ticket-message", AuthMiddleware, LiveChatController.ShowAllTicketMessage);
+// Get user's tickets
+router.get("/user-tickets", AuthMiddleware, LiveChatController.getUserTickets);
+
+// User reply to existing ticket
+router.post("/user-reply-ticket", AuthMiddleware, LiveChatController.userReplyToTicket);
 // Export the router
 
 export default router;

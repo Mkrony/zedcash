@@ -5,34 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="33c1d1dd-9c61-43af-b21b-23767086e7b2" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/app/controller/LivechatController.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/app/model/LiveChatModel.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/app/model/SupportMessageModel.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/assets/css/supportMessages.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/component/liveChat/LiveChat.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/component/liveChat/LiveChat.module.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/component/supports/DetailsSupportMessage.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/component/supports/DetalsSupport.module.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/component/supports/SupportEmail.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/component/supports/SupportEmail.module.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/page/admin/AdminSupportEmails.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/todo.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/app/model/TicketMessageModel.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/assets/css/supportTicket.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/component/supports/DetailsSupportTicket.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/component/supports/DetailsTicket.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/component/supports/SupportTicket.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/component/supports/SupportTicket.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/page/admin/AdminSupportTicket.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/app/controller/LivechatController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app/controller/LivechatController.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/routes/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/routes/api.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/assets/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/assets/css/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/component/HeaderSection.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/component/HeaderSection.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/component/admins/AllWithdraw/allwithdrawalspopup.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/component/admins/AllWithdraw/allwithdrawalspopup.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/component/admins/all-user/EveryUserDetailsModal.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/component/admins/all-user/EveryUserDetailsModal.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/component/admins/all-user/alluserspopup.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/component/admins/all-user/alluserspopup.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/assets/css/adminPage.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/assets/css/adminPage.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/component/footer/Footer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/component/footer/Footer.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/component/footer/Footer.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/component/footer/Footer.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/component/modal/OfferWallModal.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/component/modal/OfferWallModal.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/component/modal/OfferwallModal.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/component/modal/OfferwallModal.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/component/offers/AllOffers.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/component/offers/AllOffers.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/component/offers/OffersOffer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/component/offers/OffersOffer.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/component/supports/SupportEmail.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/component/supports/SupportEmail.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/component/supports/SupportEmail.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/component/supports/SupportEmail.module.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/component/zedstore/ZedStore.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/component/zedstore/ZedStore.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/page/AdminPanel.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/page/AdminPanel.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/page/admin/AdminSupportEmails.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/page/admin/AdminSupportEmails.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,8 +34,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JSX File" />
         <option value="JavaScript File" />
+        <option value="JSX File" />
         <option value="CSS File" />
       </list>
     </option>
@@ -204,7 +196,12 @@
       <workItem from="1755406558000" duration="9515000" />
       <workItem from="1755417759624" duration="599000" />
       <workItem from="1755467477821" duration="8991000" />
-      <workItem from="1755548415721" duration="19901000" />
+      <workItem from="1755548415721" duration="21480000" />
+      <workItem from="1755583856788" duration="599000" />
+      <workItem from="1755644119967" duration="8782000" />
+      <workItem from="1755754210445" duration="6272000" />
+      <workItem from="1755766329979" duration="17040000" />
+      <workItem from="1755799632207" duration="6067000" />
     </task>
     <servers />
   </component>

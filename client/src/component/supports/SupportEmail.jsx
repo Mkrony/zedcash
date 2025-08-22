@@ -1,10 +1,10 @@
 import styles from "./SupportEmail.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faPaperPlane, faUser, faEnvelope, faHeading } from "@fortawesome/free-solid-svg-icons";
-import CirclecashAnimation from "../Animations/CirclecashAnimation.jsx";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import LoveAnimation from "../Animations/LoveAnimation.jsx";
 
 const SupportEmail = ({ onClose }) => {
     const [isLoading, setIsLoading] = useState(false);
@@ -90,7 +90,6 @@ const SupportEmail = ({ onClose }) => {
     return (
         <div className={styles.modal_container}>
             <div className={styles.modal_outer_div} onClick={onClose}></div>
-
             <div className={styles.modal_content}>
                 <button
                     title="Close"
@@ -99,10 +98,9 @@ const SupportEmail = ({ onClose }) => {
                 >
                     <FontAwesomeIcon icon={faXmark} />
                 </button>
-
                 {isLoading ? (
-                    <div className={styles.preloader}>
-                        <CirclecashAnimation />
+                    <div className={styles.loader}>
+                        <LoveAnimation />
                         <h2 className="text-center">Sending your message...</h2>
                     </div>
                 ) : isSubmitted ? (
@@ -112,12 +110,6 @@ const SupportEmail = ({ onClose }) => {
                         </div>
                         <h2>Message Sent Successfully!</h2>
                         <p>Thank you for contacting us. We'll get back to you soon.</p>
-                        {/*<button*/}
-                        {/*    onClick={() => setIsSubmitted(false)}*/}
-                        {/*    className={styles.success_btn}*/}
-                        {/*>*/}
-                        {/*    Send another message*/}
-                        {/*</button>*/}
                     </div>
                 ) : (
                     <div className={styles.email_body}>

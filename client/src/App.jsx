@@ -28,6 +28,8 @@ import AllOfferwallList from "./page/AllOfferwallList.jsx";
 import TermsOfService from "./page/TermsOfService.jsx";
 import PrivacyPolicy from "./page/PrivacyPolicy.jsx";
 import AdminSupportEmail from "./page/admin/AdminSupportEmails.jsx";
+import SupportTicket from "./component/supports/SupportTicket.jsx";
+import AdminSupportTicket from "./page/admin/AdminSupportTicket.jsx";
 const App = () => {
     const [pageLoading, setPageLoading] = useState(true);
     const { startAllPolling, stopAllPolling, fetchUnreadNotifications, unreadNotifications, getUserTasks, userDetailsRequested,getTodayRevenues,getTotalRevenues } = ZedStore();
@@ -129,6 +131,8 @@ const App = () => {
                     <Route exact path="/logout" element={<Logout />} />
                     <Route exact path="/admin-panel" element={<AdminPanel />} />
                     <Route exact path="/support-emails" element={<AdminSupportEmail/>} />
+                    <Route exact path="/support-ticket" element={<AdminSupportTicket/>} />
+                    <Route exact path="/ticket" element={<SupportTicket/>} />
                     <Route exact path="/settings" element={<SettingsPage />} />
                     <Route exact path="/offerwall-list" element={<AllOfferwallList />} />
                     <Route exact path="/terms" element={<TermsOfService />} />
