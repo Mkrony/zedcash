@@ -135,10 +135,6 @@ const AdminSupportTicket = () => {
     };
 
     const handleDelete = async (id) => {
-        if (!window.confirm("Are you sure you want to delete this ticket?")) {
-            return;
-        }
-
         try {
             const token = Cookies.get("token");
             const response = await axios.delete(
@@ -232,6 +228,9 @@ const AdminSupportTicket = () => {
                 { withCredentials: true, headers: { Authorization: `Bearer ${token}` }});
 
             if (response.data.success) {
+                toast.success(response.data.message || "Bulk action completed successfully");
+                fetchTickets(); // Refresh the tickets list
+                setSelectedTickets([]); // Clear selection
             } else {
                 throw new Error(response.data.message || "Action failed");
             }
@@ -337,7 +336,7 @@ const AdminSupportTicket = () => {
 
                                 {loading ? (
                                     <div className="loading-tickets">
-                                        {Array(5).fill().map((_, i) => (
+                                        {Array(tickets.length).fill().map((_, i) => (
                                             <div key={`skeleton-${i}`} className="ticket-item-skeleton">
                                                 <div className="skeleton-checkbox"></div>
                                                 <div className="skeleton-content">
@@ -385,7 +384,6 @@ const AdminSupportTicket = () => {
                                                             {getStatusIcon(ticket.status)}
                                                             <span className="status-badge">{ticket.status.replace('_', ' ')}</span>
                                                         </div>
-                                                        <div className="ticket-date">{formatDate(ticket.createdAt)}</div>
                                                     </div>
                                                     <div className="ticket-user">
                                                         <FontAwesomeIcon icon={faUser} className="me-2" />
@@ -396,6 +394,7 @@ const AdminSupportTicket = () => {
                                                             {ticket.message?.substring(0, 120)}...
                                                         </div>
                                                     </div>
+                                                    <div className="ticket-date">{formatDate(ticket.createdAt)}</div>
                                                 </div>
                                             </div>
                                         ))}

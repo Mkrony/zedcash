@@ -4,7 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="33c1d1dd-9c61-43af-b21b-23767086e7b2" name="Changes" comment="" />
+    <list default="true" id="33c1d1dd-9c61-43af-b21b-23767086e7b2" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/app/controller/LivechatController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app/controller/LivechatController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/routes/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/routes/api.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/assets/css/supportTicket.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/assets/css/supportTicket.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/component/supports/DetailsSupportTicket.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/component/supports/DetailsSupportTicket.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/component/supports/DetailsTicket.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/component/supports/DetailsTicket.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/component/supports/SupportTicket.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/component/supports/SupportTicket.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/component/supports/SupportTicket.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/component/supports/SupportTicket.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/page/admin/AdminSupportTicket.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/page/admin/AdminSupportTicket.jsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -55,7 +66,7 @@
   </component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/Mkrony/coinloot.git&quot;,
+    &quot;url&quot;: &quot;git@github.com:Mkrony/coinloot.git&quot;,
     &quot;accountId&quot;: &quot;677df7dd-b05b-4221-86da-f0cafbb8d8c5&quot;
   }
 }</component>
@@ -181,7 +192,14 @@
       <workItem from="1755754210445" duration="6272000" />
       <workItem from="1755766329979" duration="17040000" />
       <workItem from="1755799632207" duration="6067000" />
-      <workItem from="1755844858508" duration="399000" />
+      <workItem from="1755844858508" duration="6270000" />
+      <workItem from="1755883833372" duration="2214000" />
+      <workItem from="1755936822420" duration="633000" />
+      <workItem from="1755957797822" duration="649000" />
+      <workItem from="1755969746150" duration="599000" />
+      <workItem from="1756008578243" duration="115000" />
+      <workItem from="1756030319441" duration="2886000" />
+      <workItem from="1756038306966" duration="6821000" />
     </task>
     <servers />
   </component>

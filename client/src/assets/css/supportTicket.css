@@ -38,19 +38,24 @@
 
 .ticket-checkbox {
     margin-right: 12px;
-    padding-top: 2px;
+}
+.ticket-checkbox input {
+    width: 50px;
 }
 
 .ticket-item-content {
-    flex: 1;
-    min-width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    width: 100%;
+    margin-top: 2px;
 }
 
 .ticket-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 8px;
+    width: 150px;
 }
 
 .ticket-status {
@@ -89,8 +94,8 @@
 }
 
 .ticket-user {
+    width: 150px;
     font-size: 14px;
-    margin-bottom: 8px;
     color: #fff;
 }
 

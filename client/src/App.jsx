@@ -57,6 +57,9 @@ const App = () => {
                     }, 300);
                     userDetailsRequested();
                 }
+                if (notification.type === "ticket") {
+                    window.location.reload();
+                }
                 else{
                     setTimeout(() => {
                         notifySound.play();

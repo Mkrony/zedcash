@@ -1,7 +1,7 @@
 import HeaderSection from "../HeaderSection.jsx";
 import Footer from "../footer/Footer.jsx";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faPaperPlane, faUser, faUserShield} from "@fortawesome/free-solid-svg-icons";
+import {faPaperPlane, faUser, faUserShield, faLock} from "@fortawesome/free-solid-svg-icons";
 import styles from "./SupportTicket.module.css";
 import React, {useEffect, useState} from "react";
 import Cookies from "js-cookie";
@@ -181,6 +181,7 @@ const SupportTicket = () => {
 
     const activeTicket = tickets.find(ticket => ticket._id === activeTicketId);
     const fullConversation = activeTicket ? getFullConversation(activeTicket) : [];
+    const isTicketClosed = activeTicket && activeTicket.status === 'closed';
 
     return (
         <>
@@ -216,7 +217,7 @@ const SupportTicket = () => {
                                     ))}
                                 </select>
                                 <button
-                                    className={styles.new_ticket_btn}
+                                    className={`{styles.new_ticket_btn} btn custom-btn ms-3`}
                                     onClick={() => setActiveTicketId(null)}
                                 >
                                     + New Ticket
@@ -240,58 +241,69 @@ const SupportTicket = () => {
                                     No messages yet. Start the conversation!
                                 </div>
                             ) : (
-                                fullConversation.map((msg, index) => (
-                                    <div key={index} className={`${styles.message} ${msg.sender === 'user' ? styles.user_message : styles.admin_message}`}>
-                                        <div className={styles.message_content}>
-                                            <div className={styles.message_header}>
-                                                <FontAwesomeIcon
-                                                    icon={msg.sender === 'user' ? faUser : faUserShield}
-                                                    className={styles.sender_icon}
-                                                />
-                                                <span className={styles.sender_name}>
-                                                    {msg.sender === 'user' ? 'You' : 'Support Team'}
-                                                    {msg.isOriginal && <span className={styles.original_badge}> (Original)</span>}
-                                                </span>
-                                                <span className={styles.message_time}>
-                                                    {formatDate(msg.timestamp)}
-                                                </span>
-                                            </div>
-                                            <p className={"m-0 p-0"}>{msg.message}</p>
+                                <>
+                                    {isTicketClosed && (
+                                        <div className={styles.closed_notice}>
+                                            <FontAwesomeIcon icon={faLock} className="me-2" />
+                                            This ticket is closed
                                         </div>
-                                    </div>
-                                ))
+                                    )}
+                                    {fullConversation.map((msg, index) => (
+                                        <div key={index} className={`${styles.message} ${msg.sender === 'user' ? styles.user_message : styles.admin_message}`}>
+                                            <div className={styles.message_content}>
+                                                <div className={styles.message_header}>
+                                                    <FontAwesomeIcon
+                                                        icon={msg.sender === 'user' ? faUser : faUserShield}
+                                                        className={styles.sender_icon}
+                                                    />
+                                                    <span className={styles.sender_name}>
+                                                        {msg.sender === 'user' ? 'You' : 'Support Team'}
+                                                        {msg.isOriginal && <span className={styles.original_badge}> (Original)</span>}
+                                                    </span>
+                                                    <span className={styles.message_time}>
+                                                        {formatDate(msg.timestamp)}
+                                                    </span>
+                                                </div>
+                                                <p className={"m-0 p-0"}>{msg.message}</p>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </>
                             )}
                         </div>
                     </div>
                 </div>
 
-                <div className="row">
-                    <div className="col-md-12">
-                        <div className={styles.form_body}>
-                            <form onSubmit={handleSubmit}>
-                                <textarea
-                                    name="message"
-                                    placeholder={activeTicketId ? "Type your reply here..." : "Brief description of your issue"}
-                                    rows="5"
-                                    className="form-control"
-                                    value={message}
-                                    onChange={(e) => setMessage(e.target.value)}
-                                    disabled={sending}
-                                ></textarea>
-                                <div className="form-submit text-center my-5">
-                                    <button
-                                        type="submit"
-                                        className="btn btn-primary"
-                                        disabled={sending || !message.trim()}
-                                    >
-                                        {sending ? "Sending..." : (activeTicketId ? "Send Reply" : "Create Ticket")}
-                                        <FontAwesomeIcon icon={faPaperPlane} className="ms-2" />
-                                    </button>
-                                </div>
-                            </form>
+                {/* Only show the message form if there's no active ticket or the active ticket is not closed */}
+                {(!activeTicketId || !isTicketClosed) && (
+                    <div className="row">
+                        <div className="col-md-12">
+                            <div className={styles.form_body}>
+                                <form onSubmit={handleSubmit}>
+                                    <textarea
+                                        name="message"
+                                        placeholder={activeTicketId ? "Type your reply here..." : "Brief description of your issue"}
+                                        rows="5"
+                                        className="form-control"
+                                        value={message}
+                                        onChange={(e) => setMessage(e.target.value)}
+                                        disabled={sending}
+                                    ></textarea>
+                                    <div className="form-submit text-center my-5">
+                                        <button
+                                            type="submit"
+                                            className="btn btn-primary"
+                                            disabled={sending || !message.trim()}
+                                        >
+                                            {sending ? "Sending..." : (activeTicketId ? "Send Reply" : "Create Ticket")}
+                                            <FontAwesomeIcon icon={faPaperPlane} className="ms-2" />
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>
+                )}
             </div>
             <Footer/>
         </>

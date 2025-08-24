@@ -149,7 +149,16 @@
     font-size: 0.7rem;
     font-weight: 600;
 }
-
+.closed_notice {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid #f5c6cb;
+}
 /* Scrollbar styling */
 .ticket_conversation::-webkit-scrollbar {
     width: 6px;

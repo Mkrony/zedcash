@@ -1,7 +1,7 @@
 import LiveChatModel from "../model/LiveChatModel.js";
 import SupportMessage from "../model/SupportMessageModel.js";
 import TicketMessage from "../model/TicketMessageModel.js";
-
+import NotificationsModel from "../model/UserNotification.js";
 // live chat Email
 //========================================================================
 export const SendMessage = async (req, res)=>{
@@ -611,51 +611,50 @@ export const ShowAllTicketMessage = async (req, res) => {
 };
 
 // admin ticket reply
-// In your adminReplyToTicket controller
-export const adminReplyToTicket = async (req, res) => {
-    try {
-        const { ticketId, message } = req.body;
-        const adminId = req.headers.user_id;
-
-        const ticket = await TicketMessage.findById(ticketId);
-        if (!ticket) {
-            return res.status(404).json({ success: false, message: "Ticket not found" });
-        }
-
-        // Add reply to conversation
-        if (!ticket.conversation) {
-            ticket.conversation = [];
-        }
-
-        ticket.conversation.push({
-            sender: 'admin',
-            message: message.trim(),
-            timestamp: new Date()
-        });
-
-        // Update ticket status to in_progress if it was open
-        if (ticket.status === 'open') {
-            ticket.status = 'in_progress';
-        }
-
-        // Update the updatedAt timestamp
-        ticket.updatedAt = new Date();
-
-        await ticket.save();
-
-        // Populate the conversation if needed, or return the full ticket
-        const updatedTicket = await TicketMessage.findById(ticketId);
-
-        res.json({
-            success: true,
-            message: "Reply sent successfully",
-            ticket: updatedTicket // Return the complete updated ticket
-        });
-    } catch (error) {
-        console.error("Error sending admin reply:", error);
-        res.status(500).json({ success: false, message: "Internal server error" });
-    }
-};
+// export const adminReplyToTicket = async (req, res) => {
+//     try {
+//         const { ticketId, message } = req.body;
+//         const adminId = req.headers.user_id;
+//
+//         const ticket = await TicketMessage.findById(ticketId);
+//         if (!ticket) {
+//             return res.status(404).json({ success: false, message: "Ticket not found" });
+//         }
+//
+//         // Add reply to conversation
+//         if (!ticket.conversation) {
+//             ticket.conversation = [];
+//         }
+//
+//         ticket.conversation.push({
+//             sender: 'admin',
+//             message: message.trim(),
+//             timestamp: new Date()
+//         });
+//
+//         // Update ticket status to in_progress if it was open
+//         if (ticket.status === 'open') {
+//             ticket.status = 'in_progress';
+//         }
+//
+//         // Update the updatedAt timestamp
+//         ticket.updatedAt = new Date();
+//
+//         await ticket.save();
+//
+//         // Populate the conversation if needed, or return the full ticket
+//         const updatedTicket = await TicketMessage.findById(ticketId);
+//
+//         res.json({
+//             success: true,
+//             message: "Reply sent successfully",
+//             ticket: updatedTicket // Return the complete updated ticket
+//         });
+//     } catch (error) {
+//         console.error("Error sending admin reply:", error);
+//         res.status(500).json({ success: false, message: "Internal server error" });
+//     }
+// };
 
 // Get user's tickets
 export const getUserTickets = async (req, res) => {
@@ -729,3 +728,384 @@ export const userReplyToTicket = async (req, res) => {
         });
     }
 };
+
+// Update ticket status
+// export const UpdateTicketStatus = async (req, res) => {
+//     try {
+//         const { id } = req.params;
+//         const { status } = req.body;
+//
+//         // Validate status input
+//         const validStatuses = ['open', 'in-progress', 'resolved', 'closed'];
+//         if (!validStatuses.includes(status)) {
+//             return res.status(400).json({
+//                 success: false,
+//                 message: 'Invalid status. Must be one of: open, in-progress, resolved, closed'
+//             });
+//         }
+//
+//         // Find and update the ticket
+//         const updatedTicket = await TicketMessage.findByIdAndUpdate(
+//             id,
+//             {
+//                 status,
+//                 // Update resolvedAt timestamp if status is resolved or closed
+//                 ...(status === 'resolved' || status === 'closed') && {
+//                     resolvedAt: new Date()
+//                 }
+//             },
+//             { new: true, runValidators: true }
+//         );
+//
+//         if (!updatedTicket) {
+//             return res.status(404).json({
+//                 success: false,
+//                 message: 'Ticket not found'
+//             });
+//         }
+//
+//         res.status(200).json({
+//             success: true,
+//             message: 'Ticket status updated successfully',
+//             data: updatedTicket
+//         });
+//
+//     } catch (error) {
+//         console.error('Update ticket status error:', error);
+//         res.status(500).json({
+//             success: false,
+//             message: 'Internal server error',
+//             error: error.message
+//         });
+//     }
+// };
+
+// Delete ticket
+export const DeleteTicket = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        // Find and delete the ticket
+        const deletedTicket = await TicketMessage.findByIdAndDelete(id);
+
+        if (!deletedTicket) {
+            return res.status(404).json({
+                success: false,
+                message: 'Ticket not found'
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            message: 'Ticket deleted successfully',
+            data: deletedTicket
+        });
+
+    } catch (error) {
+        console.error('Delete ticket error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Internal server error',
+            error: error.message
+        });
+    }
+};
+
+// Bulk Ticket Action
+export const BulkTicketAction = async (req, res) => {
+    try {
+        const { ids, action } = req.body;
+        const adminId = req.headers.user_id;
+
+        // Validate input
+        if (!ids || !Array.isArray(ids) || ids.length === 0) {
+            return res.status(400).json({
+                success: false,
+                message: 'No tickets selected'
+            });
+        }
+
+        if (!action) {
+            return res.status(400).json({
+                success: false,
+                message: 'Action is required'
+            });
+        }
+
+        let result;
+        let notificationMessage = '';
+
+        switch (action) {
+            case 'delete':
+                // Delete multiple tickets
+                result = await TicketMessage.deleteMany({ _id: { $in: ids } });
+
+                // Create notifications for each deleted ticket
+                const ticketsToDelete = await TicketMessage.find({ _id: { $in: ids } });
+                for (const ticket of ticketsToDelete) {
+                    await NotificationsModel.create({
+                        userID: ticket.userId,
+                        message: `Your ticket "${ticket.message.substring(0, 50)}..." has been deleted by admin`,
+                        type: 'ticket',
+                        relatedId: ticket._id,
+                        createdAt: new Date()
+                    });
+                }
+
+                notificationMessage = `${result.deletedCount} tickets deleted successfully`;
+                break;
+
+            case 'close':
+                // Close multiple tickets
+                result = await TicketMessage.updateMany(
+                    { _id: { $in: ids } },
+                    {
+                        status: 'closed',
+                        resolvedAt: new Date(),
+                        updatedAt: new Date()
+                    }
+                );
+
+                // Create notifications for each closed ticket
+                const ticketsToClose = await TicketMessage.find({ _id: { $in: ids } });
+                for (const ticket of ticketsToClose) {
+                    await NotificationsModel.create({
+                        userID: ticket.userId,
+                        message: `Your ticket "${ticket.message.substring(0, 50)}..." has been closed`,
+                        type: 'ticket',
+                        relatedId: ticket._id,
+                        createdAt: new Date()
+                    });
+                }
+
+                notificationMessage = `${result.modifiedCount} tickets closed successfully`;
+                break;
+
+            case 'resolve':
+                // Resolve multiple tickets
+                result = await TicketMessage.updateMany(
+                    { _id: { $in: ids } },
+                    {
+                        status: 'resolved',
+                        resolvedAt: new Date(),
+                        updatedAt: new Date()
+                    }
+                );
+
+                // Create notifications for each resolved ticket
+                const ticketsToResolve = await TicketMessage.find({ _id: { $in: ids } });
+                for (const ticket of ticketsToResolve) {
+                    await NotificationsModel.create({
+                        userID: ticket.userId,
+                        message: `Your ticket "${ticket.message.substring(0, 50)}..." has been resolved`,
+                        type: 'ticket_status_update',
+                        relatedId: ticket._id,
+                        createdAt: new Date()
+                    });
+                }
+
+                notificationMessage = `${result.modifiedCount} tickets resolved successfully`;
+                break;
+
+            case 'reopen':
+                // Reopen multiple tickets
+                result = await TicketMessage.updateMany(
+                    { _id: { $in: ids } },
+                    {
+                        status: 'open',
+                        resolvedAt: null,
+                        updatedAt: new Date()
+                    }
+                );
+
+                // Create notifications for each reopened ticket
+                const ticketsToReopen = await TicketMessage.find({ _id: { $in: ids } });
+                for (const ticket of ticketsToReopen) {
+                    await NotificationsModel.create({
+                        userID: ticket.userId,
+                        message: `Your ticket "${ticket.message.substring(0, 50)}..." has been reopened`,
+                        type: 'ticket_status_update',
+                        relatedId: ticket._id,
+                        createdAt: new Date()
+                    });
+                }
+
+                notificationMessage = `${result.modifiedCount} tickets reopened successfully`;
+                break;
+
+            case 'in-progress':
+                // Mark multiple tickets as in-progress
+                result = await TicketMessage.updateMany(
+                    { _id: { $in: ids } },
+                    {
+                        status: 'in-progress',
+                        updatedAt: new Date()
+                    }
+                );
+
+                // Create notifications for each in-progress ticket
+                const ticketsInProgress = await TicketMessage.find({ _id: { $in: ids } });
+                for (const ticket of ticketsInProgress) {
+                    await NotificationsModel.create({
+                        userID: ticket.userId,
+                        message: `Your ticket "${ticket.message.substring(0, 50)}..." is now in progress`,
+                        type: 'ticket_status_update',
+                        relatedId: ticket._id,
+                        createdAt: new Date()
+                    });
+                }
+
+                notificationMessage = `${result.modifiedCount} tickets marked as in-progress`;
+                break;
+
+            default:
+                return res.status(400).json({
+                    success: false,
+                    message: 'Invalid action. Valid actions: delete, close, resolve, reopen, in-progress'
+                });
+        }
+
+        res.status(200).json({
+            success: true,
+            message: notificationMessage,
+            data: result
+        });
+
+    } catch (error) {
+        console.error('Bulk ticket action error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Internal server error',
+            error: error.message
+        });
+    }
+};
+
+export const UpdateTicketStatus = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { status } = req.body;
+
+        // Validate status input
+        const validStatuses = ['open', 'in-progress', 'resolved', 'closed'];
+        if (!validStatuses.includes(status)) {
+            return res.status(400).json({
+                success: false,
+                message: 'Invalid status. Must be one of: open, in-progress, resolved, closed'
+            });
+        }
+
+        // Find the ticket first to get user ID
+        const ticket = await TicketMessage.findById(id);
+        if (!ticket) {
+            return res.status(404).json({
+                success: false,
+                message: 'Ticket not found'
+            });
+        }
+
+        // Update the ticket
+        const updatedTicket = await TicketMessage.findByIdAndUpdate(
+            id,
+            {
+                status,
+                ...(status === 'resolved' || status === 'closed') && {
+                    resolvedAt: new Date()
+                }
+            },
+            { new: true, runValidators: true }
+        );
+
+        // Create notification for user
+        let notificationMessage = '';
+        switch(status) {
+            case 'in-progress':
+                notificationMessage = `Your ticket "${ticket.message.substring(0, 50)}..." is now in progress`;
+                break;
+            case 'resolved':
+                notificationMessage = `Your ticket "${ticket.message.substring(0, 50)}..." has been resolved`;
+                break;
+            case 'closed':
+                notificationMessage = `Your ticket "${ticket.message.substring(0, 50)}..." has been closed`;
+                break;
+            default:
+                notificationMessage = `Your ticket status has been updated to ${status}`;
+        }
+
+        await NotificationsModel.create({
+            userID: ticket.userId,
+            message: notificationMessage,
+            type: 'ticket',
+            relatedId: ticket._id,
+            createdAt: new Date()
+        });
+
+        res.status(200).json({
+            success: true,
+            message: 'Ticket status updated successfully',
+            data: updatedTicket
+        });
+
+    } catch (error) {
+        console.error('Update ticket status error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Internal server error',
+            error: error.message
+        });
+    }
+};
+
+export const adminReplyToTicket = async (req, res) => {
+    try {
+        const { ticketId, message } = req.body;
+        const adminId = req.headers.user_id;
+
+        const ticket = await TicketMessage.findById(ticketId);
+        if (!ticket) {
+            return res.status(404).json({ success: false, message: "Ticket not found" });
+        }
+
+        // Add reply to conversation
+        if (!ticket.conversation) {
+            ticket.conversation = [];
+        }
+
+        ticket.conversation.push({
+            sender: 'admin',
+            message: message.trim(),
+            timestamp: new Date()
+        });
+
+        // Update ticket status to in_progress if it was open
+        if (ticket.status === 'open') {
+            ticket.status = 'in_progress';
+        }
+
+        // Update the updatedAt timestamp
+        ticket.updatedAt = new Date();
+
+        await ticket.save();
+
+        // Create notification for user about admin reply
+        await NotificationsModel.create({
+            userID: ticket.userId,
+            message: `Admin has replied to your ticket: "${message.substring(0, 150)}..."`,
+            type: 'ticket',
+            relatedId: ticket._id,
+            createdAt: new Date()
+        });
+
+        const updatedTicket = await TicketMessage.findById(ticketId);
+
+        res.json({
+            success: true,
+            message: "Reply sent successfully",
+            ticket: updatedTicket
+        });
+    } catch (error) {
+        console.error("Error sending admin reply:", error);
+        res.status(500).json({ success: false, message: "Internal server error" });
+    }
+};
+

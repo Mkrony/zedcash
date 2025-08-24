@@ -145,28 +145,6 @@ const DetailsSupportTicket = ({
                         {/* Ticket header with actions */}
                         <div className={styles.ticket_header}>
                             <h2>Support Ticket #{ticket._id?.substring(0, 8)}</h2>
-                            <div className={styles.ticket_actions}>
-                                <button
-                                    className={styles.action_btn}
-                                    onClick={onRefresh}
-                                    aria-label="Refresh ticket"
-                                    title="Refresh"
-                                >
-                                    <FontAwesomeIcon icon={faSyncAlt} />
-                                </button>
-                                <button
-                                    className={`${styles.action_btn} ${styles.delete_btn}`}
-                                    onClick={onDelete}
-                                    aria-label="Delete ticket"
-                                    title="Delete"
-                                >
-                                    <FontAwesomeIcon icon={faTrash} />
-                                </button>
-                            </div>
-                        </div>
-
-                        {/* Ticket metadata */}
-                        <div className={styles.ticket_meta}>
                             <div className={styles.user_info}>
                                 <FontAwesomeIcon icon={faUser} />
                                 <div>
@@ -176,7 +154,13 @@ const DetailsSupportTicket = ({
                                     )}
                                 </div>
                             </div>
-
+                            <div className={styles.current_status}>
+                                {/*<span className={styles.status_label}>Current Status:</span>*/}
+                                <span className={`${styles.status_badge} ${styles[ticket.status]}`}>
+                                   {getStatusIcon(ticket.status)}
+                                    {ticket.status.replace('_', ' ')}
+                                </span>
+                            </div>
                             <div className={styles.ticket_dates}>
                                 <div className={styles.date_item}>
                                     <FontAwesomeIcon icon={faCalendar} />
@@ -189,16 +173,7 @@ const DetailsSupportTicket = ({
                                     </div>
                                 )}
                             </div>
-
-                            <div className={styles.ticket_status_section}>
-                                <div className={styles.current_status}>
-                                    <span className={styles.status_label}>Current Status:</span>
-                                    <span className={`${styles.status_badge} ${styles[ticket.status]}`}>
-                                        {getStatusIcon(ticket.status)}
-                                        {ticket.status.replace('_', ' ')}
-                                    </span>
-                                </div>
-
+                            <div className={styles.ticket_actions}>
                                 <div className={styles.status_selector}>
                                     <label htmlFor="status-select">Change Status:</label>
                                     <select
@@ -215,26 +190,32 @@ const DetailsSupportTicket = ({
                                         ))}
                                     </select>
                                 </div>
+                                <button
+                                    className={`${styles.action_btn} ${styles.delete_btn}`}
+                                    onClick={onDelete}
+                                    aria-label="Delete ticket"
+                                    title="Delete"
+                                >
+                                    <FontAwesomeIcon icon={faTrash} />
+                                </button>
                             </div>
                         </div>
-
                         {/* Conversation History - Now includes original message and replies */}
                         <div className={styles.conversation_history}>
-                            <h3>Conversation</h3>
                             <div className={styles.conversation_container}>
                                 {fullConversation.map((message, index) => (
                                     <div key={index} className={`${styles.message_bubble} ${message.sender === 'admin' ? styles.admin_message : styles.user_message}`}>
-                                        <div className={styles.message_header}>
+                                        <div className={styles.message_content}>
                                             <span className={styles.message_sender}>
                                                 {message.sender === 'admin' ? 'Admin' : (ticket.username || 'User')}
                                                 {message.isOriginal && <span className={styles.original_label}> (Original Message)</span>}
                                             </span>
+                                            <p className={"m-0 p-0"}>{message.message}</p>
+                                        </div>
+                                        <div className={styles.message_header}>
                                             <span className={`{styles.message_time} ms-2`}>
                                                 {formatDate(message.timestamp)}
                                             </span>
-                                        </div>
-                                        <div className={styles.message_content}>
-                                            <p className={"m-0 p-0"}>{message.message}</p>
                                         </div>
                                     </div>
                                 ))}
@@ -243,10 +224,10 @@ const DetailsSupportTicket = ({
 
                         {/* Admin Reply Section */}
                         <div className={styles.admin_reply_section}>
-                            <h3>
-                                <FontAwesomeIcon icon={faReply} className="me-2" />
-                                Admin Reply
-                            </h3>
+                            {/*<h3>*/}
+                            {/*    <FontAwesomeIcon icon={faReply} className="me-2" />*/}
+                            {/*    Admin Reply*/}
+                            {/*</h3>*/}
                             <div className={styles.reply_input_container}>
                                 <textarea
                                     value={replyMessage}

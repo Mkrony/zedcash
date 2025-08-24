@@ -124,6 +124,9 @@ router.get("/show-ticket-message", AuthMiddleware, LiveChatController.ShowTicket
 router.post("/send-ticket-message/:username", AuthMiddleware, LiveChatController.SendTicketMessage);
 router.post("/admin-reply-ticket", AuthMiddleware, LiveChatController.adminReplyToTicket);
 router.get("/show-all-ticket-message", AuthMiddleware, LiveChatController.ShowAllTicketMessage);
+router.patch("/update-ticket-status/:id", AuthMiddleware, LiveChatController.UpdateTicketStatus);
+router.delete("/delete-ticket/:id", AuthMiddleware, LiveChatController.DeleteTicket);
+router.post("/bulk-tickets-action", AuthMiddleware, LiveChatController.BulkTicketAction);
 // Get user's tickets
 router.get("/user-tickets", AuthMiddleware, LiveChatController.getUserTickets);
 
