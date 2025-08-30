@@ -29,6 +29,32 @@ const verifyOfferwallHash = (queryParams, secretKey, algorithm = 'sha256') => {
     }
 };
 
+// Function to update user level based on total_earnings
+const updateUserLevel = async (userId, session) => {
+    const user = await UserModel.findOne({ _id: userId }).session(session);
+    if (!user) return;
+
+    let newLevel = user.level || 1;
+    if (user.total_earnings > 4000) {
+        newLevel = 5;
+    } else if (user.total_earnings > 3000) {
+        newLevel = 4;
+    } else if (user.total_earnings > 2000) {
+        newLevel = 3;
+    } else if (user.total_earnings > 1000) {
+        newLevel = 2;
+    }
+
+    // Update only if level changes
+    if (newLevel !== user.level) {
+        await UserModel.updateOne(
+            { _id: userId },
+            { $set: { level: newLevel } },
+            { session }
+        );
+    }
+};
+
 // Common function to handle pending tasks
 const handlePendingTask = async (taskData, session) => {
     const pendingSettings = await PendingSettingsModel.findOne().session(session);
@@ -165,6 +191,9 @@ const completeTask = async (taskData, session) => {
         { new: true, session }
     );
 
+    // Update user level based on new total_earnings
+    await updateUserLevel(taskData.userID, session);
+
     // Create notification
     await UserNotification.create([{
         userID: taskData.userID,
@@ -228,6 +257,9 @@ const handleChargeback = async (chargebackData, session) => {
         },
         { new: true, session }
     );
+
+    // Update user level based on new total_earnings
+    await updateUserLevel(chargebackData.userID, session);
 
     // Create notification
     await UserNotification.create([{
@@ -600,13 +632,10 @@ export const PrimewallPostback = async (req, res) => {
                 createdAt: currentDate,
                 userAvatar: user.avatar
             };
-
             const { isPending } = await handlePendingTask(taskData, session);
-
             if (!isPending) {
                 await completeTask(taskData, session);
             }
-
             await session.commitTransaction();
             session.endSession();
             return res.status(200).send('OK');
@@ -640,5 +669,295 @@ export const PrimewallPostback = async (req, res) => {
         session.endSession();
         console.error('Error in PrimewallPostback:', error);
         return res.status(500).send('ERROR: Internal error');
+    }
+};
+
+// Offery Postback Handler
+export const OfferyPostback = async (req, res) => {
+    const session = await mongoose.startSession();
+    session.startTransaction();
+
+    try {
+        const {
+            subId: user_id,
+            transId: transaction_id,
+            offer_id,
+            offer_name,
+            offer_type,
+            reward,
+            reward_name,
+            reward_value,
+            payout,
+            userIp: ip,
+            country,
+            status,
+            debug
+        } = req.query;
+
+        // Validate required fields
+        if (!user_id || !transaction_id || !reward || !status) {
+            await session.abortTransaction();
+            session.endSession();
+            return res.status(400).send('ERROR: Missing required parameters');
+        }
+
+        // Verify signature if needed (uncomment when ready)
+        // if (!verifyOfferwallHash(req.query, process.env.OFFERY_SECRET_KEY, 'md5')) {
+        //     await session.abortTransaction();
+        //     session.endSession();
+        //     return res.status(403).send('ERROR: Invalid signature');
+        // }
+
+        const numericReward = parseFloat(reward);
+        const numericPayout = parseFloat(payout || 0);
+        const currentDate = new Date();
+
+        // Fetch user with session
+        const user = await UserModel.findOne({ _id: user_id }).session(session);
+        if (!user) {
+            await session.abortTransaction();
+            session.endSession();
+            return res.status(404).send('ERROR: User not found');
+        }
+
+        // For status 1 (credit/complete task)
+        if (status === '1') {
+            // Check for duplicate transaction
+            const existingTransaction = await CompletededTasksModel.findOne({
+                transactionID: transaction_id
+            }).session(session);
+
+            if (existingTransaction) {
+                await session.abortTransaction();
+                session.endSession();
+                return res.status(200).send('OK');
+            }
+
+            const taskData = {
+                offerWallName: "Offery",
+                userName: user.username,
+                userID: user_id,
+                transactionID: transaction_id,
+                ip: ip,
+                country: country,
+                revenue: numericPayout,
+                currencyReward: numericReward,
+                offerName: offer_name,
+                offerID: offer_id,
+                offerType: offer_type,
+                createdAt: currentDate,
+                userAvatar: user.avatar
+            };
+
+            const { isPending } = await handlePendingTask(taskData, session);
+
+            if (!isPending) {
+                await completeTask(taskData, session);
+            }
+
+            await session.commitTransaction();
+            session.endSession();
+            return res.status(200).send('OK');
+        }
+        // For status 2 (chargeback)
+        else if (status === '2') {
+            // Check if chargeback already exists
+            const existingChargeback = await ChargebackModel.findOne({
+                transactionID: transaction_id
+            }).session(session);
+
+            if (existingChargeback) {
+                await session.abortTransaction();
+                session.endSession();
+                return res.status(200).send('OK');
+            }
+
+            // Check if original transaction exists
+            const originalTransaction = await CompletededTasksModel.findOne({
+                transactionID: transaction_id
+            }).session(session);
+
+            if (!originalTransaction) {
+                await session.abortTransaction();
+                session.endSession();
+                return res.status(404).send('ERROR: Original transaction not found for chargeback');
+            }
+
+            const chargebackData = {
+                offerWallName: "Offery",
+                userName: user.username,
+                userID: user_id,
+                transactionID: transaction_id,
+                ip: ip,
+                country: country,
+                revenue: numericPayout,
+                currencyReward: -numericReward, // Negative for chargeback
+                offerName: offer_name,
+                offerID: offer_id,
+                offerType: offer_type,
+                createdAt: currentDate
+            };
+
+            await handleChargeback(chargebackData, session);
+
+            await session.commitTransaction();
+            session.endSession();
+            return res.status(200).send('OK');
+        }
+        // Invalid status
+        else {
+            await session.abortTransaction();
+            session.endSession();
+            return res.status(400).send('ERROR: Invalid status');
+        }
+    } catch (error) {
+        await session.abortTransaction();
+        session.endSession();
+        console.error('Error in OfferyPostback:', error);
+        return res.status(500).send('ERROR: Internal server error');
+    }
+};
+
+// Upwall Postback Handler
+export const UpwallPostback = async (req, res) => {
+    const session = await mongoose.startSession();
+    session.startTransaction();
+
+    try {
+        const {
+            userid: user_id,
+            user_amount: amount,
+            payout,
+            offer_id,
+            offer_name,
+            transactionID: txn_id,
+            ip_address: ip,
+            currency_name,
+            date,
+            password,
+        } = req.query;
+
+        // Validate required fields
+        if (!user_id || !amount || !txn_id) {
+            await session.abortTransaction();
+            session.endSession();
+            return res.status(400).send('ERROR: Missing required parameters');
+        }
+
+        // Verify password if configured (uncomment when ready)
+        // if (process.env.UPWALL_PASSWORD && password !== process.env.UPWALL_PASSWORD) {
+        //     await session.abortTransaction();
+        //     session.endSession();
+        //     return res.status(403).send('ERROR: Invalid password');
+        // }
+
+        const numericAmount = parseFloat(amount);
+        const numericPayout = parseFloat(payout || 0);
+        const currentDate = date ? new Date(date) : new Date();
+
+        // Fetch user with session
+        const user = await UserModel.findOne({ _id: user_id }).session(session);
+        if (!user) {
+            await session.abortTransaction();
+            session.endSession();
+            return res.status(404).send('ERROR: User not found');
+        }
+
+        // For positive amounts (completed tasks)
+        if (numericAmount > 0) {
+            // Check for duplicate transaction
+            const existingTransaction = await CompletededTasksModel.findOne({
+                transactionID: txn_id
+            }).session(session);
+
+            if (existingTransaction) {
+                await session.abortTransaction();
+                session.endSession();
+                return res.status(200).send('OK');
+            }
+
+            const taskData = {
+                offerWallName: "Upwall",
+                userName: user.username,
+                userID: user_id,
+                transactionID: txn_id,
+                ip: ip,
+                country: 'unknown',
+                revenue: numericPayout,
+                currencyReward: numericAmount,
+                offerName: offer_name,
+                offerID: offer_id,
+                currencyName: currency_name,
+                createdAt: currentDate,
+                userAvatar: user.avatar
+            };
+
+            const { isPending } = await handlePendingTask(taskData, session);
+
+            if (!isPending) {
+                await completeTask(taskData, session);
+            }
+
+            await session.commitTransaction();
+            session.endSession();
+            return res.status(200).send('OK');
+        }
+        // For negative amounts (chargebacks)
+        else if (numericAmount < 0) {
+            // Check if chargeback already exists
+            const existingChargeback = await ChargebackModel.findOne({
+                transactionID: txn_id
+            }).session(session);
+
+            if (existingChargeback) {
+                await session.abortTransaction();
+                session.endSession();
+                return res.status(200).send('OK');
+            }
+
+            // Check if original transaction exists
+            const originalTransaction = await CompletededTasksModel.findOne({
+                transactionID: txn_id
+            }).session(session);
+
+            if (!originalTransaction) {
+                await session.abortTransaction();
+                session.endSession();
+                return res.status(404).send('ERROR: Original transaction not found for chargeback');
+            }
+
+            const chargebackData = {
+                offerWallName: "Upwall",
+                userName: user.username,
+                userID: user_id,
+                transactionID: txn_id,
+                ip: ip,
+                country: 'unknown',
+                revenue: Math.abs(numericPayout),
+                currencyReward: numericAmount, // Already negative
+                offerName: offer_name,
+                offerID: offer_id,
+                appName: app_name,
+                currencyName: currency_name,
+                createdAt: currentDate
+            };
+
+            await handleChargeback(chargebackData, session);
+
+            await session.commitTransaction();
+            session.endSession();
+            return res.status(200).send('OK');
+        }
+        // For zero amount
+        else {
+            await session.abortTransaction();
+            session.endSession();
+            return res.status(400).send('ERROR: Invalid amount: zero');
+        }
+    } catch (error) {
+        await session.abortTransaction();
+        session.endSession();
+        console.error('Error in UpwallPostback:', error);
+        return res.status(500).send('ERROR: Internal server error');
     }
 };
