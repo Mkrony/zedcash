@@ -21,6 +21,8 @@ const userSchema = new mongoose.Schema({
     level: {type: Number,default: 1,},
     avatar: {type: String,default: "https://img.freepik.com/premium-vector/male-face-avatar-icon-set-flat-design-social-media-profiles_1281173-3806.jpg?semt=ais_items_boosted&w=740",},
     hasSpin:{type:Boolean,default:false},
+    resetPasswordOtp: {type: String, default: null},
+    resetPasswordOtpExpires: {type: Date,default: null},
     created_at: {type: Date,default: Date.now},
     updated_at: { type: Date,default: Date.now},
     },

@@ -77,7 +77,11 @@ function LoginForm() {
     return (
         <div className="loginFormBox">
             <div className={`${styles.login_body} card py-3 px-4 box-shadow`}>
-                <h2 className="text-center mb-5">Sign In</h2>
+                <h2 className="text-center">Sign In</h2><div className="text-center mt-1">
+                <p>Don't have an account? <NavLink className="" to="/registration">
+                    Create an account
+                </NavLink></p>
+            </div>
                 <form onSubmit={loginSubmitted}>
                     {/* Identifier Input */}
                     <div className="form-group">
@@ -130,8 +134,8 @@ function LoginForm() {
                         </button>
                         {/*<GoogleLogin/>*/}
                        <div className="text-center mt-3">
-                           <p>Don't have an account? <NavLink className="" to="/registration">
-                               Create an account
+                           <p>Forgot password? <NavLink className="" to="/forgot-password">
+                               Reset now
                            </NavLink></p>
                        </div>
                     </div>

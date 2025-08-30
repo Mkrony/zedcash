@@ -11,6 +11,7 @@ import NotificationsModel from "../model/UserNotification.js";
 import mongoose from "mongoose";
 import BasicSettingsModel from "../model/BasicSettingsModel.js";
 import basicSettingsModel from "../model/BasicSettingsModel.js";
+import UserModel from "../model/UserModel.js";
 // Helper to generate OTP
 const generateOtp = () => Math.floor(100000 + Math.random() * 900000);
 // Helper to handle validation errors
@@ -728,3 +729,246 @@ export const MakeUser = async (req, res) => {
         return res.status(500).json({ message: error.message });
     }
 }
+// reset pass email send
+export const RequestPasswordReset = async (req, res) => {
+    try {
+        const { email } = req.body;
+        // Check if user exists
+        const user = await UserModel.findOne({ email });
+        if (!user) {
+            // For security reasons, don't reveal if email exists
+            return res.status(401).json({
+                status: "Failed",
+                message: "Email not found !"
+            });
+        }
+        // Generate 6-digit OTP
+        const otp = Math.floor(100000 + Math.random() * 900000).toString();
+        const otpExpiry = Date.now() + 5 * 60 * 1000; // 5 minutes
+
+        // Save OTP to user document
+        user.resetPasswordOtp = otp;
+        user.resetPasswordOtpExpires = otpExpiry;
+        await user.save();
+
+        // Email template - EXACT same design as registration OTP
+        const emailHtml = `
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+          <title>Password Reset OTP</title>
+          <style>
+            body { font-family: Arial, sans-serif; background: #f4f4f4; margin: 0; padding: 0; }
+            .email-container { max-width: 600px; margin: auto; background: #0c1037; border-radius: 8px; overflow: hidden; }
+            .header { background: #29965f; color: #fff; padding: 20px; text-align: center; }
+            .content { padding: 20px; color: #fff; }
+            .otp-code { background: #29965f; padding: 15px; font-size: 28px; font-weight: bold; text-align: center; border-radius: 4px; margin: 20px 0; }
+            .footer { background: #29965f; color: #fff; text-align: center; padding: 15px; font-size: 14px; }
+          </style>
+        </head>
+        <body>
+          <div class="email-container">
+            <div class="header"><h1>Password Reset - ZedCash</h1></div>
+            <div class="content">
+              <h2>Hello, ${user.username}</h2>
+              <p>Your One-Time Password (OTP) for password reset is:</p>
+              <div class="otp-code">${otp}</div>
+              <p>This OTP is valid for 5 minutes. Please do not share it with anyone.</p>
+              <p>If you did not request a password reset, please ignore this email or contact support.</p>
+            </div>
+            <div class="footer">
+              <p>&copy; ${new Date().getFullYear()} ZedCash. All rights reserved.</p>
+            </div>
+          </div>
+        </body>
+        </html>
+        `;
+        // Send email with OTP
+        await sendEmail(email, "Password Reset OTP - ZedCash", emailHtml);
+        res.status(200).json({
+            status: "success",
+            message: "A 6 digit OTP has been sent to your email"
+        });
+    } catch (error) {
+        console.error("Password reset request error:", error);
+        res.status(500).json({
+            status: "error",
+            message: "An error occurred while processing your request"
+        });
+    }
+};
+// resend email aagain
+export const ResendPassResetOtp = async (req, res) => {
+    const { email } = req.body;
+    try {
+        // Validate input
+        if (!email) {
+            return res.status(400).json({ message: "Email is required" });
+        }
+
+        if (!validator.isEmail(email)) {
+            return res.status(400).json({ message: "Invalid email format" });
+        }
+
+        // Check if user exists
+        const user = await userModel.findOne({ email });
+        if (!user) {
+            // For security reasons, don't reveal if email exists
+            return res.status(200).json({
+                status: "success",
+                message: "A new OTP has been sent"
+            });
+        }
+
+        // Generate 6-digit OTP
+        const otp = Math.floor(100000 + Math.random() * 900000).toString();
+
+        // Set OTP expiry to 5 minutes from now
+        const otp_expiry = new Date(Date.now() + 5 * 60 * 1000);
+
+        // Update user with new OTP and expiry
+        user.resetPasswordOtp = otp;
+        user.resetPasswordOtpExpires = otp_expiry;
+        await user.save();
+
+        // Email template - EXACT same design as registration OTP
+        const emailHtml = `
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+          <title>Password Reset OTP</title>
+          <style>
+            body { font-family: Arial, sans-serif; background: #f4f4f4; margin: 0; padding: 0; }
+            .email-container { max-width: 600px; margin: auto; background: #0c1037; border-radius: 8px; overflow: hidden; }
+            .header { background: #29965f; color: #fff; padding: 20px; text-align: center; }
+            .content { padding: 20px; color: #fff; }
+            .otp-code { background: #29965f; padding: 15px; font-size: 28px; font-weight: bold; text-align: center; border-radius: 4px; margin: 20px 0; }
+            .footer { background: #29965f; color: #fff; text-align: center; padding: 15px; font-size: 14px; }
+          </style>
+        </head>
+        <body>
+          <div class="email-container">
+            <div class="header"><h1>Password Reset - ZedCash</h1></div>
+            <div class="content">
+              <h2>Hello, ${user.username}</h2>
+              <p>Your new One-Time Password (OTP) for password reset is:</p>
+              <div class="otp-code">${otp}</div>
+              <p>This OTP is valid for 5 minutes. Please do not share it with anyone.</p>
+              <p>If you did not request a password reset, please ignore this email or contact support.</p>
+            </div>
+            <div class="footer">
+              <p>&copy; ${new Date().getFullYear()} ZedCash. All rights reserved.</p>
+            </div>
+          </div>
+        </body>
+        </html>
+        `;
+
+        // Send OTP via email
+        await sendEmail(email, "New Password Reset OTP - ZedCash", emailHtml);
+
+        res.status(200).json({
+            status: "success",
+            message: "New password reset OTP sent successfully",
+        });
+
+    } catch (error) {
+        console.error("Resend password reset OTP error:", error);
+        res.status(500).json({
+            status: "error",
+            message: "Internal server error"
+        });
+    }
+};
+//verify otp
+export const VerifyResetOtp = async (req, res) => {
+    try {
+        const { email, otp } = req.body;
+
+        // Find user by email
+        const user = await UserModel.findOne({
+            email,
+            resetPasswordOtpExpires: { $gt: Date.now() }
+        });
+
+        if (!user || user.resetPasswordOtp !== otp) {
+            return res.status(400).json({
+                status: "error",
+                message: "Invalid or expired OTP"
+            });
+        }
+        // OTP is valid
+        res.status(200).json({
+            status: "success",
+            message: "OTP verified successfully"
+        });
+    } catch (error) {
+        console.error("OTP verification error:", error);
+        res.status(500).json({
+            status: "error",
+            message: "An error occurred during OTP verification"
+        });
+    }
+};
+
+//reset password
+export const ResetPassword = async (req, res) => {
+    const { email, password } = req.body;
+
+    try {
+        // Validate input
+        if (!email || !password) {
+            return res.status(400).json({
+                status: "error",
+                message: "Email and password are required"
+            });
+        }
+
+        if (password.length < 8) {
+            return res.status(400).json({
+                status: "error",
+                message: "Password must be at least 8 characters long"
+            });
+        }
+
+        // Check if user exists
+        const user = await UserModel.findOne({ email });
+        if (!user) {
+            // For security reasons, don't reveal if email exists
+            return res.status(200).json({
+                status: "success",
+                message: "Password has been reset successfully"
+            });
+        }
+
+        // Hash the new password
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        // Update user's password and clear reset OTP fields
+        user.password = hashedPassword;
+        user.resetPasswordOtp = null;
+        user.resetPasswordOtpExpires = null;
+
+        await user.save();
+
+        // Optional: Invalidate all existing sessions (if you're using session management)
+        // user.sessionVersion = (user.sessionVersion || 0) + 1;
+        // await user.save();
+
+        res.status(200).json({
+            status: "success",
+            message: "Password has been reset successfully"
+        });
+
+    } catch (error) {
+        console.error("Password reset error:", error);
+        res.status(500).json({
+            status: "error",
+            message: "An error occurred while resetting your password"
+        });
+    }
+};

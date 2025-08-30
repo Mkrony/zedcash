@@ -30,6 +30,9 @@ import PrivacyPolicy from "./page/PrivacyPolicy.jsx";
 import AdminSupportEmail from "./page/admin/AdminSupportEmails.jsx";
 import SupportTicket from "./component/supports/SupportTicket.jsx";
 import AdminSupportTicket from "./page/admin/AdminSupportTicket.jsx";
+import ForgotPasswordPage from "./component/forgotPasswored/ForgotPasswordPage.jsx";
+import ConfirmOtpPage from "./component/forgotPasswored/ConfirmOtpPage.jsx";
+import PassResetPage from "./component/forgotPasswored/PassResetPage.jsx";
 const App = () => {
     const [pageLoading, setPageLoading] = useState(true);
     const { startAllPolling, stopAllPolling, fetchUnreadNotifications, unreadNotifications, getUserTasks, userDetailsRequested,getTodayRevenues,getTotalRevenues } = ZedStore();
@@ -132,6 +135,9 @@ const App = () => {
                     <Route exact path="/spin" element={<SpinWheel/>} />
                     <Route exact path="/verify" element={<VerifyCode />} />
                     <Route exact path="/logout" element={<Logout />} />
+                    <Route exact path="/forgot-password" element={<ForgotPasswordPage />} />
+                    <Route exact path="/confirm-otp" element={<ConfirmOtpPage />} />
+                    <Route exact path="/reset-password" element={<PassResetPage />} />
                     <Route exact path="/admin-panel" element={<AdminPanel />} />
                     <Route exact path="/support-emails" element={<AdminSupportEmail/>} />
                     <Route exact path="/support-ticket" element={<AdminSupportTicket/>} />

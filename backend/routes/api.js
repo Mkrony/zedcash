@@ -18,6 +18,7 @@ import * as LiveChatController from "../app/controller/LivechatController.js";
 import IpCheckMiddleWire from "../app/middleware/IpCheck.js";
 import { AuthMiddleware } from "../app/middleware/AuthMiddleware.js";
 import {adminReplyToTicket, ShowAllTicketMessage, ShowMessage} from "../app/controller/LivechatController.js";
+import {RequestPasswordReset, VerifyResetOtp} from "../app/controller/UserController.js";
 
 // timeLine
 router.get('/timeline',TimelineController.GetTimeline);
@@ -129,9 +130,17 @@ router.delete("/delete-ticket/:id", AuthMiddleware, LiveChatController.DeleteTic
 router.post("/bulk-tickets-action", AuthMiddleware, LiveChatController.BulkTicketAction);
 // Get user's tickets
 router.get("/user-tickets", AuthMiddleware, LiveChatController.getUserTickets);
-
 // User reply to existing ticket
 router.post("/user-reply-ticket", AuthMiddleware, LiveChatController.userReplyToTicket);
+
+// reset password
+router.post('/request-password-reset', UserController.RequestPasswordReset);
+router.post('/verify-otp', UserController.VerifyResetOtp);
+router.post('/resend-reset-otp', UserController.ResendPassResetOtp); // Add this route
+router.post("/reset-password", UserController.ResetPassword);
+
+
+
 // Export the router
 
 export default router;

@@ -131,6 +131,11 @@ function LoginPage() {
                                                 {loginLoading ? "Singing In..." : "Sign In"}
                                             </button>
                                             {/*<GoogleLogin/>*/}
+                                            <div className="text-center mt-3">
+                                                <p>Forgot password? <NavLink className="" to="/forgot-password">
+                                                    Reset now
+                                                </NavLink></p>
+                                            </div>
                                         </div>
                                     </form>
                                 </div>
