@@ -5,19 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="33c1d1dd-9c61-43af-b21b-23767086e7b2" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/client/src/component/forgotPasswored/ConfirmOtpPage.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/component/forgotPasswored/ConfirmOtpPage.module.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/component/forgotPasswored/ForgotPass.module.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/component/forgotPasswored/ForgotPasswordPage.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/component/forgotPasswored/PassResetPage.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/component/forgotPasswored/PassResetPage.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/zedcash.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/app/controller/OffersControllers.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app/controller/OffersControllers.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/app/controller/UserController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app/controller/UserController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/app/model/UserModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app/model/UserModel.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/routes/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/routes/api.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/component/login/LoginForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/component/login/LoginForm.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/page/LoginPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/page/LoginPage.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -213,7 +208,10 @@
       <workItem from="1756575635952" duration="278000" />
       <workItem from="1756577671512" duration="23000" />
       <workItem from="1756577739073" duration="29000" />
-      <workItem from="1756579883053" duration="4975000" />
+      <workItem from="1756579883053" duration="5041000" />
+      <workItem from="1756585773325" duration="245000" />
+      <workItem from="1756589024948" duration="3080000" />
+      <workItem from="1756593697462" duration="377000" />
     </task>
     <servers />
   </component>

@@ -195,10 +195,10 @@ export const OtpVerification = async (req, res) => {
         const token = await TokenEncode(user["_id"], user["email"]);
         // Set token in secure cookie
         res.cookie("token", token, {
-            httpOnly: false, // or true if you never need JS access
+            httpOnly: false,
             secure: true,
-            sameSite: "None", // Allow cross-site
-           maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
+            sameSite: "None",
+            maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
         });
         // Update user verification status
         user.isVerified = true;

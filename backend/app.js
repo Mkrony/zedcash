@@ -26,12 +26,12 @@ const allowedOrigins = [
   'https://coinloot-git-main-kamruzzaman-ronys-projects.vercel.app',
   'https://coinloot-c9j37id65-kamruzzamans-ronys-projects.vercel.app',
   'https://coinloot-lakym4gx9-kamruzzaman-ronys-projects.vercel.app',
+  'https://zedcash.co',
 ];
 
 app.use(cors({
   origin: function(origin, callback) {
-    if (!origin) return callback(null, true); // allow REST tools or server-to-server requests
-
+    if (!origin) return callback(null, true);
     if (allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {

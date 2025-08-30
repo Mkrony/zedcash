@@ -37,7 +37,6 @@ export const UserCompletedTask = async (req, res) => {
         return res.status(500).send(error);
     }
 }
-
 // Total Revenue Count
 export const TotalRevenues = async (req, res) => {
     try {
