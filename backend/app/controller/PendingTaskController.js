@@ -130,6 +130,7 @@ export const SetPendingTask = async (req, res) => {
         }
 
         user.balance -= selectTask.currencyReward;
+        user.total_earnings -= selectTask.currencyReward;
         user.pending_balance += selectTask.currencyReward;
         await user.save({ session });
 
@@ -343,6 +344,7 @@ export const SetPendingToCompletedTask = async (req, res) => {
         }
 
         user.balance += selectTask.currencyReward;
+        user.total_earnings += selectTask.currencyReward;
         user.pending_balance -= selectTask.currencyReward;
         await user.save({ session });
 

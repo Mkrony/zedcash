@@ -1,6 +1,4 @@
 import CompletededTasksModel from "../model/ComleteTaskModel.js";
-import TimelineModel from "../model/TimelineModel.js";
-
 export const CompletedOffers = async (req, res) => {
     try {
         const offers = await CompletededTasksModel.find();

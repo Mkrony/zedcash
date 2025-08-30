@@ -28,7 +28,7 @@ function AllOffers({ title, offers, error, isLoading, showPagination }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedOffer, setSelectedOffer] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
-    const offersPerPage = 60;
+    const offersPerPage = 66;
     const openModal = useCallback((offer) => {
         setSelectedOffer(offer);
         setIsModalOpen(true);

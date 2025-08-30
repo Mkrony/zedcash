@@ -5,15 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="33c1d1dd-9c61-43af-b21b-23767086e7b2" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/app/controller/LivechatController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app/controller/LivechatController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/routes/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/routes/api.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/app/controller/ChargebackController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app/controller/ChargebackController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/app/controller/NotikPostback.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/app/controller/OffersControllers.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app/controller/OffersControllers.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/app/controller/PendingTaskController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app/controller/PendingTaskController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/app/controller/PostbackController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app/controller/PostbackController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/app/controller/autoCompleteOldPendingTasks.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app/controller/autoCompleteOldPendingTasks.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/app/cron/autoCompleteCron.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app/cron/autoCompleteCron.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/assets/css/supportTicket.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/assets/css/supportTicket.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/component/supports/DetailsSupportTicket.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/component/supports/DetailsSupportTicket.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/component/supports/DetailsTicket.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/component/supports/DetailsTicket.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/component/supports/SupportTicket.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/component/supports/SupportTicket.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/component/supports/SupportTicket.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/component/supports/SupportTicket.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/component/offers/AllOffers.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/component/offers/AllOffers.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/component/overview/OverView.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/component/overview/OverView.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/page/ProfilePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/page/ProfilePage.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/page/admin/AdminSupportTicket.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/page/admin/AdminSupportTicket.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -24,9 +29,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaScript File" />
         <option value="JSX File" />
         <option value="CSS File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -66,7 +71,7 @@
   </component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;git@github.com:Mkrony/coinloot.git&quot;,
+    &quot;url&quot;: &quot;https://github.com/Mkrony/coinloot.git&quot;,
     &quot;accountId&quot;: &quot;677df7dd-b05b-4221-86da-f0cafbb8d8c5&quot;
   }
 }</component>
@@ -86,6 +91,7 @@
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
@@ -122,7 +128,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-09060db00ec0-JavaScript-WS-251.27812.50" />
+        <option value="bundled-js-predefined-d6986cc7102b-e03c56caf84a-JavaScript-WS-252.23892.411" />
       </set>
     </attachedChunks>
   </component>
@@ -199,11 +205,22 @@
       <workItem from="1755969746150" duration="599000" />
       <workItem from="1756008578243" duration="115000" />
       <workItem from="1756030319441" duration="2886000" />
-      <workItem from="1756038306966" duration="6821000" />
+      <workItem from="1756038306966" duration="8764000" />
+      <workItem from="1756096270569" duration="2831000" />
+      <workItem from="1756117220377" duration="7799000" />
+      <workItem from="1756137068918" duration="46000" />
+      <workItem from="1756137117075" duration="2168000" />
+      <workItem from="1756139314206" duration="1320000" />
+      <workItem from="1756566199620" duration="108000" />
+      <workItem from="1756575635952" duration="278000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="dependencySupport" implementationName="javascript:npm:react" />
+    <option featureType="dependencySupport" implementationName="javascript:npm:vite" />
   </component>
 </project>

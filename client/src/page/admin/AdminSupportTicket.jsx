@@ -394,8 +394,7 @@ const AdminSupportTicket = () => {
                                                             {ticket.message?.substring(0, 120)}...
                                                         </div>
                                                     </div>
-                                                    <div className="ticket-date">{formatDate(ticket.createdAt)}</div>
-                                                </div>
+                                                </div><div className="ticket-date">{formatDate(ticket.createdAt)}</div>
                                             </div>
                                         ))}
                                     </div>

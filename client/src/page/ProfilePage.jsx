@@ -363,6 +363,7 @@ function ProfilePage() {
         isVerified,
         isBanned,
         hasSpin,
+        level,
         referralCount = 0
     } = userDetails;
 
@@ -458,6 +459,9 @@ function ProfilePage() {
                                                 </div>
                                                 <div className="email-info">
                                                     <h3>{email}</h3>
+                                                </div>
+                                                <div className="email-info">
+                                                    <h3>Level - {level}</h3>
                                                 </div>
                                                 <div className="country-info my-3">
                                                     {countryCode ? (
@@ -617,7 +621,7 @@ function ProfilePage() {
                                                                         ))
                                                                     ) : (
                                                                         <tr>
-                                                                            <td colSpan={8} className="text-center py-4">
+                                                                            <td colSpan={9} className="text-center py-4">
                                                                                 <h3>No pending tasks</h3>
                                                                             </td>
                                                                         </tr>

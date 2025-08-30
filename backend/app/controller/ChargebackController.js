@@ -62,6 +62,7 @@ export const SetChargeback = async (req, res) => {
             return res.status(404).json({ message: "User not found" });
         }
         user.balance -= selectTask.currencyReward;
+        user.total_earnings -= selectTask.currencyReward;
         await user.save();
 
         // Create notification

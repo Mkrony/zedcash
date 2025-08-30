@@ -53,8 +53,7 @@ const handlePendingTask = async (taskData, session) => {
             taskData.userID,
             {
                 $inc: {
-                    pending_balance: taskData.currencyReward,
-                    total_earnings: taskData.currencyReward
+                    pending_balance: taskData.currencyReward
                 }
             },
             { new: true, session }
@@ -94,8 +93,7 @@ const handlePendingTask = async (taskData, session) => {
             taskData.userID,
             {
                 $inc: {
-                    pending_balance: taskData.currencyReward,
-                    total_earnings: taskData.currencyReward
+                    pending_balance: taskData.currencyReward
                 }
             },
             { new: true, session }
@@ -133,7 +131,6 @@ const handlePendingTask = async (taskData, session) => {
             {
                 $inc: {
                     pending_balance: taskData.currencyReward,
-                    total_earnings: taskData.currencyReward
                 }
             },
             { new: true, session }
@@ -224,7 +221,11 @@ const handleChargeback = async (chargebackData, session) => {
     // Deduct from user balance
     await UserModel.findByIdAndUpdate(
         chargebackData.userID,
-        { $inc: { balance: -chargebackAmount } },
+        { $inc:
+                { balance: -chargebackAmount,
+                    total_earnings:-chargebackAmount
+                }
+        },
         { new: true, session }
     );
 
@@ -294,21 +295,22 @@ export const NotikPostback = async (req, res) => {
             });
         }
 
-        // Check for duplicate transaction
-        const existingTransaction = await CompletededTasksModel.findOne({
-            transactionID: txn_id
-        }).session(session);
-
-        if (existingTransaction) {
-            await session.abortTransaction();
-            session.endSession();
-            return res.status(202).json({
-                status: 1,
-                message: 'Duplicate transaction'
-            });
-        }
-
+        // For positive amounts (completed tasks)
         if (numericAmount > 0) {
+            // Check for duplicate transaction
+            const existingTransaction = await CompletededTasksModel.findOne({
+                transactionID: txn_id
+            }).session(session);
+
+            if (existingTransaction) {
+                await session.abortTransaction();
+                session.endSession();
+                return res.status(202).json({
+                    status: 1,
+                    message: 'Duplicate transaction'
+                });
+            }
+
             const taskData = {
                 offerWallName: "Notik",
                 userName: user.username,
@@ -336,7 +338,37 @@ export const NotikPostback = async (req, res) => {
                 status: 1,
                 message: isPending ? 'Pending task created' : 'Task completed'
             });
-        } else {
+        }
+        // For negative amounts (chargebacks)
+        else if (numericAmount < 0) {
+            // Check if chargeback already exists
+            const existingChargeback = await ChargebackModel.findOne({
+                transactionID: txn_id
+            }).session(session);
+
+            if (existingChargeback) {
+                await session.abortTransaction();
+                session.endSession();
+                return res.status(202).json({
+                    status: 1,
+                    message: 'Duplicate chargeback'
+                });
+            }
+
+            // Check if original transaction exists
+            const originalTransaction = await CompletededTasksModel.findOne({
+                transactionID: txn_id
+            }).session(session);
+
+            if (!originalTransaction) {
+                await session.abortTransaction();
+                session.endSession();
+                return res.status(404).json({
+                    status: 0,
+                    message: 'Original transaction not found for chargeback'
+                });
+            }
+
             const chargebackData = {
                 offerWallName: "Notik",
                 userName: user.username,
@@ -351,13 +383,22 @@ export const NotikPostback = async (req, res) => {
                 createdAt: currentDate
             };
 
-            const { isDuplicate } = await handleChargeback(chargebackData, session);
+            await handleChargeback(chargebackData, session);
 
             await session.commitTransaction();
             session.endSession();
-            return res.status(isDuplicate ? 202 : 200).json({
+            return res.status(200).json({
                 status: 1,
-                message: isDuplicate ? 'Duplicate chargeback' : 'Chargeback processed'
+                message: 'Chargeback processed'
+            });
+        }
+        // For zero amount (shouldn't happen but handle it)
+        else {
+            await session.abortTransaction();
+            session.endSession();
+            return res.status(400).json({
+                status: 0,
+                message: 'Invalid amount: zero'
             });
         }
     } catch (error) {

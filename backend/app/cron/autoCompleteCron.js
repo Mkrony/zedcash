@@ -1,8 +1,16 @@
 import cron from "node-cron";
-import processExpiredPendingTasks from "../controller/autoCompleteOldPendingTasks.js"; // adjust path if needed
+import processExpiredPendingTasks from "../controller/autoCompleteOldPendingTasks.js";
+import mongoose from "mongoose";
+import { DATABASE } from "../config/config.js";
 
-// Run every day at 3:00 AM
-cron.schedule("0 3 * * *", async () => {
-    console.log("⏰ Running scheduled pending → completed check...");
+// Ensure DB is connected before cron runs
+mongoose.connect(DATABASE, { autoIndex: true })
+    .then(() => console.log("✅ Cron connected to MongoDB"))
+    .catch((err) => console.error("❌ Cron DB connection failed", err));
+
+// Run every day at 2:00 AM server time
+cron.schedule("0 2 * * *", async () => {
+    console.log("⏳ Cron job started: Processing expired pending tasks...");
     await processExpiredPendingTasks();
+    console.log("✅ Cron job finished.");
 });
