@@ -139,6 +139,9 @@ router.post('/verify-otp', UserController.VerifyResetOtp);
 router.post('/resend-reset-otp', UserController.ResendPassResetOtp); // Add this route
 router.post("/reset-password", UserController.ResetPassword);
 
+//Auto registration
+router.post("/auto-registration", UserController.AutoRegistration);
+
 
 
 // Export the router

@@ -1,15 +1,15 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import HeaderSection from "../component/HeaderSection.jsx";
-import { toast } from 'react-toastify';
-import { NavLink } from "react-router-dom";
+import { toast } from "react-toastify";
+import { NavLink, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import styles from "../component/login/Login.module.css";
-import {faEye, faEyeSlash, faUser,faLock} from "@fortawesome/free-solid-svg-icons";
+import { faEye, faEyeSlash, faUser, faLock } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import Cookies from "js-cookie";
 import zedStore from "../component/zedstore/ZedStore.jsx";
 import GoogleLogin from "../component/googleLogin/GoogleLogin.jsx";
-import { useNavigate } from "react-router-dom";
+import ReCAPTCHA from "react-google-recaptcha";
 
 function LoginPage() {
     const navigate = useNavigate();
@@ -17,11 +17,15 @@ function LoginPage() {
     if (token) {
         navigate("/");
     }
+
     const [showPassword, setShowPassword] = useState(false);
     const [loginLoading, setLoginLoading] = useState(false);
+    const [recaptchaToken, setRecaptchaToken] = useState("");
+
     const togglePasswordVisibility = () => {
         setShowPassword((prev) => !prev);
     };
+
     const loginSubmitted = async (e) => {
         e.preventDefault();
         setLoginLoading(true);
@@ -35,28 +39,38 @@ function LoginPage() {
             setLoginLoading(false);
             return;
         }
-        const userData = { identifier, password };
+
+        // Validate reCAPTCHA
+        if (!recaptchaToken) {
+            toast.error("Please complete the reCAPTCHA.");
+            setLoginLoading(false);
+            return;
+        }
+
+        const userData = { identifier, password, recaptchaToken };
+
         try {
-            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/login`, userData,{
-                withCredentials:true,
-            });
+            const response = await axios.post(
+                `${import.meta.env.VITE_BACKEND_URL}/api/login`,
+                userData,
+                { withCredentials: true }
+            );
             const result = response.data;
 
-            // Check login status
             if (result.status !== "success") {
                 toast.error(result.message || "Login failed.");
                 return;
             }
+
             toast.success("Login successful!");
-            // Store token in cookies
             Cookies.set("token", result.token, { expires: 30, secure: true });
-            // Update the token and fetch user details via zustand store
-            const { setToken, userDetailsRequested} = zedStore.getState();
+
+            const { setToken, userDetailsRequested } = zedStore.getState();
             setToken(result.token);
             await userDetailsRequested();
-             navigate("/profile")
+
+            navigate("/profile");
         } catch (error) {
-            // Handle server or network errors
             const errorMessage =
                 error.response?.data?.message || "An error occurred. Please try again.";
             toast.error(errorMessage);
@@ -64,9 +78,10 @@ function LoginPage() {
             setLoginLoading(false);
         }
     };
+
     return (
         <div>
-            <HeaderSection/>
+            <HeaderSection />
             <div className="login-area d-flex align-items-center justify-content-center vh-90 animated-background">
                 <div className="container">
                     <div className="row">
@@ -83,9 +98,6 @@ function LoginPage() {
                                     <form onSubmit={loginSubmitted}>
                                         {/* Identifier Input */}
                                         <div className="form-group">
-                                            {/*<label className="form-label" htmlFor="identifier">*/}
-                                            {/*    Email or Username:*/}
-                                            {/*</label>*/}
                                             <input
                                                 name="identifier"
                                                 type="text"
@@ -98,9 +110,6 @@ function LoginPage() {
 
                                         {/* Password Input */}
                                         <div className="form-group mt-3 position-relative">
-                                            {/*<label className="form-label" htmlFor="password">*/}
-                                            {/*    Password:*/}
-                                            {/*</label>*/}
                                             <input
                                                 name="password"
                                                 type={showPassword ? "text" : "password"}
@@ -121,6 +130,14 @@ function LoginPage() {
                                             </div>
                                         </div>
 
+                                        {/* reCAPTCHA */}
+                                        <div className="form-group mt-3 text-center">
+                                            <ReCAPTCHA
+                                                sitekey="6Lff1bkrAAAAAC6mqpoLInch1ThYiihe6kOnhZTy"
+                                                onChange={(token) => setRecaptchaToken(token)}
+                                            />
+                                        </div>
+
                                         {/* Login Button */}
                                         <div className="login-btn">
                                             <button
@@ -128,13 +145,16 @@ function LoginPage() {
                                                 className="btn custom-btn mt-4 w-100 fw-bold"
                                                 disabled={loginLoading}
                                             >
-                                                {loginLoading ? "Singing In..." : "Sign In"}
+                                                {loginLoading ? "Signing In..." : "Sign In"}
                                             </button>
                                             {/*<GoogleLogin/>*/}
                                             <div className="text-center mt-3">
-                                                <p>Forgot password? <NavLink className="" to="/forgot-password">
-                                                    Reset now
-                                                </NavLink></p>
+                                                <p>
+                                                    Forgot password?{" "}
+                                                    <NavLink className="" to="/forgot-password">
+                                                        Reset now
+                                                    </NavLink>
+                                                </p>
                                             </div>
                                         </div>
                                     </form>
@@ -144,9 +164,8 @@ function LoginPage() {
                     </div>
                 </div>
             </div>
-
         </div>
-    )
+    );
 }
 
-export default LoginPage
+export default LoginPage;

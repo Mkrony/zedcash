@@ -145,7 +145,7 @@ export default function PassResetPage() {
                         </div>
 
                         <div className={styles.passwordRequirements}>
-                            <p>Password must:</p>
+                            <p className="text-info">Password must:</p>
                             <ul>
                                 <li className={password.length >= 8 ? styles.valid : ''}>Be at least 8 characters long</li>
                                 <li className={/(?=.*[a-z])/.test(password) ? styles.valid : ''}>Contain a lowercase letter</li>

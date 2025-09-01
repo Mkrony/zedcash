@@ -10,7 +10,7 @@ import {
     faCoins,
     faChartLine,
     faEye,
-    faComputer,
+    faComputer, faEarthAmerica, faEnvelope, faUser, faSignal,
 } from "@fortawesome/free-solid-svg-icons";
 import UserDetailsModal from "../component/profile-details/UserDetailsModal.jsx";
 import ReactCountryFlag from "react-country-flag";
@@ -448,20 +448,20 @@ function ProfilePage() {
                                             <div className="profile-info">
                                                 <div className="d-flex justify-content-between align-items-center">
                                                     <h3 className="text-capitalize fw-semibold">
-                                                        {username || "N/A"}
-                                                        <span className="verified-badge ms-2" title={isVerified ? "Verified User" : "Not Verified"}>
-                                                            <FontAwesomeIcon
-                                                                icon={faCircleCheck}
-                                                                className={isVerified ? "text-success" : "text-muted"}
-                                                            />
-                                                        </span>
+                                                        <h4>
+                                                            <FontAwesomeIcon className={'green'} icon={faUser} />
+                                                            <span class="ms-2">{username || "N/A"}</span>
+                                                            <span className="verified-badge ms-2" title={isVerified ? "Verified User" : "Not Verified"}>
+                                                            <FontAwesomeIcon icon={faCircleCheck} className={isVerified ? "text-success" : "text-muted"} />
+                                                            </span>
+                                                        </h4>
                                                     </h3>
                                                 </div>
                                                 <div className="email-info">
-                                                    <h3>{email}</h3>
+                                                    <h4><FontAwesomeIcon className={'green'} icon={faEnvelope} /> <span class="ms-2">{email}</span></h4>
                                                 </div>
                                                 <div className="email-info">
-                                                    <h3>Level - {level}</h3>
+                                                    <h3><FontAwesomeIcon className={'text-info'} icon={faSignal} /><span class="ms-2">Level - {level}</span></h3>
                                                 </div>
                                                 <div className="country-info my-3">
                                                     {countryCode ? (
@@ -481,12 +481,15 @@ function ProfilePage() {
                                                             <span className="fw-semibold">{country}</span>
                                                         </div>
                                                     ) : (
-                                                        <span className="text-muted">Country not specified</span>
+                                                        <>
+                                                        <FontAwesomeIcon className={'green'} icon={faEarthAmerica} />
+                                                        <span className="ms-2 text-info">Country not available</span>
+                                                        </>
                                                     )}
                                                 </div>
                                                 <div className="balance-display mb-3">
                                                     <h4 className="fw-bold">
-                                                        <FontAwesomeIcon className={'gold'} icon={faCoins} /> {balance.toLocaleString()}
+                                                        <FontAwesomeIcon className={'gold'} icon={faCoins} /> <span class="ms-2">{balance.toLocaleString()}</span>
                                                     </h4>
                                                 </div>
                                             </div>

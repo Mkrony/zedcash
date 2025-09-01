@@ -209,7 +209,7 @@ export const OtpVerification = async (req, res) => {
         res.status(200).json({
             status: "success",
             message: "Email verified successfully",
-            token, // Include this only if frontend requires it
+            token,
             user
         });
     } catch (error) {
@@ -387,7 +387,7 @@ export const Login = async (req, res) => {
             httpOnly: false,
             secure: true,
             sameSite: "None",
-           maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
+            maxAge: 30 * 24 * 60 * 60 * 1000
         });
         // Update user record
         user.last_login = new Date();
@@ -736,7 +736,6 @@ export const RequestPasswordReset = async (req, res) => {
         // Check if user exists
         const user = await UserModel.findOne({ email });
         if (!user) {
-            // For security reasons, don't reveal if email exists
             return res.status(401).json({
                 status: "Failed",
                 message: "Email not found !"
@@ -969,6 +968,106 @@ export const ResetPassword = async (req, res) => {
         res.status(500).json({
             status: "error",
             message: "An error occurred while resetting your password"
+        });
+    }
+};
+
+//Auto registration
+
+const generateRandomString = (length = 8) =>
+    crypto.randomBytes(length).toString("hex").substring(0, length);
+
+export const AutoRegistration = async (req, res) => {
+    try {
+        let {
+            username,
+            email,
+            password,
+            ip_address,
+            country,
+            device_id,
+            user_agent,
+        } = req.body;
+
+        // If username/email not provided, auto-generate
+        if (!username) username = `${generateRandomString(6)}`;
+        if (!email) email = `${generateRandomString(6)}@gmail.com`;
+
+        // Password fallback
+        if (!password) password = "AutoPass@987654";
+
+        // Retry loop in case of duplicates
+        let attempts = 0;
+        while (await userModel.findOne({ $or: [{ username }, { email }] })) {
+            if (attempts > 5) {
+                return res.status(400).json({ message: "Could not generate unique credentials" });
+            }
+            username = `user_${generateRandomString(6)}`;
+            email = `anon_${generateRandomString(6)}@example.com`;
+            attempts++;
+        }
+
+        // IP restriction
+        const checkIp = await userModel.findOne({ ip_address });
+        const basicSettings = await BasicSettingsModel.findOne();
+        const allowMultiple = basicSettings?.allowMultipleAccountsSameIP;
+
+        if (!allowMultiple && checkIp) {
+            return res.status(400).json({
+                status: "error",
+                message: "Multiple account detected",
+            });
+        }
+
+        // Hash password
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        // Create new user
+        const user = await userModel.create({
+            username,
+            email,
+            password: hashedPassword,
+            ip_address,
+            country,
+            device_id,
+            user_agent,
+            otp: null,
+            otp_expiry: null,
+            isVerified: true,
+            isAnonymous: true,
+        });
+
+        // Send notification
+        await UserNotification.create({
+            userID: user._id,
+            message: `Welcome to ZedCash, ${username}!`,
+            type: "New account created",
+            active: true,
+        });
+
+        // Generate token
+        const token = await TokenEncode(user["_id"], user["email"]);
+
+        // Set cookie
+        res.cookie("token", token, {
+            httpOnly: false,
+            secure: true,
+            sameSite: "None",
+            maxAge: 30 * 24 * 60 * 60 * 1000,
+        });
+
+        return res.status(200).json({
+            status: "success",
+            message: "Congratulations registration successful",
+            token,
+            username,
+            email,
+        });
+    } catch (error) {
+        console.error("Registration error:", error);
+        return res.status(500).json({
+            message: "Registration failed",
+            details: error.message,
         });
     }
 };
